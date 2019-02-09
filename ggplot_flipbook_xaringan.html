@@ -1,0 +1,2378 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>the ggplot flipbook</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Gina Reynolds" />
+    <link href="libs/remark-css-0.0.1/kunoichi.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/ninjutsu.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# the ggplot flipbook
+## ⚔<br/>made with xaringan
+### Gina Reynolds
+### 2019/01/31
+
+---
+
+
+
+
+# Introduction
+
+
+The ggplot2 package in the programming language R implements the "layered grammar of graphics" --- a proposal of Leland Wilkinson and the product of the dissertation and ongoing work of Hadley Wickham.  This data visualization system idea is at once powerful, novel, and intuitive.  Wickham and collaborators have built a system where data visualization as dividable into parameters:  data to visualize, aesthetics that represent variables, geometric objects, a coordinate system, specific scales, and statistical transformation.  
+
+In this book, I use a "slow ggplotting" method as well as a "flipbook" format to facilitate the introduction of this plotting method. "Slow ggplotting" makes modifications to plots as incrementally as possible so that it is clear to users what code triggers each new layer or modification.  The aim is less to be concise, and more to be explicit about how new statements modify the plot; repetition should facilitating more interactions with ggplot functions for newcomer internalize the functions. The flipbook layout is designed to show what code is triggering each change in the plot output. 
+
+Readers of the book should easily be able to follow along with how plots are built up.  While intuitive, using ggplotting effectively and efficiently nevertheless requires practice.  My hope is that these examples will be a helpful reference point for those that endeavor to pick up data visualization with ggplot2. 
+
+
+---
+
+# What's the slow ggplot workflow?
+
+"Slow ggplot" just means working more incrementally than is typical. Elements of the approach are as follows:
+
+- pulling out aes() from the ggplot() function:  
+- using fewer functions; example - using labs() to add a title instead of ggtitle()
+- using functions multiple times; example aes(x = var1) + aes(y = var2) rather than aes(x = var1, y = var2)
+- using base R functions and tidyverse functions.  For other packages, the :: style to call them
+- write out arguments (no shortcuts)  aes(x = gdppercap) not aes(gdppercap)
+- order ggplot commands so that reactivity is obvious; scale adjustments to aesthetics might also be near the aesthetic declaration. 
+
+
+---
+
+Here, I contrast the usual plotting method to slow ggplotting:
+
+Usual approach:
+
+
+```r
+ggplot(my_data, aes(var1, y = var2, col = var3)) +
+  geom_point() +
+  ggtitle("My Title") +
+  labs(x = "the x label", y = "the y label", col = "legend title")
+```
+
+Using slow ggplotting: 
+
+
+```r
+ggplot(data = my_data) +
+  aes(x = var1) +
+  labs(x = "the x label") +
+  aes(y = var2) +
+  labs(y = "the y label") +
+  geom_point() +
+  aes(col = var3) +
+  labs(col = "legend title") +
+  labs(title = "My title")
+```
+
+
+---
+
+# Getting started with R and RStudio
+
+
+- [Install Windows](https://www.youtube.com/watch?v=aCRMhAWmtpw)
+- [Install Mac](https://www.youtube.com/watch?v=GLLZhc_5enQ)
+
+
+---
+
+# Acknowledgements
+
+I'm grateful to the ggplot team for their tireless work on developing and maintaining this fantastic resource.  Additionally most of the visualizations here were produced for the Tableau-users-associated initiative #MakeoverMonday. I'm grateful to that community for feedback and encouragement and welcoming work from outside of Tableau.  Additional visualizations have been made with data curated by #TidyTuesday, a similar initiative from RStudio. Many thanks are due to Emi Tanaka (@statsgen) and Garrick Aden-Buie (@grrrck) helped by writing the "reveal" function to made the flipbook style possible.  Also to Yihui Xie and others that work on the Xaringan package for creating slides from markdown and R code; I'm using Emi Tanaka's themes kunoichi and ninjutsu.  I'm grateful too to my students who motivate me to think about how to teach what I've been so lucky to learn.  And thanks to David, who is supportive of plotting and of me. 
+
+
+---
+
+
+
+
+
+
+---
+
+
+# Christmas Trees
+
+Here is a simple plot of Christmas Tree Sales in the U.S.  The plot shows that artificial tree sales are on the rise, contrasting with declines in real trees.  The title plays on the German Christmas Carol "O Tannenbaum", "Oh Christmas Tree" in English. "Wie echt sind deine Blätter?" means "how real are your leaves"; the original text from the carol is "Wie treu sind deine Blätter!" which means "How true your leaves are!"
+
+I also plot the cumulative number of trees purchased of each type, artificial and real, from 2004 to 2014, comparing that to the 2016 U.S. population.  Almost one real tree per person was bought over the course of 10 years!   
+
+
+
+
+
+A random sample from the data set: 
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:right;"&gt; Year &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Number of trees sold &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Type of tree &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Number of trees sold (millions) &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 2005 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 32800000 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Real tree &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 32.8 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 2008 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11700000 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Fake tree &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11.7 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 2014 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 13900000 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Fake tree &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 13.9 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 2016 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 27400000 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Real tree &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 27.4 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 2007 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 31300000 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Real tree &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 31.3 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+
+
+
+
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+*ggplot(data = dta)
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/christmas_1-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(data = dta) +
+* aes(Year)
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/christmas_2-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(data = dta) +
+  aes(Year) +
+* aes(y = `Number of trees sold (millions)`)
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/christmas_3-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(data = dta) +
+  aes(Year) +
+  aes(y = `Number of trees sold (millions)`) +
+* geom_point()
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/christmas_4-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(data = dta) +
+  aes(Year) +
+  aes(y = `Number of trees sold (millions)`) +
+  geom_point() +
+* aes(col = fct_rev(`Type of tree`))
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/christmas_5-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(data = dta) +
+  aes(Year) +
+  aes(y = `Number of trees sold (millions)`) +
+  geom_point() +
+  aes(col = fct_rev(`Type of tree`)) +
+* geom_smooth(method = "lm", se = F)
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/christmas_6-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(data = dta) +
+  aes(Year) +
+  aes(y = `Number of trees sold (millions)`) +
+  geom_point() +
+  aes(col = fct_rev(`Type of tree`)) +
+  geom_smooth(method = "lm", se = F) +
+* scale_color_manual(values = c("darkgreen", "green"))
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/christmas_7-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(data = dta) +
+  aes(Year) +
+  aes(y = `Number of trees sold (millions)`) +
+  geom_point() +
+  aes(col = fct_rev(`Type of tree`)) +
+  geom_smooth(method = "lm", se = F) +
+  scale_color_manual(values = c("darkgreen", "green")) +
+* ylim(c(0, 35))
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/christmas_8-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(data = dta) +
+  aes(Year) +
+  aes(y = `Number of trees sold (millions)`) +
+  geom_point() +
+  aes(col = fct_rev(`Type of tree`)) +
+  geom_smooth(method = "lm", se = F) +
+  scale_color_manual(values = c("darkgreen", "green")) +
+  ylim(c(0, 35)) +
+* labs(col = "")
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/christmas_9-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(data = dta) +
+  aes(Year) +
+  aes(y = `Number of trees sold (millions)`) +
+  geom_point() +
+  aes(col = fct_rev(`Type of tree`)) +
+  geom_smooth(method = "lm", se = F) +
+  scale_color_manual(values = c("darkgreen", "green")) +
+  ylim(c(0, 35)) +
+  labs(col = "") +
+* labs(title = "Wie echt sind deine Blätter?")
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/christmas_10-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(data = dta) +
+  aes(Year) +
+  aes(y = `Number of trees sold (millions)`) +
+  geom_point() +
+  aes(col = fct_rev(`Type of tree`)) +
+  geom_smooth(method = "lm", se = F) +
+  scale_color_manual(values = c("darkgreen", "green")) +
+  ylim(c(0, 35)) +
+  labs(col = "") +
+  labs(title = "Wie echt sind deine Blätter?") +
+* labs(subtitle = "Real and fake Christmas trees sold in the US | Data Source: Statista | @EvaMaeRey ")
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/christmas_11-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(data = dta) +
+  aes(Year) +
+  aes(y = `Number of trees sold (millions)`) +
+  geom_point() +
+  aes(col = fct_rev(`Type of tree`)) +
+  geom_smooth(method = "lm", se = F) +
+  scale_color_manual(values = c("darkgreen", "green")) +
+  ylim(c(0, 35)) +
+  labs(col = "") +
+  labs(title = "Wie echt sind deine Blätter?") +
+  labs(subtitle = "Real and fake Christmas trees sold in the US | Data Source: Statista | @EvaMaeRey ") +
+* theme_bw()
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/christmas_12-1.png" width="80%" /&gt;
+]]
+
+
+
+---
+
+
+
+
+
+# Baseball, WAR, and Ethnicity
+
+This data visualization uses the WAR measure in baseball, a calculation based on the contributions of players.  The visualizations show that new ethnicities and races started to be included in Major League baseball, the minority players that joined tended to contribute more than the expected value for players overall.  For example, from 1947, when Jackie Robinson joined Major League baseball, and onward, the percent of African American players was outpaced by the percent calculated contributions (WAR) of African American players.  
+
+
+
+
+
+
+A random sample from the data set: 
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:right;"&gt; Year &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Ethnicity &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; type &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Percent &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1963 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; White &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; % of WAR &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 70.4 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 2008 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Latino &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; % of Players &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 27.3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1958 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; African American &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; % of WAR &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 13.7 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 2012 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Asian &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; % of Players &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.9 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1956 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Asian &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; % of WAR &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1966 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Latino &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; % of Players &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9.7 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1993 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; African American &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; % of Players &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 16.8 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1958 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; White &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; % of Players &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 86.7 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+
+
+
+
+
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+*ggplot(df_gather)
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/baseball_1-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df_gather) +
+* aes(x = Year, y = Percent)
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/baseball_2-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df_gather) +
+  aes(x = Year, y = Percent) +
+* facet_wrap(~ Ethnicity)
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/baseball_3-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df_gather) +
+  aes(x = Year, y = Percent) +
+  facet_wrap(~ Ethnicity) +
+* geom_area(alpha = .5, position = "dodge")
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/baseball_4-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df_gather) +
+  aes(x = Year, y = Percent) +
+  facet_wrap(~ Ethnicity) +
+  geom_area(alpha = .5, position = "dodge") +
+* aes(fill = type)
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/baseball_5-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df_gather) +
+  aes(x = Year, y = Percent) +
+  facet_wrap(~ Ethnicity) +
+  geom_area(alpha = .5, position = "dodge") +
+  aes(fill = type) +
+* labs(fill = "")
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/baseball_6-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df_gather) +
+  aes(x = Year, y = Percent) +
+  facet_wrap(~ Ethnicity) +
+  geom_area(alpha = .5, position = "dodge") +
+  aes(fill = type) +
+  labs(fill = "") +
+* labs(x = "")
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/baseball_7-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df_gather) +
+  aes(x = Year, y = Percent) +
+  facet_wrap(~ Ethnicity) +
+  geom_area(alpha = .5, position = "dodge") +
+  aes(fill = type) +
+  labs(fill = "") +
+  labs(x = "") +
+* labs(title = "American Baseball Demographics 1947-2016")
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/baseball_8-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df_gather) +
+  aes(x = Year, y = Percent) +
+  facet_wrap(~ Ethnicity) +
+  geom_area(alpha = .5, position = "dodge") +
+  aes(fill = type) +
+  labs(fill = "") +
+  labs(x = "") +
+  labs(title = "American Baseball Demographics 1947-2016") +
+* labs(subtitle = "Percentage of players and WAR percentage (WAR is a calculation of value contributed)\nData: SABR.org | Vis: @EvaMaeRey for #MakeoverMonday")
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/baseball_9-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df_gather) +
+  aes(x = Year, y = Percent) +
+  facet_wrap(~ Ethnicity) +
+  geom_area(alpha = .5, position = "dodge") +
+  aes(fill = type) +
+  labs(fill = "") +
+  labs(x = "") +
+  labs(title = "American Baseball Demographics 1947-2016") +
+  labs(subtitle = "Percentage of players and WAR percentage (WAR is a calculation of value contributed)\nData: SABR.org | Vis: @EvaMaeRey for #MakeoverMonday") +
+* theme_light()
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/baseball_10-1.png" width="80%" /&gt;
+]]
+
+
+
+---
+
+
+---
+
+# Hic sunt dracones!
+
+This book is not complete.  The plots that follow aren't as carefully edited as what precedes. But feel free to have a look around. This "here be dragons" slide should move later and later on as weeks go by.  Also I hope to add new work as time goes on.  
+
+
+---
+
+
+# Maternal Leave
+
+The OECD provides a comparative report on how much paid leave women are entitled to after childbirth.  But leave takes different forms.  In some places, the allowed leave is longer, but sometimes that means that the pay out compared to the regular salary is lower.  To emphasize the different forms that law around paid leave take, I plotted the total payout available to mothers as areas of rectangles, where one side is the length of leave allowed, and the other side is the proportion of salary paid to the new mom.  
+
+
+
+
+
+A random sample from the data set: 
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Country &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Paid maternity leave avg payment rate (%) &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Paid maternity leave full rate equivalent in weeks &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Paid maternity leave in weeks &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Paid parental leave avg payment rate (%) &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Paid parental leave full rate equivalent in weeks &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Paid parental leave in weeks &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Total paid leave avg payment rate (%) &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Total paid leave full rate equivalent in weeks &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Total paid leave in weeks &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; rank_name &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; paid_leave_months &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; total_paid_yearly_salaries &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Mexico &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 100.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 100.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12.0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; #29: Mexico &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.761644 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.2307692 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Chile &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 100.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 18.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 18.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 100.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 100.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 30.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 30.0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; #14: Chile &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6.904110 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.5769231 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Belgium &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 64.1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9.6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 20.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 17.3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 40.6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 13.1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 32.3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; #27: Belgium &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7.433425 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.2519231 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Turkey &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 66.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10.6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 16.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 66.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10.6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 16.0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; #30: Turkey &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.682192 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.2038462 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Korea &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 79.5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12.9 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 28.5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 14.8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 52.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 38.6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 25.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 64.9 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; #19: Korea &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 14.935890 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.4807692 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+
+---
+
+
+
+
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+*ggplot(df)
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/parent_leave_1-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df) +
+* aes(x = paid_leave_months)
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/parent_leave_2-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df) +
+  aes(x = paid_leave_months) +
+* aes(y = `Total paid leave avg payment rate (%)`)
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/parent_leave_3-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df) +
+  aes(x = paid_leave_months) +
+  aes(y = `Total paid leave avg payment rate (%)`) +
+* aes(xmin = 0)
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/parent_leave_4-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df) +
+  aes(x = paid_leave_months) +
+  aes(y = `Total paid leave avg payment rate (%)`) +
+  aes(xmin = 0) +
+* aes(xmax = paid_leave_months)
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/parent_leave_5-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df) +
+  aes(x = paid_leave_months) +
+  aes(y = `Total paid leave avg payment rate (%)`) +
+  aes(xmin = 0) +
+  aes(xmax = paid_leave_months) +
+* aes(ymin = 0)
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/parent_leave_6-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df) +
+  aes(x = paid_leave_months) +
+  aes(y = `Total paid leave avg payment rate (%)`) +
+  aes(xmin = 0) +
+  aes(xmax = paid_leave_months) +
+  aes(ymin = 0) +
+* aes(ymax = `Total paid leave avg payment rate (%)`)
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/parent_leave_7-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df) +
+  aes(x = paid_leave_months) +
+  aes(y = `Total paid leave avg payment rate (%)`) +
+  aes(xmin = 0) +
+  aes(xmax = paid_leave_months) +
+  aes(ymin = 0) +
+  aes(ymax = `Total paid leave avg payment rate (%)`) +
+* facet_wrap(fct_inorder(rank_name) ~ .)
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/parent_leave_8-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df) +
+  aes(x = paid_leave_months) +
+  aes(y = `Total paid leave avg payment rate (%)`) +
+  aes(xmin = 0) +
+  aes(xmax = paid_leave_months) +
+  aes(ymin = 0) +
+  aes(ymax = `Total paid leave avg payment rate (%)`) +
+  facet_wrap(fct_inorder(rank_name) ~ .) +
+* geom_rect(fill = "blue", alpha = .2)
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/parent_leave_9-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df) +
+  aes(x = paid_leave_months) +
+  aes(y = `Total paid leave avg payment rate (%)`) +
+  aes(xmin = 0) +
+  aes(xmax = paid_leave_months) +
+  aes(ymin = 0) +
+  aes(ymax = `Total paid leave avg payment rate (%)`) +
+  facet_wrap(fct_inorder(rank_name) ~ .) +
+  geom_rect(fill = "blue", alpha = .2) +
+* aes(yend = 0)
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/parent_leave_10-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df) +
+  aes(x = paid_leave_months) +
+  aes(y = `Total paid leave avg payment rate (%)`) +
+  aes(xmin = 0) +
+  aes(xmax = paid_leave_months) +
+  aes(ymin = 0) +
+  aes(ymax = `Total paid leave avg payment rate (%)`) +
+  facet_wrap(fct_inorder(rank_name) ~ .) +
+  geom_rect(fill = "blue", alpha = .2) +
+  aes(yend = 0) +
+* aes(xend = 0)
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/parent_leave_11-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df) +
+  aes(x = paid_leave_months) +
+  aes(y = `Total paid leave avg payment rate (%)`) +
+  aes(xmin = 0) +
+  aes(xmax = paid_leave_months) +
+  aes(ymin = 0) +
+  aes(ymax = `Total paid leave avg payment rate (%)`) +
+  facet_wrap(fct_inorder(rank_name) ~ .) +
+  geom_rect(fill = "blue", alpha = .2) +
+  aes(yend = 0) +
+  aes(xend = 0) +
+* geom_segment(aes(yend = `Total paid leave avg payment rate (%)`), lty = "dashed")
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/parent_leave_12-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df) +
+  aes(x = paid_leave_months) +
+  aes(y = `Total paid leave avg payment rate (%)`) +
+  aes(xmin = 0) +
+  aes(xmax = paid_leave_months) +
+  aes(ymin = 0) +
+  aes(ymax = `Total paid leave avg payment rate (%)`) +
+  facet_wrap(fct_inorder(rank_name) ~ .) +
+  geom_rect(fill = "blue", alpha = .2) +
+  aes(yend = 0) +
+  aes(xend = 0) +
+  geom_segment(aes(yend = `Total paid leave avg payment rate (%)`), lty = "dashed") +
+* geom_segment(aes(xend = paid_leave_months), lty = "dashed")
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/parent_leave_13-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df) +
+  aes(x = paid_leave_months) +
+  aes(y = `Total paid leave avg payment rate (%)`) +
+  aes(xmin = 0) +
+  aes(xmax = paid_leave_months) +
+  aes(ymin = 0) +
+  aes(ymax = `Total paid leave avg payment rate (%)`) +
+  facet_wrap(fct_inorder(rank_name) ~ .) +
+  geom_rect(fill = "blue", alpha = .2) +
+  aes(yend = 0) +
+  aes(xend = 0) +
+  geom_segment(aes(yend = `Total paid leave avg payment rate (%)`), lty = "dashed") +
+  geom_segment(aes(xend = paid_leave_months), lty = "dashed") +
+* scale_y_continuous(limits = c(0, 100), expand = c(0, 0), breaks = c(0, 50, 100))
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/parent_leave_14-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df) +
+  aes(x = paid_leave_months) +
+  aes(y = `Total paid leave avg payment rate (%)`) +
+  aes(xmin = 0) +
+  aes(xmax = paid_leave_months) +
+  aes(ymin = 0) +
+  aes(ymax = `Total paid leave avg payment rate (%)`) +
+  facet_wrap(fct_inorder(rank_name) ~ .) +
+  geom_rect(fill = "blue", alpha = .2) +
+  aes(yend = 0) +
+  aes(xend = 0) +
+  geom_segment(aes(yend = `Total paid leave avg payment rate (%)`), lty = "dashed") +
+  geom_segment(aes(xend = paid_leave_months), lty = "dashed") +
+  scale_y_continuous(limits = c(0, 100), expand = c(0, 0), breaks = c(0, 50, 100)) +
+* scale_x_continuous(limits = c(0, 44), expand = c(0, 0))
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/parent_leave_15-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df) +
+  aes(x = paid_leave_months) +
+  aes(y = `Total paid leave avg payment rate (%)`) +
+  aes(xmin = 0) +
+  aes(xmax = paid_leave_months) +
+  aes(ymin = 0) +
+  aes(ymax = `Total paid leave avg payment rate (%)`) +
+  facet_wrap(fct_inorder(rank_name) ~ .) +
+  geom_rect(fill = "blue", alpha = .2) +
+  aes(yend = 0) +
+  aes(xend = 0) +
+  geom_segment(aes(yend = `Total paid leave avg payment rate (%)`), lty = "dashed") +
+  geom_segment(aes(xend = paid_leave_months), lty = "dashed") +
+  scale_y_continuous(limits = c(0, 100), expand = c(0, 0), breaks = c(0, 50, 100)) +
+  scale_x_continuous(limits = c(0, 44), expand = c(0, 0)) +
+* labs(x = "Length of paid leave entitlement (months)")
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/parent_leave_16-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df) +
+  aes(x = paid_leave_months) +
+  aes(y = `Total paid leave avg payment rate (%)`) +
+  aes(xmin = 0) +
+  aes(xmax = paid_leave_months) +
+  aes(ymin = 0) +
+  aes(ymax = `Total paid leave avg payment rate (%)`) +
+  facet_wrap(fct_inorder(rank_name) ~ .) +
+  geom_rect(fill = "blue", alpha = .2) +
+  aes(yend = 0) +
+  aes(xend = 0) +
+  geom_segment(aes(yend = `Total paid leave avg payment rate (%)`), lty = "dashed") +
+  geom_segment(aes(xend = paid_leave_months), lty = "dashed") +
+  scale_y_continuous(limits = c(0, 100), expand = c(0, 0), breaks = c(0, 50, 100)) +
+  scale_x_continuous(limits = c(0, 44), expand = c(0, 0)) +
+  labs(x = "Length of paid leave entitlement (months)") +
+* labs(y = "Percent of income paid (average over entitlement period)")
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/parent_leave_17-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df) +
+  aes(x = paid_leave_months) +
+  aes(y = `Total paid leave avg payment rate (%)`) +
+  aes(xmin = 0) +
+  aes(xmax = paid_leave_months) +
+  aes(ymin = 0) +
+  aes(ymax = `Total paid leave avg payment rate (%)`) +
+  facet_wrap(fct_inorder(rank_name) ~ .) +
+  geom_rect(fill = "blue", alpha = .2) +
+  aes(yend = 0) +
+  aes(xend = 0) +
+  geom_segment(aes(yend = `Total paid leave avg payment rate (%)`), lty = "dashed") +
+  geom_segment(aes(xend = paid_leave_months), lty = "dashed") +
+  scale_y_continuous(limits = c(0, 100), expand = c(0, 0), breaks = c(0, 50, 100)) +
+  scale_x_continuous(limits = c(0, 44), expand = c(0, 0)) +
+  labs(x = "Length of paid leave entitlement (months)") +
+  labs(y = "Percent of income paid (average over entitlement period)") +
+* labs(title = "Total paid leave available to mothers in the OECD")
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/parent_leave_18-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df) +
+  aes(x = paid_leave_months) +
+  aes(y = `Total paid leave avg payment rate (%)`) +
+  aes(xmin = 0) +
+  aes(xmax = paid_leave_months) +
+  aes(ymin = 0) +
+  aes(ymax = `Total paid leave avg payment rate (%)`) +
+  facet_wrap(fct_inorder(rank_name) ~ .) +
+  geom_rect(fill = "blue", alpha = .2) +
+  aes(yend = 0) +
+  aes(xend = 0) +
+  geom_segment(aes(yend = `Total paid leave avg payment rate (%)`), lty = "dashed") +
+  geom_segment(aes(xend = paid_leave_months), lty = "dashed") +
+  scale_y_continuous(limits = c(0, 100), expand = c(0, 0), breaks = c(0, 50, 100)) +
+  scale_x_continuous(limits = c(0, 44), expand = c(0, 0)) +
+  labs(x = "Length of paid leave entitlement (months)") +
+  labs(y = "Percent of income paid (average over entitlement period)") +
+  labs(title = "Total paid leave available to mothers in the OECD") +
+* labs(subtitle = "Countries rank ordered by paid leave full rate equivalent (blue rectangular area)\nVisualization: Gina Reynolds | Data source: OECD.org ")
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/parent_leave_19-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df) +
+  aes(x = paid_leave_months) +
+  aes(y = `Total paid leave avg payment rate (%)`) +
+  aes(xmin = 0) +
+  aes(xmax = paid_leave_months) +
+  aes(ymin = 0) +
+  aes(ymax = `Total paid leave avg payment rate (%)`) +
+  facet_wrap(fct_inorder(rank_name) ~ .) +
+  geom_rect(fill = "blue", alpha = .2) +
+  aes(yend = 0) +
+  aes(xend = 0) +
+  geom_segment(aes(yend = `Total paid leave avg payment rate (%)`), lty = "dashed") +
+  geom_segment(aes(xend = paid_leave_months), lty = "dashed") +
+  scale_y_continuous(limits = c(0, 100), expand = c(0, 0), breaks = c(0, 50, 100)) +
+  scale_x_continuous(limits = c(0, 44), expand = c(0, 0)) +
+  labs(x = "Length of paid leave entitlement (months)") +
+  labs(y = "Percent of income paid (average over entitlement period)") +
+  labs(title = "Total paid leave available to mothers in the OECD") +
+  labs(subtitle = "Countries rank ordered by paid leave full rate equivalent (blue rectangular area)\nVisualization: Gina Reynolds | Data source: OECD.org ") +
+* theme_bw(base_size = 12)
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/parent_leave_20-1.png" width="80%" /&gt;
+]]
+
+
+---
+
+# Traits
+
+
+
+A random sample from the data set: 
+
+Gender   Question_short          Rank (text)      Rank (number)         n     Percent
+-------  ----------------------  --------------  --------------  --------  ----------
+Women    Has similar interests   Ranked first                 1   1442.49   12.655053
+Women    Personality             Ranked sixth                 6    328.93    2.884144
+Men      Intellegence            Ranked first                 1   1195.36   11.197930
+Men      Personality             Ranked third                 3   1488.41   13.922162
+Men      Has similar interests   Ranked second                2   1783.71   16.701967
+
+---
+
+
+
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+*ggplot(data = world)
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/traits_1-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(data = world) + 
+* aes(x = Question_short_wrap, y = Percent)
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/traits_2-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(data = world) + 
+  aes(x = Question_short_wrap, y = Percent) +
+* aes(fill = `Rank (text)`)
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/traits_3-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(data = world) + 
+  aes(x = Question_short_wrap, y = Percent) +
+  aes(fill = `Rank (text)`) +
+* facet_grid(Gender ~ .)
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/traits_4-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(data = world) + 
+  aes(x = Question_short_wrap, y = Percent) +
+  aes(fill = `Rank (text)`) +
+  facet_grid(Gender ~ .) +
+* geom_col()
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/traits_5-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(data = world) + 
+  aes(x = Question_short_wrap, y = Percent) +
+  aes(fill = `Rank (text)`) +
+  facet_grid(Gender ~ .) +
+  geom_col() +
+* coord_flip()
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/traits_6-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(data = world) + 
+  aes(x = Question_short_wrap, y = Percent) +
+  aes(fill = `Rank (text)`) +
+  facet_grid(Gender ~ .) +
+  geom_col() +
+  coord_flip() +
+* scale_fill_manual(values = colorRampPalette(RColorBrewer::brewer.pal(9, "Purples"))(6)[1:6], guide = guide_legend(reverse = TRUE))
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/traits_7-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(data = world) + 
+  aes(x = Question_short_wrap, y = Percent) +
+  aes(fill = `Rank (text)`) +
+  facet_grid(Gender ~ .) +
+  geom_col() +
+  coord_flip() +
+  scale_fill_manual(values = colorRampPalette(RColorBrewer::brewer.pal(9, "Purples"))(6)[1:6], guide = guide_legend(reverse = TRUE)) +
+* labs(fill = "")
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/traits_8-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(data = world) + 
+  aes(x = Question_short_wrap, y = Percent) +
+  aes(fill = `Rank (text)`) +
+  facet_grid(Gender ~ .) +
+  geom_col() +
+  coord_flip() +
+  scale_fill_manual(values = colorRampPalette(RColorBrewer::brewer.pal(9, "Purples"))(6)[1:6], guide = guide_legend(reverse = TRUE)) +
+  labs(fill = "") +
+* xlab("")
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/traits_9-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(data = world) + 
+  aes(x = Question_short_wrap, y = Percent) +
+  aes(fill = `Rank (text)`) +
+  facet_grid(Gender ~ .) +
+  geom_col() +
+  coord_flip() +
+  scale_fill_manual(values = colorRampPalette(RColorBrewer::brewer.pal(9, "Purples"))(6)[1:6], guide = guide_legend(reverse = TRUE)) +
+  labs(fill = "") +
+  xlab("") +
+* labs(title = "Why do I love thee?  Let me rank the traits... \nHow 10,689 men and 11,370 women across 20 countries rank romantic partner trait importance")
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/traits_10-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(data = world) + 
+  aes(x = Question_short_wrap, y = Percent) +
+  aes(fill = `Rank (text)`) +
+  facet_grid(Gender ~ .) +
+  geom_col() +
+  coord_flip() +
+  scale_fill_manual(values = colorRampPalette(RColorBrewer::brewer.pal(9, "Purples"))(6)[1:6], guide = guide_legend(reverse = TRUE)) +
+  labs(fill = "") +
+  xlab("") +
+  labs(title = "Why do I love thee?  Let me rank the traits... \nHow 10,689 men and 11,370 women across 20 countries rank romantic partner trait importance") +
+* labs(subtitle = "Data Source: @mattsmithetc and @YouGov | Design: Gina Reynolds")
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/traits_11-1.png" width="80%" /&gt;
+]]
+
+---
+
+# Salarys of Trump and Obama White House Employees
+
+The data set, originally reported on in an NPR article, shows the difference in the distribution of salaries for the Obama and early Trump White House. 
+
+First I plot a histogram of each administration.  Then I also contrast boxplots for each administration; the data points are overlayed, jittered to the widths of the boxplots.  Plotly is used to make the graph interactive; mousing over will allow you to see who the point represents, their job description and exactly how much they are paid.   
+
+
+
+
+
+A random sample from the data set: 
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; ADMINISTRATION &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; NAME &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; STATUS &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; SALARY &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; PAY BASIS &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; POSITION TITLE &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Trump &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Block, Monica J. &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Employee &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 140000 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Per Annum &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; SPECIAL ASSISTANT TO THE PRESIDENT AND DEPUTY DIRECTOR OF WHITE HOUSE MANAGEMENT AND ADMINISTRATION &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Obama &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Allen, Jessica L. &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Employee &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 48470 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Per Annum &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; SENIOR PRESS ASSISTANT &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Trump &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Michael, Molly A. &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Employee &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 56000 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Per Annum &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; ASSOCIATE DIRECTOR &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Obama &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Haines, Avril D. &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Employee &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 174714 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Per Annum &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; ASSISTANT TO THE PRESIDENT AND DEPUTY NATIONAL SECURITY ADVISOR &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Trump &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Powell, Dina H. &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Employee &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 179700 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Per Annum &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; ASSISTANT TO THE PRESIDENT AND DEPUTY NATIONAL SECURITY ADVISOR FOR STRATEGY &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+
+
+
+
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+*ggplot(both_data)
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/white_house_1-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(both_data) +
+* aes(x = ADMINISTRATION)
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/white_house_2-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(both_data) +
+  aes(x = ADMINISTRATION) + 
+* aes(y = SALARY)
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/white_house_3-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(both_data) +
+  aes(x = ADMINISTRATION) + 
+  aes(y = SALARY) +
+* geom_jitter(alpha = .5, height = 0, width = .25)
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/white_house_4-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(both_data) +
+  aes(x = ADMINISTRATION) + 
+  aes(y = SALARY) +
+  geom_jitter(alpha = .5, height = 0, width = .25) +
+* aes(col = ADMINISTRATION)
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/white_house_5-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(both_data) +
+  aes(x = ADMINISTRATION) + 
+  aes(y = SALARY) +
+  geom_jitter(alpha = .5, height = 0, width = .25) +
+  aes(col = ADMINISTRATION) +
+* geom_boxplot(alpha = .25)
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/white_house_6-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(both_data) +
+  aes(x = ADMINISTRATION) + 
+  aes(y = SALARY) +
+  geom_jitter(alpha = .5, height = 0, width = .25) +
+  aes(col = ADMINISTRATION) +
+  geom_boxplot(alpha = .25) +
+* aes(fill = ADMINISTRATION)
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/white_house_7-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(both_data) +
+  aes(x = ADMINISTRATION) + 
+  aes(y = SALARY) +
+  geom_jitter(alpha = .5, height = 0, width = .25) +
+  aes(col = ADMINISTRATION) +
+  geom_boxplot(alpha = .25) +
+  aes(fill = ADMINISTRATION) +
+* scale_colour_manual(values = c("blue", "red"))
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/white_house_8-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(both_data) +
+  aes(x = ADMINISTRATION) + 
+  aes(y = SALARY) +
+  geom_jitter(alpha = .5, height = 0, width = .25) +
+  aes(col = ADMINISTRATION) +
+  geom_boxplot(alpha = .25) +
+  aes(fill = ADMINISTRATION) +
+  scale_colour_manual(values = c("blue", "red")) +
+* scale_fill_manual(values = c("blue", "red"))
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/white_house_9-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(both_data) +
+  aes(x = ADMINISTRATION) + 
+  aes(y = SALARY) +
+  geom_jitter(alpha = .5, height = 0, width = .25) +
+  aes(col = ADMINISTRATION) +
+  geom_boxplot(alpha = .25) +
+  aes(fill = ADMINISTRATION) +
+  scale_colour_manual(values = c("blue", "red")) +
+  scale_fill_manual(values = c("blue", "red")) +
+* theme_bw()
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/white_house_10-1.png" width="80%" /&gt;
+]]
+
+
+---
+
+# Winter Games
+
+
+
+
+
+A random sample from the data set: 
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:right;"&gt; Year &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Sport &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Event &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Country &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Gender &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Medal Rank &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Medal &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Name of Athlete or Team &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Age of Athlete &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 2010 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Bobsled &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Men's Two &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Russia &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Men &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; bronze &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Russia-1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; NA &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 2010 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Skeleton &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Men's Skeleton &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Canada &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Men &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gold &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Jon Montgomery &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 30 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 2006 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Biathlon &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Women's 12.5-Kilometer Mass Start &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Germany &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Women &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; bronze &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Uschi Disl &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 35 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1952 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Alpine Skiing &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Men's Giant Slalom &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Norway &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Men &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gold &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Stein Eriksen &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 24 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1964 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Cross-Country Skiing &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Men's 4 Ã— 10-Kilometer Relay &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Sweden &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Men &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gold &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Sweden &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; NA &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+
+
+
+
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+*ggplot(data = dta)
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/countries_games_1-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(data = dta) + 
+* aes(x = Year)
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/countries_games_2-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(data = dta) + 
+  aes(x = Year) +
+* aes(y = percent_medals)
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/countries_games_3-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(data = dta) + 
+  aes(x = Year) +
+  aes(y = percent_medals) +
+* geom_line()
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/countries_games_4-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(data = dta) + 
+  aes(x = Year) +
+  aes(y = percent_medals) +
+  geom_line() + 
+* facet_wrap(~ Country)
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/countries_games_5-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(data = dta) + 
+  aes(x = Year) +
+  aes(y = percent_medals) +
+  geom_line() + 
+  facet_wrap(~ Country) +
+* labs(y = "")
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/countries_games_6-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(data = dta) + 
+  aes(x = Year) +
+  aes(y = percent_medals) +
+  geom_line() + 
+  facet_wrap(~ Country) +
+  labs(y = "") +
+* labs(title = "Number of Winter Olympic Medals among 16 most winning countries, 1948-2014")
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/countries_games_7-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(data = dta) + 
+  aes(x = Year) +
+  aes(y = percent_medals) +
+  geom_line() + 
+  facet_wrap(~ Country) +
+  labs(y = "") +
+  labs(title = "Number of Winter Olympic Medals among 16 most winning countries, 1948-2014") +
+* labs(caption = "Vis: @EvaMaeRey | Source: Sports-Reference.com")
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/countries_games_8-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(data = dta) + 
+  aes(x = Year) +
+  aes(y = percent_medals) +
+  geom_line() + 
+  facet_wrap(~ Country) +
+  labs(y = "") +
+  labs(title = "Number of Winter Olympic Medals among 16 most winning countries, 1948-2014") +
+  labs(caption = "Vis: @EvaMaeRey | Source: Sports-Reference.com") +
+* theme_minimal()
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/countries_games_9-1.png" width="80%" /&gt;
+]]
+
+---
+
+
+
+A random sample from the data set: 
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:right;"&gt; Year &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Sport &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Event &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Country &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Gender &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Medal Rank &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Medal &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Name of Athlete or Team &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Age of Athlete &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; cold_war &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1952 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Alpine Skiing &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Women's Giant Slalom &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Austria &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Women &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; silver &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Dagmar Rom &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 23 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; A &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1964 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Speedskating &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Men's 1,500 Meters &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Netherlands &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Men &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; silver &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Kees Verkerk &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 21 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; A &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 2010 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Biathlon &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Women's 4 Ã— 6-Kilometer Relay &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Russia &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Women &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gold &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Russia &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; A &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 2010 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Cross-Country Skiing &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Women's 4 Ã— 5-Kilometer Relay &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Germany &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Women &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; silver &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Germany &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; A &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1976 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Alpine Skiing &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Men's Slalom &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Italy &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Men &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; silver &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Gustavo Thoeni &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 24 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; A &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+
+
+
+
+
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+*ggplot(dta)
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/winter_games_1-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(dta) +
+* aes(x = Year)
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/winter_games_2-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(dta) +
+  aes(x = Year) +
+* aes(y = `Age of Athlete`)
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/winter_games_3-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(dta) +
+  aes(x = Year) +
+  aes(y = `Age of Athlete`) +
+* facet_wrap(~ Sport, scales = "free_y", nrow = 2)
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/winter_games_4-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(dta) +
+  aes(x = Year) +
+  aes(y = `Age of Athlete`) +
+  facet_wrap(~ Sport, scales = "free_y", nrow = 2) +
+* geom_jitter(size = 1, mapping = aes(col = fct_inorder(Medal)), width = 1, height = .5)
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/winter_games_5-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(dta) +
+  aes(x = Year) +
+  aes(y = `Age of Athlete`) +
+  facet_wrap(~ Sport, scales = "free_y", nrow = 2) +
+  geom_jitter(size = 1, mapping = aes(col = fct_inorder(Medal)), width = 1, height = .5) +
+* geom_smooth(col = "grey30")
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/winter_games_6-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(dta) +
+  aes(x = Year) +
+  aes(y = `Age of Athlete`) +
+  facet_wrap(~ Sport, scales = "free_y", nrow = 2) +
+  geom_jitter(size = 1, mapping = aes(col = fct_inorder(Medal)), width = 1, height = .5) +
+  geom_smooth(col = "grey30") +
+* geom_ribbon(ymin = 20, ymax = 30, alpha = .1, fill = "blue")
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/winter_games_7-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(dta) +
+  aes(x = Year) +
+  aes(y = `Age of Athlete`) +
+  facet_wrap(~ Sport, scales = "free_y", nrow = 2) +
+  geom_jitter(size = 1, mapping = aes(col = fct_inorder(Medal)), width = 1, height = .5) +
+  geom_smooth(col = "grey30") +
+  geom_ribbon(ymin = 20, ymax = 30, alpha = .1, fill = "blue") +
+* geom_hline(yintercept = c(20, 30), lty = "dotted")
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/winter_games_8-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(dta) +
+  aes(x = Year) +
+  aes(y = `Age of Athlete`) +
+  facet_wrap(~ Sport, scales = "free_y", nrow = 2) +
+  geom_jitter(size = 1, mapping = aes(col = fct_inorder(Medal)), width = 1, height = .5) +
+  geom_smooth(col = "grey30") +
+  geom_ribbon(ymin = 20, ymax = 30, alpha = .1, fill = "blue") +
+  geom_hline(yintercept = c(20, 30), lty = "dotted") +
+* geom_hline(yintercept = c(25), lty = "dashed")
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/winter_games_9-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(dta) +
+  aes(x = Year) +
+  aes(y = `Age of Athlete`) +
+  facet_wrap(~ Sport, scales = "free_y", nrow = 2) +
+  geom_jitter(size = 1, mapping = aes(col = fct_inorder(Medal)), width = 1, height = .5) +
+  geom_smooth(col = "grey30") +
+  geom_ribbon(ymin = 20, ymax = 30, alpha = .1, fill = "blue") +
+  geom_hline(yintercept = c(20, 30), lty = "dotted") +
+  geom_hline(yintercept = c(25), lty = "dashed") +
+* scale_color_manual(values = c("goldenrod3", "grey40", "goldenrod4"))
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/winter_games_10-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(dta) +
+  aes(x = Year) +
+  aes(y = `Age of Athlete`) +
+  facet_wrap(~ Sport, scales = "free_y", nrow = 2) +
+  geom_jitter(size = 1, mapping = aes(col = fct_inorder(Medal)), width = 1, height = .5) +
+  geom_smooth(col = "grey30") +
+  geom_ribbon(ymin = 20, ymax = 30, alpha = .1, fill = "blue") +
+  geom_hline(yintercept = c(20, 30), lty = "dotted") +
+  geom_hline(yintercept = c(25), lty = "dashed") +
+  scale_color_manual(values = c("goldenrod3", "grey40", "goldenrod4")) +
+* labs(x = "", col = "")
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/winter_games_11-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(dta) +
+  aes(x = Year) +
+  aes(y = `Age of Athlete`) +
+  facet_wrap(~ Sport, scales = "free_y", nrow = 2) +
+  geom_jitter(size = 1, mapping = aes(col = fct_inorder(Medal)), width = 1, height = .5) +
+  geom_smooth(col = "grey30") +
+  geom_ribbon(ymin = 20, ymax = 30, alpha = .1, fill = "blue") +
+  geom_hline(yintercept = c(20, 30), lty = "dotted") +
+  geom_hline(yintercept = c(25), lty = "dashed") +
+  scale_color_manual(values = c("goldenrod3", "grey40", "goldenrod4")) +
+  labs(x = "", col = "") +
+* labs(title = "Young and old at the Winter Olympics: medalists' declared ages have risen in recent years")
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/winter_games_12-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(dta) +
+  aes(x = Year) +
+  aes(y = `Age of Athlete`) +
+  facet_wrap(~ Sport, scales = "free_y", nrow = 2) +
+  geom_jitter(size = 1, mapping = aes(col = fct_inorder(Medal)), width = 1, height = .5) +
+  geom_smooth(col = "grey30") +
+  geom_ribbon(ymin = 20, ymax = 30, alpha = .1, fill = "blue") +
+  geom_hline(yintercept = c(20, 30), lty = "dotted") +
+  geom_hline(yintercept = c(25), lty = "dashed") +
+  scale_color_manual(values = c("goldenrod3", "grey40", "goldenrod4")) +
+  labs(x = "", col = "") +
+  labs(title = "Young and old at the Winter Olympics: medalists' declared ages have risen in recent years") + 
+* labs(subtitle = "Includes individual sports that have been in Olympic since 1965")
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/winter_games_13-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(dta) +
+  aes(x = Year) +
+  aes(y = `Age of Athlete`) +
+  facet_wrap(~ Sport, scales = "free_y", nrow = 2) +
+  geom_jitter(size = 1, mapping = aes(col = fct_inorder(Medal)), width = 1, height = .5) +
+  geom_smooth(col = "grey30") +
+  geom_ribbon(ymin = 20, ymax = 30, alpha = .1, fill = "blue") +
+  geom_hline(yintercept = c(20, 30), lty = "dotted") +
+  geom_hline(yintercept = c(25), lty = "dashed") +
+  scale_color_manual(values = c("goldenrod3", "grey40", "goldenrod4")) +
+  labs(x = "", col = "") +
+  labs(title = "Young and old at the Winter Olympics: medalists' declared ages have risen in recent years") + 
+  labs(subtitle = "Includes individual sports that have been in Olympic since 1965") +
+* labs(caption = "Source: Sports-Reference.com | Vis: Gina Reynolds @EvaMaeRey \nValues 'jittered' to reduce overplotting")
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/winter_games_14-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(dta) +
+  aes(x = Year) +
+  aes(y = `Age of Athlete`) +
+  facet_wrap(~ Sport, scales = "free_y", nrow = 2) +
+  geom_jitter(size = 1, mapping = aes(col = fct_inorder(Medal)), width = 1, height = .5) +
+  geom_smooth(col = "grey30") +
+  geom_ribbon(ymin = 20, ymax = 30, alpha = .1, fill = "blue") +
+  geom_hline(yintercept = c(20, 30), lty = "dotted") +
+  geom_hline(yintercept = c(25), lty = "dashed") +
+  scale_color_manual(values = c("goldenrod3", "grey40", "goldenrod4")) +
+  labs(x = "", col = "") +
+  labs(title = "Young and old at the Winter Olympics: medalists' declared ages have risen in recent years") + 
+  labs(subtitle = "Includes individual sports that have been in Olympic since 1965") +
+  labs(caption = "Source: Sports-Reference.com | Vis: Gina Reynolds @EvaMaeRey \nValues 'jittered' to reduce overplotting") +
+* theme_bw(base_size = 13)
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/winter_games_15-1.png" width="80%" /&gt;
+]]
+
+---
+
+
+
+
+
+
+
+
+&lt;style type="text/css"&gt;
+.remark-code{line-height: 1.5; font-size: 50%}
+&lt;/style&gt;
+    </textarea>
+<script src="libs/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "20:10",
+"highlightLines": true
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function() {
+  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})();</script>
+
+<script>
+(function() {
+  var i, text, code, codes = document.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+})();
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

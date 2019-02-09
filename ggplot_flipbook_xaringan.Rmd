@@ -1,0 +1,164 @@
+---
+title: "the ggplot flipbook"
+subtitle: "⚔<br/>made with xaringan"
+author: "Gina Reynolds"
+date: "2019/01/31"
+output:
+  xaringan::moon_reader:
+    chakra: libs/remark-latest.min.js
+    lib_dir: libs
+    css: ["kunoichi", "ninjutsu"]
+    nature:
+      ratio: "20:10"
+      highlightLines: true
+---
+
+
+
+# Introduction
+
+
+The ggplot2 package in the programming language R implements the "layered grammar of graphics" --- a proposal of Leland Wilkinson and the product of the dissertation and ongoing work of Hadley Wickham.  This data visualization system idea is at once powerful, novel, and intuitive.  Wickham and collaborators have built a system where data visualization as dividable into parameters:  data to visualize, aesthetics that represent variables, geometric objects, a coordinate system, specific scales, and statistical transformation.  
+
+In this book, I use a "slow ggplotting" method as well as a "flipbook" format to facilitate the introduction of this plotting method. "Slow ggplotting" makes modifications to plots as incrementally as possible so that it is clear to users what code triggers each new layer or modification.  The aim is less to be concise, and more to be explicit about how new statements modify the plot; repetition should facilitating more interactions with ggplot functions for newcomer internalize the functions. The flipbook layout is designed to show what code is triggering each change in the plot output. 
+
+Readers of the book should easily be able to follow along with how plots are built up.  While intuitive, using ggplotting effectively and efficiently nevertheless requires practice.  My hope is that these examples will be a helpful reference point for those that endeavor to pick up data visualization with ggplot2. 
+
+
+---
+
+# What's the slow ggplot workflow?
+
+"Slow ggplot" just means working more incrementally than is typical. Elements of the approach are as follows:
+
+- pulling out aes() from the ggplot() function:  
+- using fewer functions; example - using labs() to add a title instead of ggtitle()
+- using functions multiple times; example aes(x = var1) + aes(y = var2) rather than aes(x = var1, y = var2)
+- using base R functions and tidyverse functions.  For other packages, the :: style to call them
+- write out arguments (no shortcuts)  aes(x = gdppercap) not aes(gdppercap)
+- order ggplot commands so that reactivity is obvious; scale adjustments to aesthetics might also be near the aesthetic declaration. 
+
+
+---
+
+Here, I contrast the usual plotting method to slow ggplotting:
+
+Usual approach:
+
+```{r, eval = F}
+ggplot(my_data, aes(var1, y = var2, col = var3)) +
+  geom_point() +
+  ggtitle("My Title") +
+  labs(x = "the x label", y = "the y label", col = "legend title")
+```
+
+Using slow ggplotting: 
+
+```{r, eval = F}
+ggplot(data = my_data) +
+  aes(x = var1) +
+  labs(x = "the x label") +
+  aes(y = var2) +
+  labs(y = "the y label") +
+  geom_point() +
+  aes(col = var3) +
+  labs(col = "legend title") +
+  labs(title = "My title")
+```
+
+
+---
+
+# Getting started with R and RStudio
+
+
+- [Install Windows](https://www.youtube.com/watch?v=aCRMhAWmtpw)
+- [Install Mac](https://www.youtube.com/watch?v=GLLZhc_5enQ)
+
+
+---
+
+# Acknowledgements
+
+I'm grateful to the ggplot team for their tireless work on developing and maintaining this fantastic resource.  Additionally most of the visualizations here were produced for the Tableau-users-associated initiative #MakeoverMonday. I'm grateful to that community for feedback and encouragement and welcoming work from outside of Tableau.  Additional visualizations have been made with data curated by #TidyTuesday, a similar initiative from RStudio. Many thanks are due to Emi Tanaka (@statsgen) and Garrick Aden-Buie (@grrrck) helped by writing the "reveal" function to made the flipbook style possible.  Also to Yihui Xie and others that work on the Xaringan package for creating slides from markdown and R code; I'm using Emi Tanaka's themes kunoichi and ninjutsu.  I'm grateful too to my students who motivate me to think about how to teach what I've been so lucky to learn.  And thanks to David, who is supportive of plotting and of me. 
+
+
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(printr)
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(fig.height = 6, out.width = "80%", comment = " ")
+# reveal lines up to `upto` and highlight lines `highlight`
+reveal <- function(name, upto, highlight = upto) {
+  content <- knitr:::knit_code$get(name)
+  # Only replce the last %>% or + on the line, but keep comments
+  content[upto] <- gsub("%>%\\s*(#.+)?$", "\\1", content[upto])
+  content[upto] <- gsub("\\+\\s*(#.+)?$", "\\1", content[upto])
+  content[highlight] <- paste(content[highlight], "#<<")
+  content[1:upto]
+}
+partial_knit_chunks <- function(chunk_name) {
+  browser()
+  # Create slide for lines 1:N for each line N in the given chunk
+  idx_lines <- seq_along(knitr:::knit_code$get(chunk_name))
+  partial_knit_steps <- glue::glue(
+    "class: split-40",
+    "count: false",
+    "",
+    ".column[.content[",
+    "```{r plot{{idx_lines}}, eval=FALSE, code=reveal('{{chunk_name}}', {{idx_lines}})}",
+    "```",
+    "]]",
+    ".column[.content.center[",
+    "```{r {{chunk_name}}_{{idx_lines}}, echo=FALSE, code=reveal('{{chunk_name}}', {{idx_lines}})}",
+    "```",
+    "]]",
+    .open = "{{", .close = "}}", .sep = "\n"
+  )
+  glue::glue_collapse(partial_knit_steps, "\n---\n")
+}
+``` 
+
+
+
+
+---
+
+```{r, child = list.files()[1], warning=F, message=F}
+
+```
+
+
+
+```{r, child = list.files()[2], warning=F, message=F}
+
+```
+
+
+---
+
+# Hic sunt dracones!
+
+This book is not complete.  The plots that follow aren't as carefully edited as what precedes. But feel free to have a look around. This "here be dragons" slide should move later and later on as weeks go by.  Also I hope to add new work as time goes on.  
+
+
+---
+
+```{r, child = list.files()[3:6], warning=F, message=F}
+
+```
+
+
+
+
+
+
+
+
+```{css, eval = TRUE, echo = F}
+.remark-code{line-height: 1.5; font-size: 50%}
+```
+
+
