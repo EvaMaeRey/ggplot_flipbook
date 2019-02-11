@@ -1,0 +1,49 @@
+# Myers Briggs
+
+This visualization is of prevelence of Myers Briggs type distributions within the US population.  So the data allows one to look at the relationship betweeen the four Myers Briggs types.    The challenge is how to display that in one visualization.  My first idea was to use a mosaic plot.  However, I came across advice from "The Perceptual Edge", that generally advised against the use of the mosaic plot, instead favoring a kind of nested bar plot.  I tried to implement that.  While I do think that the result is pretty, I think that it still requires a lot of the reader to interpret the graph.  More annotation might alleviate this burden. 
+
+```{r, fig.width=8, fig.height=8, echo = F}
+data0 <- readxl::read_xlsx("raw_data/MyersBriggsTypes.xlsx")
+
+data <- data0 %>%
+  mutate(`Perthousand in Population` = 1000 * `Ratio in Population`) %>%
+  mutate(`(E)xtroversion/(I)ntroversion` = recode(`(E)xtroversion/(I)ntroversion`, 
+                                                  E = "Extroversion", I = "Introversion"),
+    `(S)ensing/I(N)tuition` = recode(`(S)ensing/I(N)tuition`, S = "Sensing", N = "Intuition"),
+    `(T)hinking/(F)eeling` = recode(`(T)hinking/(F)eeling`, T = "Thinking", F = "Feeling"),
+    `(J)udging/(P)erceiving` = recode(`(J)udging/(P)erceiving`, J = "Judging", P = "Perceiving")) %>% 
+  uncount(weights = `Perthousand in Population`) %>% 
+  mutate(count = 1)
+  
+
+background <- data_frame(mins = c(.5, 1.5), max = c(1.5, 2.5), `judging perceiving` = c(" Judging", " Perceiving"))
+
+```
+
+A random sample from the data set: 
+```{r, echo = F}
+knitr::kable(sample_n(data, 5), format = "html")
+```
+
+---
+
+```{r myers_briggs, eval=F, echo=F}
+ggplot(data) +
+  aes(x = `(J)udging/(P)erceiving`) +
+  aes(fill = `(T)hinking/(F)eeling`) +
+  facet_grid(`(E)xtroversion/(I)ntroversion` ~ `(S)ensing/I(N)tuition`) +
+  geom_rect(aes(x = NULL, y = NULL, xmin = mins, xmax = max, fill = `judging perceiving`), ymin = 0, ymax = 700, data = background) +
+  geom_bar(position = "dodge") +
+  scale_fill_manual(values = alpha(c("lightgrey", "darkgrey", "blue", "violet"), c(.3, .3, .6, .6))) +
+  labs(x = "") + 
+  labs(y = "") + 
+  labs(fill = "") +
+  labs(title = "Frequency of Myers-Briggs Types") +
+  labs(subtitle = "Expected among 1000 individuals | @evamaerey | Source: http://www.myersbriggs.org/") + 
+  theme_bw(base_size = 10, base_family = "Times") 
+```
+
+
+`r paste(knitr::knit(text = partial_knit_chunks("myers_briggs")), collapse = "\n")`
+
+---

@@ -1,0 +1,74 @@
+# Brexit
+
+This visualization challenge was a proposed makeover for a Financial Times visualization focusing on relative economic growth in G7 countries, with an emphasis on growth in the UK, focusing especially since Brexit.  The visualization I present here is not what I created at the time of the challenge; instead it is inspired by Alan Smith a data journalist at the Financial Times, who created a really compelling visualization a couple of months after MakeoverMonday's treatment.  I try to recreate his plot - which uses a ribbon to contain all G7 countries, and plot the UK's stats thereover.  This declutters the graph, and makes you focus on where the UK falls among other countries, without being needlessly specific about those countries; the data story isn't about them anyway, might be Smith's thinking. My graph actually lightly traces economic growth in other countries, but deemphasizes their importance, like Smith. 
+
+```{r, echo = F}
+data <- readxl::read_xlsx("raw_data/G7 Quarterly GDP Growth.xlsx")
+data <- data %>%
+  mutate(Quarter = as.numeric(stringr::str_extract(Quarter, "\\d"))) %>%
+  mutate(`Date (start o quarter)` = lubridate::date(`Date (start of quarter)`))
+```
+
+A random sample from the data set: 
+```{r, echo = F}
+knitr::kable(sample_n(data, 5), format = "html")
+```
+
+---
+
+```{r brexit_1, eval=F, echo=F}
+ggplot(data = data) +
+  aes(x = `Date (start of quarter)`) +
+  aes(y = `Percentage change from previous period`) +
+  facet_wrap(~ Country) +
+  geom_line() +
+  geom_hline(yintercept = 0, col = "grey") +
+  geom_vline(xintercept = as.numeric(as.POSIXct("2016-06-23")), lty = "dashed") +
+  labs(title = "Quarterly GDP Growth in Relation to Brexit Vote") +
+  labs(subtitle = "Source: OECD")
+```
+
+`r paste(knitr::knit(text = partial_knit_chunks("brexit_1")), collapse = "\n")`
+
+---
+
+
+```{r, echo = F}
+data <- data %>%
+  group_by(`Date (start of quarter)`) %>%
+  mutate(
+    min_ = min(`Percentage change from previous period`),
+    max_ = max(`Percentage change from previous period`)
+  ) %>%
+  ungroup()
+```
+
+A random sample from the data set: 
+```{r, echo = F}
+knitr::kable(sample_n(data, 5), format = "html")
+
+data_gbr <- data %>% filter(Country == "GBR")
+```
+
+---
+
+```{r brexit, eval=F, echo=F}
+ggplot(data = data) +
+  aes(x = `Date (start of quarter)`) +
+  aes(y = `Percentage change from previous period`) +
+  aes(ymin = min_) +
+  aes(ymax = max_) +
+  geom_hline(yintercept = 0, col = "grey") +
+  geom_ribbon(alpha = .2) +
+  geom_line(aes(col = Country), alpha = .2) +
+  geom_line(data = data_gbr, col = "black") +
+  geom_vline(xintercept = as.numeric(as.POSIXct("2016-06-23")), lty = 2) +
+  annotate(geom = "text", x = as.POSIXct("2016-04-23"), y = 1.5, label = "Brexit Vote", angle = 90) +
+  labs(title = "Quarterly GDP Growth of G7 in Relation to Brexit Vote", subtitle = "Source: OECD", col = "") +
+  theme_bw()
+```
+
+
+`r paste(knitr::knit(text = partial_knit_chunks("brexit")), collapse = "\n")`
+
+---

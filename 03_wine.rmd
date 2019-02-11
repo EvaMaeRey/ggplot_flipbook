@@ -1,0 +1,49 @@
+# Wine
+
+Wine production in Europe may have been volitile during the years plotted because of production control policies implemented by the EU. Particularly, the big three, Italy, France and Spain, saw a lot of volitility early in this period.  
+
+```{r}
+df <- readxl::read_xlsx("raw_data/Wine_Production_by_country.xlsx") %>%
+  filter(Country != "World total")
+
+Europe <- c(
+  "Italy", "France", "Spain",
+  "Germany", "Portugal", "Romania",
+  "Austria", "Greece", "Hungary"
+)
+```
+
+```{r}
+theme_opts <- 
+  theme(
+    axis.title = element_blank(),
+    strip.placement = "outside",
+    axis.text.x = element_blank(),
+    axis.ticks.x = element_blank(),
+    strip.background = element_blank(),
+    plot.caption = element_text(size = 10)
+  )
+```
+
+---
+
+```{r wine, eval = F, echo = F}
+  ggplot(df %>% filter(Country %in% Europe)) +
+  aes(x = Year) +
+  aes(y = `Wine production in mhl`) +
+  facet_wrap(~ fct_inorder(Country), strip.position = "bottom", nrow = 1) +
+  geom_col(aes(alpha = Year), position = "dodge", fill = "darkred", width = 1) +
+  geom_line(col = "black", lty = 2) +
+  scale_y_continuous(expand = c(0, 0)) +
+  labs(fill = "") +
+  labs(alpha = "")+
+  labs(title = "Wine production (mhl) in principle European markets, 2012-2016") +
+  labs(subtitle = "The EU program to regulate viticultural production ended upon the 2011/2012 harvest.") + 
+  labs(caption = "Design: Gina Reynolds @EvaMaeRey  \nData Source: International Organisation of Vine and Wine") + # \nProduction volitility for top producers followed.
+  theme_classic(base_family = "Times") +
+  theme_opts
+```
+
+`r paste(knitr::knit(text = partial_knit_chunks("wine")), collapse = "\n")`
+
+---

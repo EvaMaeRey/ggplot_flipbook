@@ -146,7 +146,7 @@ This book is not complete.  The plots that follow aren't as carefully edited as 
 
 ---
 
-```{r, child = list.files()[3:6], warning=F, message=F}
+```{r, child = list.files()[3:13], warning=F, message=F}
 
 ```
 

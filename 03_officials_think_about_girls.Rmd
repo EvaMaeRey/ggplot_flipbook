@@ -1,0 +1,71 @@
+# Officials' beliefs about women's representation
+
+The data provided is based on a small survey of elite officials in five less developed countries.  The question that arrises from the data is: How well do elites know the conditions in their countries.  In general, the elites overestimate women's representation.  But this is not the case in Senegal, where there are gender quotas in the Parliament.  Most elites therefore estimate that the representation is about equal with men. I jitter the responses of the elites horizontally to avoid overplotting. 
+
+```{r, fig.height=7, fig.width=10, echo = F}
+df_0 <- readxl::read_xlsx("raw_data/Equal Measures Survey Data Pivoted.xlsx")
+
+df <- df_0 %>%
+  filter(!is.na(`Estimate/Guess`)) %>%
+  filter(Topic == "Share of seats held by women") %>%
+  mutate(`Estimate/Guess` = `Estimate/Guess` / 100) %>%
+  mutate(`Correct Answer` = `Correct Answer` / 100)
+```
+
+
+
+```{r, echo = F}
+
+df_correct <- df %>%
+  group_by(Country, Topic) %>%
+  summarise(value = mean(`Correct Answer`)) %>%
+  mutate(value_type = "Correct Answer")
+
+df_individual_answer <- df %>%
+  select(Country, Topic, `Estimate/Guess`) %>%
+  rename(value = `Estimate/Guess`) %>%
+  mutate(value_type = "Individual belief")
+
+df_average <- df_individual_answer %>%
+  group_by(Country, Topic) %>%
+  summarise(value = mean(`value`)) %>%
+  mutate(value_type = "Average of beliefs")
+
+df_all <- bind_rows(df_correct, df_individual_answer, df_average) %>%
+  mutate(alpha = ifelse(value_type == "Individual belief", .3, .7))
+```
+
+---
+
+A random sample from the data set: 
+```{r, echo = F}
+knitr::kable(sample_n(df_all %>% ungroup(), 5), format = "html")
+```
+
+---
+
+```{r women, eval=F, echo=F}
+ggplot(data = df_all) +
+  aes(x = Country, y = value) +
+  aes(col = fct_inorder(value_type)) +
+  aes(alpha = fct_inorder(value_type)) +
+  aes(shape = fct_inorder(value_type)) +
+  geom_jitter(width = .1, height = 0, size = 7) +
+  geom_hline(yintercept = c(0, 100), col = "grey") +
+  geom_hline(yintercept = c(50), lty = 2, col = "grey") +
+  theme_bw(base_size = 12, base_family = "Times") +
+  scale_y_continuous(limits = c(0, 1), expand = c(0, 0), labels = scales::percent) +
+  scale_colour_manual(name = "", values = c("darkblue", "goldenrod3", "goldenrod3")) +
+  scale_alpha_manual(name = "", values = c(1, .17, 1)) +
+  scale_shape_manual(name = "", values = c(8, 19, 8)) +
+  annotate(geom = "text", x = 4.95, y = .70, label = str_wrap("Senegal's 2010 gender parity law means it leads among these countries.", 16), size = 3, hjust = 1) +
+  annotate(geom = "text", x = 5.05, y = .250, label = str_wrap("Officials seem to be aware of the law.", 10), size = 3, hjust = 0) +
+  labs(x = "") +
+  labs(y = "Seats held by women") +
+  labs(title = "Women in national parliaments in 2015 in five countries \nand officials' beliefs about representation") +
+  labs(subtitle = "Data Source: Equal Measures 2030 | Vis: Gina Reynolds @EvaMaeRey")
+```
+
+`r paste(knitr::knit(text = partial_knit_chunks("women")), collapse = "\n")`
+
+---

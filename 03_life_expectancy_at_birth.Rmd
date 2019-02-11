@@ -1,0 +1,67 @@
+# Life Expectancy Increases
+
+To dramatically show the increases in life expectancy by country from 1960 to 2010, I plot the variable in 1960 versus itself in 2010.  The line of equivilance (a 45% angle) is used as a reference and shows the result that you would see if there where no growth.  The vertical distance from this line is the increase in life expectancy. I also superimpose a linear model on top of the scatter plot.  You can see that the gains are greater for countries that started off with lower life expectancies.    
+
+```{r, echo = F}
+
+# Public holiday data
+data0 <- readxl::read_xlsx("raw_data/Life Expectancy at Birth.xlsx") %>%
+  filter(!is.na(Region), Gender == "Total") %>%
+  select(-Gender) %>%
+  mutate(CountryName = countrycode::countrycode(`Country Name`, "country.name", "country.name"))
+
+Variation <- data0 %>%
+  group_by(`Country Name`) %>%
+  summarise(sd = sd(`Life Expectancy`, na.rm = T)) %>%
+  arrange(sd) %>%
+  filter(!is.na(sd))
+
+data <- data0 %>% inner_join(Variation)
+
+compare <- inner_join(
+  data0 %>% filter(Year == 1960) %>% 
+    rename(`Life Expectancy 1960` = `Life Expectancy`) %>% 
+    select(`Life Expectancy 1960`, `Country Code`),
+  data0 %>% filter(Year == 2010) %>% rename(`Life Expectancy 2010` = `Life Expectancy`)
+) %>%
+  mutate(squared = `Life Expectancy 1960`^2) 
+
+
+```
+
+
+A random sample from the data set: 
+```{r, echo = F}
+knitr::kable(sample_n(compare, 5), format = "html")
+```
+
+---
+
+
+```{r life_expect, eval = F, echo = F}
+ggplot(compare) +
+  aes(x = `Life Expectancy 1960`) + 
+  aes(y = `Life Expectancy 2010`) +
+  geom_point() +
+  geom_smooth(se = F, method = "lm") +
+  geom_abline(slope = 1, intercept = 0, lty = 2) +
+  aes(xend = `Life Expectancy 1960`) +
+  aes(yend = `Life Expectancy 1960`) +
+  geom_segment(mapping = aes(col = "Gain from 1960 to 2010")) +
+  geom_segment(mapping = aes(y = 0, col = "Country Expectancy in 1960")) +
+  scale_color_manual( breaks = c("Gain from 1960 to 2010",  "Country Expectancy in 1960"), values = c("grey59", "grey30", "grey30")) +
+  geom_point(aes(y = `Life Expectancy 1960`), col = "grey30") +
+  geom_point() +
+  labs(subtitle = "@EvaMaeRey | source: data.worldbank.org", size = .7) +
+  labs(title = "Life Expectancy at Birth by Country") + 
+  labs(col = "") +
+  theme(legend.title = element_blank()) +
+  theme_bw() +
+  xlim(c(20, 80))
+```
+
+
+`r paste(knitr::knit(text = partial_knit_chunks("life_expect")), collapse = "\n")`
+
+
+---

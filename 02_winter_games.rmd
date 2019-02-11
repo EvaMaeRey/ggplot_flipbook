@@ -1,0 +1,101 @@
+# Winter Games
+
+```{r, echo = F}
+library(ggplot2)
+# library(ggridges)
+library(dplyr)
+df <- readxl::read_xlsx("raw_data/Winter Olympic Medals.xlsx")
+library(knitr)
+```
+
+```{r, echo = F}
+country_data <- df %>% filter(Year > 1945) %>% group_by(Country) %>% tally() %>% arrange(desc(n))
+
+big_sixteen <- country_data$Country[1:16]
+
+year_data <- df %>% group_by(Year) %>% summarise(number_of_medals_year = n())
+
+year_country_data <-
+  df %>%
+    group_by(Year, Country) %>%
+    summarise(number_of_medals = n()) %>%
+    left_join(year_data) %>%
+    mutate(percent_medals = 100 * number_of_medals / number_of_medals_year) %>%
+    filter(Country %in% big_sixteen)
+```
+
+A random sample from the data set: 
+```{r, echo = F}
+dta = year_country_data %>% filter(Year > 1945)
+knitr::kable(sample_n(df, 5), format = "html")
+```
+
+---
+
+```{r countries_games, eval = F, echo = F}
+ggplot(data = dta) + 
+  aes(x = Year) +
+  aes(y = percent_medals) +
+  geom_line() + 
+  facet_wrap(~ Country) +
+  labs(y = "") +
+  labs(title = "Number of Winter Olympic Medals among 16 most winning countries, 1948-2014") +
+  labs(caption = "Vis: @EvaMaeRey | Source: Sports-Reference.com") +
+  theme_minimal()
+```
+
+
+`r paste(knitr::knit(text = partial_knit_chunks("countries_games")), collapse = "\n")`
+
+---
+
+```{r, echo = F}
+df_individual <- df %>% filter(Sport != "Bobsled" &
+  Sport != "Curling" &
+  Sport != "Ice Hockey" &
+  Sport != "Skeleton" &
+  Sport != "Freestyle Skiing" &
+  Sport != "Snowboarding" &
+  Sport != "Short-Track Speedskating")
+
+dta <- df_individual %>%
+    filter(Year > 1945) %>%
+    mutate(
+      cold_war =
+        ifelse(!(Country %in% c("Soviet Union", "East Germany")),
+          "A", Country
+        ))
+
+
+```
+
+A random sample from the data set: 
+```{r, echo = F}
+knitr::kable(sample_n(dta, 5), format = "html")
+```
+
+---
+
+```{r winter_games, fig.width=10, fig.height=6, eval=F, echo=F}
+ggplot(dta) +
+  aes(x = Year) +
+  aes(y = `Age of Athlete`) +
+  facet_wrap(~ Sport, scales = "free_y", nrow = 2) +
+  geom_jitter(size = 1, mapping = aes(col = fct_inorder(Medal)), width = 1, height = .5) +
+  geom_smooth(col = "grey30") +
+  geom_ribbon(ymin = 20, ymax = 30, alpha = .1, fill = "blue") +
+  geom_hline(yintercept = c(20, 30), lty = "dotted") +
+  geom_hline(yintercept = c(25), lty = "dashed") +
+  scale_color_manual(values = c("goldenrod3", "grey40", "goldenrod4")) +
+  labs(x = "", col = "") +
+  labs(title = "Young and old at the Winter Olympics: medalists' declared ages have risen in recent years") + 
+  labs(subtitle = "Includes individual sports that have been in Olympic since 1965") +
+  labs(caption = "Source: Sports-Reference.com | Vis: Gina Reynolds @EvaMaeRey \nValues 'jittered' to reduce overplotting") +
+  theme_bw(base_size = 13)
+```
+
+
+
+`r paste(knitr::knit(text = partial_knit_chunks("winter_games")), collapse = "\n")`
+
+---

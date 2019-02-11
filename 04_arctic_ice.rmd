@@ -1,0 +1,86 @@
+# Arctic Ice
+
+This visualization shows the trend in Arctic Ice Sea Extent, data from the National Snow and Ice Data Center.  The definition for coverage is the case where at least 15 percent of the sea surface ice.  
+
+The visualization shows melting and freezing cycles, in accordance with the seasons --- and the disconcerting trend of a general decrease in ice extent over the years.  
+
+Inconsistant number of days in each year, mostly 365 but sometimes 366, results in a technical problem.  This means that plotting cycles over the years leads to imperfect alignment.  My solution was just to treat all data as if they come from a single year, 2000 which is a leap year.  The measurement on February 29th for leap years is therefore not deleted; for other years, there is of course no measurement.  The earliest year cycle and last year cycle are highlighted in white.  
+
+
+```{r, echo = F}
+df <-
+  readxl::read_xlsx("raw_data/Arctic Sea Ice Extent.xlsx") %>%
+  mutate(year = lubridate::year(Date)) %>%
+  filter(year >= 1979 & year <= 2017) %>%
+  mutate(month_day = str_replace(Date, "\\d{4}-", "")) %>%
+  mutate(month_day_plus = lubridate::as_date(str_replace(Date, "\\d{4}-", "2000"))) %>%
+  mutate(proportion_ocean_covered_in_ice = `Extent (million sq km)` / 360) %>%
+  group_by(month_day) %>%
+  mutate(mean_for_day = mean(`Extent (million sq km)`)) %>%
+  mutate(
+    diff_from_mean_day =
+      `Extent (million sq km)` - mean(`Extent (million sq km)`)
+  )
+```
+
+A random sample from the data set: 
+```{r, echo = F}
+knitr::kable(sample_n(df %>% ungroup(),size = 5), format = "html")
+```
+
+```{r, echo = F, results="hide"}
+# identifying average greatest extent and average least extent
+knitr::kable(
+df %>%
+  group_by(year) %>%
+  summarise(
+    average_coverage = mean(`Extent (million sq km)`),
+    num_days = n(),
+    average_day = mean(Date)
+  ) %>%
+  filter(average_coverage %in% range(average_coverage)), format = "html"
+)
+```
+
+
+---
+
+```{r ice, fig.width = 12, fig.height = 8, echo = F, eval = F}
+ggplot(df) +
+  aes(x = as.numeric(month_day_plus)) +
+  aes(y = `Extent (million sq km)`) +
+  aes(group = year) +
+  geom_line() +
+  aes(col = year) +
+  scale_x_continuous(breaks = as.numeric(lubridate::ymd(c( "2000-01-01", "2000-04-01",  "2000-07-01", "2000-10-01", "2001-01-01"))), labels = c("Jan-01", "Apr-01", "Jul-01", "Oct-01", "Jan-01"), expand = c(0, 0)) +
+  scale_y_continuous(expand = c(0, 0), limits = c(0, 20)) +
+  scale_color_continuous(guide = guide_colourbar(reverse = TRUE), breaks = seq(2010, 1980, -10)) +
+  geom_line(aes(lty = factor(year)), data = df %>% filter(year == 2016 | year == 1982),  col = "white") +
+  scale_linetype_manual( name = "", values = c("dashed", "solid") ) +
+  annotate( geom = "text", x = 11210, y = 15, label = str_wrap("For this period, 1982 had the highest calendar-year average extent of Arctic sea ice while 2016 had the lowest", 30),col = "white",size = 7) +
+  labs(x = "") +
+  labs(y = "extent (million sq km)") +
+  labs(col = "") +
+  labs(lty = "") +
+  labs(title = "Freezing cycles: Arctic sea ice extent, 1979-2017") +
+  labs(subtitle = "Data Source: National Snow & Ice Data Center | Vis: Gina Reynolds for #MakeoverMonday") 
+  theme_dark(base_size = 14) +
+  theme(legend.background = element_blank()) +
+  theme(legend.position = c(0.1, .35)) +
+  theme(legend.text = element_text(colour = "white", size = 15)) +
+  theme(plot.background = element_rect(fill = "grey30")) +
+  theme(plot.title = element_text(colour = "lightgrey")) +
+  theme(plot.subtitle = element_text(colour = "lightgrey")) +
+  theme(axis.title = element_text(colour = "lightgrey")) +
+  theme(axis.line = element_line(colour = "lightgrey")) +
+  theme(axis.text = element_text(colour = "lightgrey")) +
+  theme(axis.ticks = element_line(colour = "lightgrey"))
+  
+  
+```
+
+
+`r paste(knitr::knit(text = partial_knit_chunks("ice")), collapse = "\n")`
+
+
+---

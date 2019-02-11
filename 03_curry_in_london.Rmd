@@ -1,0 +1,109 @@
+# Curry in London
+
+This visualization task seemed to get at the question: Does where you eat matter?  The data was the cost of identical menu items at different locations of the same restaurant, the Wetherspoon, around the UK.
+
+First, I mapped the cost of a single menu item, the Empire Burger, across the UK. Then, I calculated the distance from Wetherspoon restaurants from the Big Ben, and plotted prices as a function of this distance -- plotting only the restaurants in a 10 kilometer radius. 
+
+
+```{r, fig.width=15, echo = FALSE}
+# library(rgdal)
+
+# Public holiday data
+data0 <- readxl::read_xlsx("raw_data/Wetherspoon.xlsx", na = "n/a")
+```
+
+A random sample from the data set: 
+```{r, echo = F}
+knitr::kable(sample_n(data0, 5), format = "html")
+```
+
+
+```{r, cache=T, echo = F}
+# Mapping data
+world_map_df <- map_data("world")
+```
+
+A random sample from the data set: 
+```{r, echo = F}
+knitr::kable(sample_n(world_map_df, 5), format = "html")
+```
+
+---
+
+```{r, echo=F}
+# create a blank ggplot theme
+# theme_opts <-  + theme(
+#   panel.grid.minor = element_blank(),
+#   panel.grid.major = element_blank(),
+#   panel.background = element_blank(),
+#   plot.background = element_rect(fill = "#e6e8ed"),
+# )
+
+data_UK <- world_map_df %>% filter(region == "UK")
+```
+
+---
+
+```{r map_curry, eval=F, echo=F}
+ggplot(data = data_UK) +
+  aes(x = long) +
+  aes(y = lat) +
+  aes(group = group) +
+  geom_polygon(fill = "white") +
+  coord_equal() +
+  scale_fill_viridis_c(option = "viridis") +
+  geom_point(data = data0, mapping = aes(x = Longitude, y = Latitude, group = NULL, fill = `Empire State Burger`), colour = "black", shape = 21, stroke = 1, alpha = .5, size = 3) +
+  labs(fill = "Price\n(Pounds)") +
+  labs(title = "Wetherspoon Empire State Burger Price") +
+  labs(subtitle = "@EvaMaeRey | source: data.worldbank.org") +
+  theme_void() +
+  theme(plot.background = element_rect(fill = "#e6e8ed"))
+```
+
+`r paste(knitr::knit(text = partial_knit_chunks("map_curry")), collapse = "\n")`
+
+---
+
+```{r, echo = F}
+# https://www.latlong.net/place/the-tower-of-london-london-uk-81.html
+# Latitude and longitude coordinates are: 51.508530, -0.076132.
+LondonLat <- 51.508530
+LondonLong <- -0.076132
+# big ben
+LondonLat <- 51.510357
+LondonLong <- -0.116773
+
+data1 <- data0
+
+data1$`Kilometers from Big Ben` <- NA
+for (i in 1:nrow(data1)) {
+  data1$`Kilometers from Big Ben`[i] <-
+    geosphere::distm(c(data1$Longitude[i], data1$Latitude[i]), c(LondonLong, LondonLat)) / 1000
+}
+
+dataLong <- data1 %>% gather(Item, `Menu Item Price`, `Empire State Burger`:MEAL) %>% filter(Item != "MEAL", Item != "Porn Star (glass)", Item != "Porn Star at 2 x £12")
+```
+
+A random sample from the data set: 
+```{r, echo = F}
+knitr::kable(sample_n(dataLong, 5), format = "html")
+```
+
+---
+
+```{r away_from_ben, eval=F, echo=F}
+ggplot(data = dataLong) +
+  aes(x = `Kilometers from Big Ben`) +
+  aes(y = `Menu Item Price`) +
+  facet_wrap(~ Item, scales = "free_y") +
+  geom_point() +
+  geom_smooth() +
+  xlim(c(0, 10)) +
+  labs(title = "Wetherspoon Pubs' Menu Item Prices v. Distance from Big Ben") +
+  labs(subtitle = "Visualization: Gina Reynolds | Source: Financial Times Alphaville") 
+```
+
+
+`r paste(knitr::knit(text = partial_knit_chunks("away_from_ben")), collapse = "\n")`
+
+---
