@@ -34,7 +34,7 @@ ggplot(data = dta) +
 ```
 
 
-`r paste(knitr::knit(text = partial_knit_chunks("christmas")), collapse = "\n")`
+`r apply_reveal("christmas")`
 
 
 

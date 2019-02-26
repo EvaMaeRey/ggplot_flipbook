@@ -1,0 +1,100 @@
+# College Majors
+
+
+```{r}
+dir <- "raw_data"
+file <- paste0(dir, "/", "prison_summary.csv")
+url <- "https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2018/2018-10-16/recent-grads.csv"
+
+# create raw_data folder
+if(!dir.exists(dir)) { dir.create(dir) }
+
+# download data from internet and save
+download.file(url = url, 
+              destfile = file)
+
+# read in downloaded data
+df <- readr::read_csv(file)
+```
+
+
+```{r, fig.width = 18, fig.height=8}
+college_majors <- df %>% 
+  group_by(Major_category) %>%  
+  mutate(mean_share_women = mean(ShareWomen)) %>% 
+  mutate(share_non_college_jobs = Non_college_jobs/Total) 
+
+summarized <- college_majors %>% 
+         group_by(Major_category) %>%  
+         summarise(mean_share_women = mean(ShareWomen),
+                   mean_unemployment_rate = mean(Unemployment_rate),
+                   mean_share_non_college = mean(share_non_college_jobs)) %>%
+  arrange(mean_unemployment_rate) 
+
+my_line <- c(100,1000,10000, 100000, 400000)
+library(ggrepel)
+```
+
+---
+
+```{r recent_grads_01, eval=F, echo=F}
+ggplot(data = college_majors %>% mutate(Unemployed = ifelse(Unemployed == 0, 1, Unemployed))) +
+  aes(Total) +
+  aes(y = Unemployed) +
+  aes(label = paste0(Major, "\n$", Median, " annual" )) +
+  aes(col = Median/1000) +
+  scale_x_log10(breaks = c(1000,10000, 100000), labels = c(1000,10000, 100000)/1000) +
+  scale_y_log10() +
+  coord_equal() +
+  annotate(geom = "line", x = my_line, y = my_line/10, lty = "dotted") +
+  annotate(geom = "line", x = my_line, y = my_line/20, lty = "dotted") +
+  annotate(geom = "line", x = my_line, y = my_line/40, lty = "dotted") +
+  annotate(geom = "line", x = my_line, y = my_line/80, lty = "dotted") +
+  annotate(geom = "text",x = 100,y = 100/80,label = paste0(100/80, "%"),hjust = 1, size = 2) +
+  annotate(geom = "text",x = 100,y = 100/10,label = paste0(100/10, "%"),hjust = 1, size = 2) +
+  annotate(geom = "text",x = 100,y = 100/20,label = paste0(100/20, "%"),hjust = 1, size = 2) +
+  annotate(geom = "text",x = 100,y = 100/40,label = paste0(100/40, "%"),hjust = 1, size = 2) +
+  annotate(geom = "text",x = 1000,y = 7, label = "Percent Unemployment", angle = 45, size = 2) +
+  labs(x = "Number of new graduates in field (thousands)") +
+  labs(y = "Number Unemployed") +
+  labs(title = "Are niche fields less prone to unemployment?") +
+  labs(subtitle = "Data Source: PUMS Survey of New Graduates via 538 and @TidyTuesday\nViz: @EvaMaeRey") +
+  geom_point(alpha = .8) +
+  scale_colour_viridis_c(option = "D", alpha = .8) +
+  facet_wrap(~ Major_category, nrow = 3) +
+  theme_bw(base_family = "Times") + 
+  labs(col = "Median Earnings\n(thousands $ per year)") +
+  ggpmisc::stat_dens2d_filter(geom = "text_repel", keep.fraction = 0.50, size = 1, alpha = 1) +
+  expand_limits(x = c(40,0))
+```
+
+
+`r apply_reveal("recent_grads_01")`
+
+---
+
+```{r recent_grads_02, eval=F, echo=F}
+ggplot(data = college_majors ) +
+  aes(x = share_non_college_jobs) +
+  aes(y = Unemployment_rate) +
+  aes(label = Major) +
+  aes(col = Median/1000) +
+  facet_wrap(~ factor(Major_category, summarized$Major_category)) +
+  geom_point(alpha = .7) +
+  geom_vline(data = summarized, aes(xintercept = mean_share_non_college), lty = "dotted") +
+  geom_hline(data = summarized, aes(yintercept = mean_unemployment_rate), lty = "dotted") +
+  theme_light() +
+  scale_colour_viridis_c(option = "D") +
+  labs(y = "unemployment rate") +
+  labs(x = "share working jobs requiring no college") +
+  labs(size = "Total\nestimated\n(thousands)") +
+  labs(col = "Median\nsalary\n(thousands US$)") +
+  labs(title = "Recent graduates: Unemployment and Share working jobs not requiring college degree") +
+  labs(subtitle = "@EvaMaeRey for #TidyTuesday|Data Source: American Community Survey 2010-2012")
+```
+
+
+
+`r apply_reveal("recent_grads_02")`
+
+---

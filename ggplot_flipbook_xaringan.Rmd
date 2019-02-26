@@ -18,9 +18,9 @@ output:
 # Introduction
 
 
-The ggplot2 package in the programming language R implements the "layered grammar of graphics" --- a proposal of Leland Wilkinson and the product of the dissertation and ongoing work of Hadley Wickham.  This data visualization system idea is at once powerful, novel, and intuitive.  Wickham and collaborators have built a system where data visualization as dividable into parameters:  data to visualize, aesthetics that represent variables, geometric objects, a coordinate system, specific scales, and statistical transformation.  
+The ggplot2 package in the programming language R implements the "layered grammar of graphics" --- a proposal of Leland Wilkinson and the product of the dissertation and ongoing work of Hadley Wickham.  This data visualization system idea is at once powerful, novel, and intuitive.  Wickham and collaborators have built a system where data visualization is dividable into parameters:  data to visualize, aesthetics that represent variables, geometric objects, a coordinate system, specific scales, and statistical transformation.  
 
-In this book, I use a "slow ggplotting" method as well as a "flipbook" format to facilitate the introduction of this plotting method. "Slow ggplotting" makes modifications to plots as incrementally as possible so that it is clear to users what code triggers each new layer or modification.  The aim is less to be concise, and more to be explicit about how new statements modify the plot; repetition should facilitating more interactions with ggplot functions for newcomer internalize the functions. The flipbook layout is designed to show what code is triggering each change in the plot output. 
+In this book, I use a "slow ggplotting" method as well as a "flipbook" format to facilitate the introduction of this plotting method. "Slow ggplotting" makes modifications to plots as incrementally as possible so that it is clear to users what code triggers each new layer or modification.  The aim is less to be concise, and more to be explicit about how new statements modify the plot; repetition should facilitating more interactions with ggplotting to help newcomers internalize the functions. The flipbook layout is designed to show what code is triggering each change in the plot output. 
 
 Readers of the book should easily be able to follow along with how plots are built up.  While intuitive, using ggplotting effectively and efficiently nevertheless requires practice.  My hope is that these examples will be a helpful reference point for those that endeavor to pick up data visualization with ggplot2. 
 
@@ -80,7 +80,9 @@ ggplot(data = my_data) +
 
 # Acknowledgements
 
-I'm grateful to the ggplot team for their tireless work on developing and maintaining this fantastic resource.  Additionally most of the visualizations here were produced for the Tableau-users-associated initiative #MakeoverMonday. I'm grateful to that community for feedback and encouragement and welcoming work from outside of Tableau.  Additional visualizations have been made with data curated by #TidyTuesday, a similar initiative from RStudio. Many thanks are due to Emi Tanaka (@statsgen) and Garrick Aden-Buie (@grrrck) helped by writing the "reveal" function to made the flipbook style possible.  Also to Yihui Xie and others that work on the Xaringan package for creating slides from markdown and R code; I'm using Emi Tanaka's themes kunoichi and ninjutsu.  I'm grateful too to my students who motivate me to think about how to teach what I've been so lucky to learn.  And thanks to David, who is supportive of plotting and of me. 
+I'm grateful to the ggplot team for their tireless work on developing and maintaining this fantastic resource.  Additionally most of the visualizations here were produced for the Tableau-users-associated initiative #MakeoverMonday. I'm grateful to that community for feedback and encouragement and for welcoming work from outside of Tableau.  Additional visualizations have been made with data curated by #TidyTuesday, a similar initiative from RStudio. Many thanks are due to Emi Tanaka (@statsgen) and Garrick Aden-Buie (@grrrck) helped by writing the "reveal" function to made the flipbook style possible.  Also to Yihui Xie and others that work on the Xaringan package for creating slides from markdown and R code; I'm using Emi Tanaka's themes kunoichi and ninjutsu. 
+
+While I'm hopeful that this book serves as a reference, I think the best introductions and learning happens in person.  My formal introduction to ggplot2 was at The Zurich Summer School for Women in Political Methodology in 2017 at the University of Zürich.  I'm very grateful to the organizers and presenters of that workshop; Denise Traber gave an excellent presention on ggplot2.  I'm grateful too to my students who motivate me to think about how to teach what I've been so lucky to learn.    And thanks to David, who is supportive of plotting and of me. 
 
 
 ---
@@ -89,7 +91,7 @@ I'm grateful to the ggplot team for their tireless work on developing and mainta
 library(tidyverse)
 library(printr)
 knitr::opts_chunk$set(echo = TRUE)
-knitr::opts_chunk$set(fig.height = 6, out.width = "80%", comment = " ")
+knitr::opts_chunk$set(fig.height = 6, out.width = "80%", comment = " ", cache = T)
 # reveal lines up to `upto` and highlight lines `highlight`
 reveal <- function(name, upto, highlight = upto) {
   content <- knitr:::knit_code$get(name)
@@ -99,6 +101,7 @@ reveal <- function(name, upto, highlight = upto) {
   content[highlight] <- paste(content[highlight], "#<<")
   content[1:upto]
 }
+
 partial_knit_chunks <- function(chunk_name) {
   browser()
   # Create slide for lines 1:N for each line N in the given chunk
@@ -118,6 +121,10 @@ partial_knit_chunks <- function(chunk_name) {
     .open = "{{", .close = "}}", .sep = "\n"
   )
   glue::glue_collapse(partial_knit_steps, "\n---\n")
+}
+
+apply_reveal <- function(chunk_name){
+  paste(knitr::knit(text = partial_knit_chunks(chunk_name)), collapse = "\n")
 }
 ``` 
 
@@ -141,19 +148,14 @@ partial_knit_chunks <- function(chunk_name) {
 
 # Hic sunt dracones!
 
-This book is not complete.  The plots that follow aren't as carefully edited as what precedes. But feel free to have a look around. This "here be dragons" slide should move later and later on as weeks go by.  Also I hope to add new work as time goes on.  
+This book is not complete.  The plots that follow aren't as carefully edited as what precedes. But feel free to have a look around. This "here be dragons" slide should move later and later on as weeks go by.  Also I hope to add new work as time goes on.
 
 
 ---
 
-```{r, child = list.files()[3:13], warning=F, message=F}
+```{r, child = list.files()[3:17], warning=F, message=F}
 
 ```
-
-
-
-
-
 
 
 

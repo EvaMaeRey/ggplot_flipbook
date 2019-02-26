@@ -1,0 +1,63 @@
+# Incarceration
+
+
+```{r, echo = F}
+dir <- "raw_data"
+file <- paste0(dir, "/", "prison_summary.csv")
+url <- "https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-01-22/prison_summary.csv"
+
+# create raw_data folder
+if(!dir.exists(dir)) { dir.create(dir) }
+
+# download data from internet and save
+download.file(url = url, 
+              destfile = file)
+
+# read in downloaded data
+df <- readr::read_csv(file)
+```
+
+---
+
+
+```{r, echo = F}
+data <- df %>% 
+  filter(pop_category %in% c("Female", "Male")) 
+```
+
+```{r incarceration_01, eval=F, echo=F}
+  ggplot(data = data) + 
+  aes(x = year, y = rate_per_100000) +
+  geom_line() +
+  facet_grid(urbanicity ~ pop_category) +
+  theme_minimal(base_family = "Times") +
+  labs(x = "", y = "Incarcerated per 100000") +
+  labs(subtitle = "Data source: Vera Institute of Justice") +
+  labs(title = "Incarceration rates by sex and urbanicity in the US, 1983-2015")
+```
+
+
+`r apply_reveal("incarceration_01")`
+
+---
+
+```{r, echo =F}
+dat <- df %>% 
+  filter(!(pop_category %in% c("Female", "Male", "Total", "Other"))) 
+```
+
+
+```{r incarceration_02, eval=F, echo=F}
+  ggplot(data = dat) + 
+  aes(x = year, y = rate_per_100000) +
+  geom_line() +
+  facet_grid(urbanicity ~ pop_category) +
+  theme_minimal(base_family = "Times") +
+  labs(x = "", y = "Incarcerated per 100000") +
+  labs(subtitle = "Data source: Vera Institute of Justice") +
+  labs(title = "Incarceration rates by race/ethnicity and urbanicity in the US, 1983-2015") 
+```
+
+`r apply_reveal("incarceration_02")`
+
+---

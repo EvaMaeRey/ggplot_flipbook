@@ -1,0 +1,45 @@
+# Salarys of Trump and Obama White House Employees
+
+The data set, originally reported on in an NPR article, shows the difference in the distribution of salaries for the Obama and early Trump White House. 
+
+First I plot a histogram of each administration.  Then I also contrast boxplots for each administration; the data points are overlayed, jittered to the widths of the boxplots.  Plotly is used to make the graph interactive; mousing over will allow you to see who the point represents, their job description and exactly how much they are paid.   
+
+
+```{r, echo = F}
+library(readxl)
+library(tidyverse)
+Trump_White_House_salaries <- read_excel("raw_data/White House salaries.xlsx")
+Obama_White_House_salaries <- read_excel("raw_data/White House salaries.xlsx",
+  sheet = "Obama admin"
+)
+
+both_data <- bind_rows(Trump_White_House_salaries, Obama_White_House_salaries) %>%
+  mutate(position_and_name = paste(NAME, `POSITION TITLE`, sep = "\n"))
+```
+
+
+A random sample from the data set: 
+```{r, echo = F}
+knitr::kable(sample_n(both_data %>% select(-position_and_name), 5), format = "html")
+```
+
+---
+
+```{r white_house, eval=F, echo=F}
+ggplot(both_data) +
+  aes(x = ADMINISTRATION) + 
+  aes(y = SALARY) +
+  geom_jitter(alpha = .5, height = 0, width = .25) +
+  aes(col = ADMINISTRATION) +
+  geom_boxplot(alpha = .25) +
+  aes(fill = ADMINISTRATION) +
+  scale_colour_manual(values = c("blue", "red")) +
+  scale_fill_manual(values = c("blue", "red")) +
+  theme_bw()
+```
+
+
+`r paste(knitr::knit(text = partial_knit_chunks("white_house")), collapse = "\n")`
+
+
+---

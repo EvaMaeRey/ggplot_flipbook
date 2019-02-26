@@ -1,0 +1,69 @@
+# Wind Turbine Locations 
+
+Relatively clean datasets:  https://github.com/rfordatascience/tidytuesday
+
+
+```{r, echo = F}
+
+dir <- "raw_data"
+file <- paste0(dir, "/", "us_wind.csv")
+url <- "https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2018/2018-11-06/us_wind.csv"
+
+# create raw_data folder
+if(!dir.exists(dir)) { dir.create(dir) }
+
+# download data from internet and save
+download.file(url = url, 
+              destfile = file)
+
+# read in downloaded data
+us_wind <- readr::read_csv(file)
+```
+
+
+```{r, echo = F}
+usa <- map_data("state")
+```
+
+
+
+---
+  
+```{r wind_01, eval=F, echo=F}
+ggplot(data = usa) +  
+  aes(long, lat, group = group) + 
+  geom_polygon(fill = "blue", alpha = .4) + 
+  theme_classic() +
+  coord_map(projection = "mercator") +
+  geom_point(data = us_wind %>% filter(ylat < 50 & ylat > 25), mapping = aes(xlong, ylat, group = NULL), size = .5, col = "orange", alpha = .75) + 
+  theme_void() + 
+  labs(title = "Wind turbines in the continental US") + 
+  labs(caption = "Tidy Tuesday exercise") +
+  labs(subtitle = "Data Source: | Visualization: Gina Reynolds") 
+```
+
+
+`r apply_reveal("wind_01")`
+
+
+---
+
+```{r, echo=F}
+data <- us_wind %>% 
+  filter(ylat < 50 & ylat > 25)
+```
+
+
+```{r wind_02, eval=F, echo=F}
+  ggplot(data) +
+  aes(xlong, ylat) + 
+  borders("state") +
+  geom_point() +
+  coord_map() +
+  theme_void()
+```
+
+`r apply_reveal("wind_02")`
+
+---
+

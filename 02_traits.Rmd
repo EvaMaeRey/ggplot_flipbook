@@ -1,0 +1,93 @@
+# Traits
+
+```{r, echo = F}
+df <- readxl::read_xlsx("raw_data/Looks vs Personality.xlsx") %>%
+  mutate(country = str_replace(Nationality, "n$", "")) %>%
+  mutate(country = recode(country,
+    America = "USA",
+    Arabia = "Saudi Arabia",
+    British = "United Kingdom",
+    Danish = "Denmark",
+    Egyptia = "Egypt",
+    Filipino = "Philippines",
+    Finnish = "Finland",
+    French = "France",
+    Germa = "Germany",
+    Norwegia = "Norway",
+    Singaporea = "Singapore",
+    Swedish = "Sweden",
+    Thai = "Thailand",
+    Vietnamese = "Vietnam"
+  )) %>%
+  mutate(country_name = countrycode::countrycode(country, "country.name", "country.name")) %>%
+  mutate(Percent = Percentage * 100) %>%
+  mutate(
+    Question_short =
+      recode(Question,
+        `They have a personality I like` = "Personality",
+        `They have a sense of humour I like` = "Sense of humor",
+        `They are intelligent` = "Intellegence",
+        `They have similar interests to me` = "Has similar interests",
+        `They are good looking` = "Looks",
+        `They have/make a decent amount of money` = "Money"
+      )
+  ) %>%
+  mutate(`Rank (text)`)
+
+
+tmp <- df %>%
+  group_by(Question, Question_short) %>%
+  summarise(max = mean(Percentage * (7 - `Rank (number)`))) %>%
+  arrange(-max)
+
+df <- df %>%
+  mutate(Question = factor(Question, tmp$Question)) %>%
+  mutate(Question_str_wrap = factor(
+    str_wrap(Question, 12),
+    str_wrap(tmp$Question, 12)
+  )) %>%
+  mutate(Question_short_wrap = factor(
+    str_wrap(Question_short, 12),
+    str_wrap(tmp$Question_short, 12)
+  ))
+
+world <- df %>%
+  group_by(Gender, Question_short, Question_short_wrap, `Rank (text)`, `Rank (number)`) %>%
+  summarise(n = sum(Unweighted_Sample * Percentage)) %>%
+  group_by(Gender, Question_short, Question_short_wrap) %>%
+  mutate(Percent = 100 * n / sum(n)) %>% 
+  mutate(`Rank (text)` = factor(`Rank (text)`, levels = c("Ranked sixth", "Ranked fifth", "Ranked fourth", "Ranked third", "Ranked second", "Ranked first")))
+
+
+world_surved <- df %>%
+  group_by(Gender, Nationality) %>%
+  summarise(n = mean(Unweighted_Sample)) %>%
+  group_by(Gender) %>%
+  summarise(n = sum(n))
+
+```
+
+A random sample from the data set: 
+```{r, echo = F}
+knitr::kable(sample_n(world %>% ungroup() %>% select(-Question_short_wrap), 5), format = "html")
+```
+
+---
+
+```{r traits, fig.height=6, fig.width=12, eval=F, echo=F}
+ggplot(data = world) + 
+  aes(x = Question_short_wrap, y = Percent) +
+  aes(fill = `Rank (text)`) +
+  facet_grid(Gender ~ .) +
+  geom_col() +
+  coord_flip() +
+  scale_fill_manual(values = colorRampPalette(RColorBrewer::brewer.pal(9, "Purples"))(6)[1:6], guide = guide_legend(reverse = TRUE)) +
+  labs(fill = "") +
+  xlab("") +
+  labs(title = "Why do I love thee?  Let me rank the traits... \nHow 10,689 men and 11,370 women across 20 countries rank romantic partner trait importance") +
+  labs(subtitle = "Data Source: @mattsmithetc and @YouGov | Design: Gina Reynolds") 
+```
+
+`r paste(knitr::knit(text = partial_knit_chunks("traits")), collapse = "\n")`
+
+---

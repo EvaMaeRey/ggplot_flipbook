@@ -1,0 +1,63 @@
+# Milk Industry
+
+
+```{r, echo = F}
+
+dir <- "raw_data"
+file <- paste0(dir, "/", "milkcow_facts.csv")
+url <- "https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-01-29/milkcow_facts.csv"
+
+# create raw_data folder
+if(!dir.exists(dir)) { dir.create(dir) }
+
+# download data from internet and save
+download.file(url = url, 
+              destfile = file)
+
+# read in downloaded data
+milkcow_facts <- readr::read_csv(file)
+```
+
+
+
+```{r, echo = F}
+df <- milkcow_facts %>% 
+  mutate(milk_cow_cost_per_animal_lag =
+           lag(milk_cow_cost_per_animal)) %>% 
+  mutate(between_cost = (milk_cow_cost_per_animal_lag + milk_cow_cost_per_animal)/2) %>% 
+  mutate(percent_change = 
+           round(100*(milk_cow_cost_per_animal - milk_cow_cost_per_animal_lag) / milk_cow_cost_per_animal_lag, 0)) 
+
+df_changes <- df %>% filter(year > 2004)
+```
+
+---
+
+
+```{r milk, eval=F, echo=F}
+  ggplot(df_changes) +
+  aes(xmin = year - .3, xmax = year + .3) + 
+  aes(ymin = milk_cow_cost_per_animal_lag, ymax = milk_cow_cost_per_animal) +
+  geom_rect(fill = "blue", alpha = .3) +
+  geom_col(aes(x = year, y = milk_cow_cost_per_animal), data = df %>% filter(year == 2004), fill = "grey", alpha = .5) +
+  labs(x = "") +
+  labs(fill = "") +
+  labs(y = "Cost (US$)") +
+  labs(title = "Cost of milk cows in the United States") +
+  labs(subtitle = "Per animal cost, 2004-2014 | Viz: Gina Reynolds") +
+  scale_y_continuous(limits = c(0, 2004)) +
+  scale_x_continuous(breaks = seq(2004,2014, by = 2), limits = c(2003.5, 2014.5)) +
+  aes(x = year - .5,  xend = year + 1.5) +
+  aes(y = milk_cow_cost_per_animal, yend = milk_cow_cost_per_animal) +
+  geom_segment(data = df %>% filter(year >= 2004 & year < 2014), linetype = "dashed", col = "gray39") +
+  geom_segment(data = df %>% filter(year == 2014), linetype = "dashed", aes(x = year - .5, xend = year + .5), col = "gray39") +
+  scale_fill_viridis_d() +
+  theme_bw(base_family = "Times") +
+  aes(label = paste0(percent_change, "%")) +
+  geom_text(show.legend = F, aes(y = milk_cow_cost_per_animal, x = year, col = percent_change > 0),  size = 3, nudge_y = 90 * ((df_changes$percent_change > 0) - .5)) +
+  scale_color_manual(values = rev(c("gray39", "tomato4"))) +
+  labs(x = "", y = "Price ($US)")
+```
+
+`r apply_reveal("milk")`
+
