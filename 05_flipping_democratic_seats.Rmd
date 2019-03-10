@@ -1,0 +1,44 @@
+# Flipping seats 
+
+
+
+```{r, echo = F}
+library(tidyverse)
+df <- tribble(~year, ~percent, ~category,
+2006,  3, "POC",
+2006, 13, "Women",
+2006, 23, "Under 45",
+2006, 83, "White men",
+2018, 21, "POC",
+2018, 68, "Women",
+2018, 53, "Under 45",
+2018, 24, "White men") 
+```
+
+
+
+---
+
+```{r flipping_seats, echo = F, eval = F}
+ggplot(df) +
+  aes(x = factor(year), y = percent) +
+  facet_wrap(~ forcats::fct_inorder(category), nrow = 1) +
+  geom_col(aes(y = 100), fill = "white", width = .6, alpha = .1, col = "grey") +
+  geom_col(width = .6, alpha = .5) +
+  aes(fill = category == "White men") +
+  ylim(c(0,100)) +
+  theme_bw() +
+  labs(x = "") +
+  labs(y = "Demographic's percentage \n of the seat flipping") +
+  aes(group = category) +
+  geom_line(col = "grey", lty = "dashed", mapping = aes(x = c(1.3, 1.3, 1.3, 1.3, 1.7, 1.7, 1.7, 1.7))) +
+  scale_fill_manual(values = c("blue", "darkgrey"), guide = FALSE) +
+  labs(title = "Who's the face of the 'Blue Wave'?") +
+  labs(subtitle = "Data: https://twitter.com/williamjordann/status/1063482594938028032 \n --- seats were flipped to democratic in 2006, and --- seats in 2018") +
+  labs(caption = "Chart by Gina Reynolds") 
+
+```
+
+`r apply_reveal("flipping_seats")`
+
+---

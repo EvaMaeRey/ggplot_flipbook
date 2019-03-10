@@ -1,0 +1,45 @@
+# Highlighting among ratings 
+
+Fine tuning a plot.
+
+Compare the following plot to other possible ways of displaying similar data: https://twitter.com/FILWD/status/1060212703636217856  
+
+
+
+```{r, echo = F}
+# create some toy data 
+outcome <- rnorm(20)
+cat <- paste("Feature", rep(LETTERS[1:4],5))
+company <- paste("Company", sort(rep(letters[1:5], 4)))
+  
+df <- tibble(outcome,cat,company) %>% 
+    group_by(cat) %>% 
+    arrange(desc(outcome)) %>% 
+    mutate(rank = 1:n()) 
+```
+
+---
+
+```{r company_ranks, echo = F, eval = F}
+ggplot(df) +
+  aes(x = rank) +
+  aes(y = outcome) +
+  geom_point(size = 2) +
+  facet_grid(. ~ cat) +
+  aes(col = company) +
+  aes(shape = company) +
+  aes(size = company) +
+  labs(x = "Rank for among companies for feature") +
+  scale_color_manual(name = "", values = c("steelblue", "darkgrey", "darkgrey", "darkgrey", "darkgrey")) +
+  scale_shape_discrete(name = "") +
+  theme_bw(base_family = "Times") +
+  labs(title = "Average Score and Ranks across features exercise w/ R & ggplot2") +
+  labs(subtitle = "Data Source: Randomly generated toy data in R | Viz: Gina Reynolds") +
+  labs(y = "Average Score") +
+  scale_x_continuous(breaks = 1:5, labels = 1:5, limits = c(.5, 5.5)) 
+```
+
+
+`r apply_reveal("company_ranks")`
+
+---
