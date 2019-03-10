@@ -7,11 +7,10 @@ file <- paste0(dir, "/", "prison_summary.csv")
 url <- "https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2018/2018-10-16/recent-grads.csv"
 
 # create raw_data folder
-if(!dir.exists(dir)) { dir.create(dir) }
+if (!dir.exists(dir)) { dir.create(dir) }
 
 # download data from internet and save
-download.file(url = url, 
-              destfile = file)
+if (!file.exists(file)) { download.file(url = url, destfile = file) }
 
 # read in downloaded data
 df <- readr::read_csv(file)

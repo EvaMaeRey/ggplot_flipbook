@@ -1733,6 +1733,78 @@ ggplot(both_data) +
 .column[.content.center[
 &lt;img src="ggplot_flipbook_xaringan_files/figure-html/white_house_10-1.png" width="80%" /&gt;
 ]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(both_data) +
+  aes(x = ADMINISTRATION) + 
+  aes(y = SALARY) +
+  geom_jitter(alpha = .5, height = 0, width = .25) +
+  aes(col = ADMINISTRATION) +
+  geom_boxplot(alpha = .25) +
+  aes(fill = ADMINISTRATION) +
+  scale_colour_manual(values = c("blue", "red")) +
+  scale_fill_manual(values = c("blue", "red")) +
+  theme_bw() +
+* labs(title = "Obama and Trump White House Salaries as of early 2017")
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/white_house_11-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(both_data) +
+  aes(x = ADMINISTRATION) + 
+  aes(y = SALARY) +
+  geom_jitter(alpha = .5, height = 0, width = .25) +
+  aes(col = ADMINISTRATION) +
+  geom_boxplot(alpha = .25) +
+  aes(fill = ADMINISTRATION) +
+  scale_colour_manual(values = c("blue", "red")) +
+  scale_fill_manual(values = c("blue", "red")) +
+  theme_bw() +
+  labs(title = "Obama and Trump White House Salaries as of early 2017") +
+* labs(subtitle = "Data source: NPR via #MakeoverMonday")
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/white_house_12-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(both_data) +
+  aes(x = ADMINISTRATION) + 
+  aes(y = SALARY) +
+  geom_jitter(alpha = .5, height = 0, width = .25) +
+  aes(col = ADMINISTRATION) +
+  geom_boxplot(alpha = .25) +
+  aes(fill = ADMINISTRATION) +
+  scale_colour_manual(values = c("blue", "red")) +
+  scale_fill_manual(values = c("blue", "red")) +
+  theme_bw() +
+  labs(title = "Obama and Trump White House Salaries as of early 2017") +
+  labs(subtitle = "Data source: NPR via #MakeoverMonday") +
+* labs(caption = "Visualization: Gina Reynolds")
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/white_house_13-1.png" width="80%" /&gt;
+]]
 
 
 ---
@@ -6139,11 +6211,10 @@ file &lt;- paste0(dir, "/", "prison_summary.csv")
 url &lt;- "https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2018/2018-10-16/recent-grads.csv"
 
 # create raw_data folder
-if(!dir.exists(dir)) { dir.create(dir) }
+if (!dir.exists(dir)) { dir.create(dir) }
 
 # download data from internet and save
-download.file(url = url, 
-              destfile = file)
+if (!file.exists(file)) { download.file(url = url, destfile = file) }
 
 # read in downloaded data
 df &lt;- readr::read_csv(file)
@@ -7280,7 +7351,10 @@ ggplot(data = college_majors ) +
 
 ---
 
-# Incarceration
+# Flipping seats 
+
+
+
 
 
 
@@ -7289,6 +7363,767 @@ ggplot(data = college_majors ) +
 
 
 
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+*ggplot(df)
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/flipping_seats_1-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df) +
+* aes(x = factor(year), y = percent)
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/flipping_seats_2-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df) +
+  aes(x = factor(year), y = percent) +
+* facet_wrap(~ forcats::fct_inorder(category), nrow = 1)
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/flipping_seats_3-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df) +
+  aes(x = factor(year), y = percent) +
+  facet_wrap(~ forcats::fct_inorder(category), nrow = 1) +
+* geom_col(aes(y = 100), fill = "white", width = .6, alpha = .1, col = "grey")
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/flipping_seats_4-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df) +
+  aes(x = factor(year), y = percent) +
+  facet_wrap(~ forcats::fct_inorder(category), nrow = 1) +
+  geom_col(aes(y = 100), fill = "white", width = .6, alpha = .1, col = "grey") +
+* geom_col(width = .6, alpha = .5)
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/flipping_seats_5-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df) +
+  aes(x = factor(year), y = percent) +
+  facet_wrap(~ forcats::fct_inorder(category), nrow = 1) +
+  geom_col(aes(y = 100), fill = "white", width = .6, alpha = .1, col = "grey") +
+  geom_col(width = .6, alpha = .5) +
+* aes(fill = category == "White men")
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/flipping_seats_6-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df) +
+  aes(x = factor(year), y = percent) +
+  facet_wrap(~ forcats::fct_inorder(category), nrow = 1) +
+  geom_col(aes(y = 100), fill = "white", width = .6, alpha = .1, col = "grey") +
+  geom_col(width = .6, alpha = .5) +
+  aes(fill = category == "White men") +
+* ylim(c(0,100))
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/flipping_seats_7-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df) +
+  aes(x = factor(year), y = percent) +
+  facet_wrap(~ forcats::fct_inorder(category), nrow = 1) +
+  geom_col(aes(y = 100), fill = "white", width = .6, alpha = .1, col = "grey") +
+  geom_col(width = .6, alpha = .5) +
+  aes(fill = category == "White men") +
+  ylim(c(0,100)) +
+* theme_bw()
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/flipping_seats_8-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df) +
+  aes(x = factor(year), y = percent) +
+  facet_wrap(~ forcats::fct_inorder(category), nrow = 1) +
+  geom_col(aes(y = 100), fill = "white", width = .6, alpha = .1, col = "grey") +
+  geom_col(width = .6, alpha = .5) +
+  aes(fill = category == "White men") +
+  ylim(c(0,100)) +
+  theme_bw() +
+* labs(x = "")
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/flipping_seats_9-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df) +
+  aes(x = factor(year), y = percent) +
+  facet_wrap(~ forcats::fct_inorder(category), nrow = 1) +
+  geom_col(aes(y = 100), fill = "white", width = .6, alpha = .1, col = "grey") +
+  geom_col(width = .6, alpha = .5) +
+  aes(fill = category == "White men") +
+  ylim(c(0,100)) +
+  theme_bw() +
+  labs(x = "") +
+* labs(y = "Demographic's percentage \n of the seat flipping")
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/flipping_seats_10-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df) +
+  aes(x = factor(year), y = percent) +
+  facet_wrap(~ forcats::fct_inorder(category), nrow = 1) +
+  geom_col(aes(y = 100), fill = "white", width = .6, alpha = .1, col = "grey") +
+  geom_col(width = .6, alpha = .5) +
+  aes(fill = category == "White men") +
+  ylim(c(0,100)) +
+  theme_bw() +
+  labs(x = "") +
+  labs(y = "Demographic's percentage \n of the seat flipping") +
+* aes(group = category)
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/flipping_seats_11-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df) +
+  aes(x = factor(year), y = percent) +
+  facet_wrap(~ forcats::fct_inorder(category), nrow = 1) +
+  geom_col(aes(y = 100), fill = "white", width = .6, alpha = .1, col = "grey") +
+  geom_col(width = .6, alpha = .5) +
+  aes(fill = category == "White men") +
+  ylim(c(0,100)) +
+  theme_bw() +
+  labs(x = "") +
+  labs(y = "Demographic's percentage \n of the seat flipping") +
+  aes(group = category) +
+* geom_line(col = "grey", lty = "dashed", mapping = aes(x = c(1.3, 1.3, 1.3, 1.3, 1.7, 1.7, 1.7, 1.7)))
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/flipping_seats_12-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df) +
+  aes(x = factor(year), y = percent) +
+  facet_wrap(~ forcats::fct_inorder(category), nrow = 1) +
+  geom_col(aes(y = 100), fill = "white", width = .6, alpha = .1, col = "grey") +
+  geom_col(width = .6, alpha = .5) +
+  aes(fill = category == "White men") +
+  ylim(c(0,100)) +
+  theme_bw() +
+  labs(x = "") +
+  labs(y = "Demographic's percentage \n of the seat flipping") +
+  aes(group = category) +
+  geom_line(col = "grey", lty = "dashed", mapping = aes(x = c(1.3, 1.3, 1.3, 1.3, 1.7, 1.7, 1.7, 1.7))) +
+* scale_fill_manual(values = c("blue", "darkgrey"), guide = FALSE)
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/flipping_seats_13-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df) +
+  aes(x = factor(year), y = percent) +
+  facet_wrap(~ forcats::fct_inorder(category), nrow = 1) +
+  geom_col(aes(y = 100), fill = "white", width = .6, alpha = .1, col = "grey") +
+  geom_col(width = .6, alpha = .5) +
+  aes(fill = category == "White men") +
+  ylim(c(0,100)) +
+  theme_bw() +
+  labs(x = "") +
+  labs(y = "Demographic's percentage \n of the seat flipping") +
+  aes(group = category) +
+  geom_line(col = "grey", lty = "dashed", mapping = aes(x = c(1.3, 1.3, 1.3, 1.3, 1.7, 1.7, 1.7, 1.7))) +
+  scale_fill_manual(values = c("blue", "darkgrey"), guide = FALSE) +
+* labs(title = "Who's the face of the 'Blue Wave'?")
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/flipping_seats_14-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df) +
+  aes(x = factor(year), y = percent) +
+  facet_wrap(~ forcats::fct_inorder(category), nrow = 1) +
+  geom_col(aes(y = 100), fill = "white", width = .6, alpha = .1, col = "grey") +
+  geom_col(width = .6, alpha = .5) +
+  aes(fill = category == "White men") +
+  ylim(c(0,100)) +
+  theme_bw() +
+  labs(x = "") +
+  labs(y = "Demographic's percentage \n of the seat flipping") +
+  aes(group = category) +
+  geom_line(col = "grey", lty = "dashed", mapping = aes(x = c(1.3, 1.3, 1.3, 1.3, 1.7, 1.7, 1.7, 1.7))) +
+  scale_fill_manual(values = c("blue", "darkgrey"), guide = FALSE) +
+  labs(title = "Who's the face of the 'Blue Wave'?") +
+* labs(subtitle = "Data: https://twitter.com/williamjordann/status/1063482594938028032 \n --- seats were flipped to democratic in 2006, and --- seats in 2018")
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/flipping_seats_15-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df) +
+  aes(x = factor(year), y = percent) +
+  facet_wrap(~ forcats::fct_inorder(category), nrow = 1) +
+  geom_col(aes(y = 100), fill = "white", width = .6, alpha = .1, col = "grey") +
+  geom_col(width = .6, alpha = .5) +
+  aes(fill = category == "White men") +
+  ylim(c(0,100)) +
+  theme_bw() +
+  labs(x = "") +
+  labs(y = "Demographic's percentage \n of the seat flipping") +
+  aes(group = category) +
+  geom_line(col = "grey", lty = "dashed", mapping = aes(x = c(1.3, 1.3, 1.3, 1.3, 1.7, 1.7, 1.7, 1.7))) +
+  scale_fill_manual(values = c("blue", "darkgrey"), guide = FALSE) +
+  labs(title = "Who's the face of the 'Blue Wave'?") +
+  labs(subtitle = "Data: https://twitter.com/williamjordann/status/1063482594938028032 \n --- seats were flipped to democratic in 2006, and --- seats in 2018") +
+* labs(caption = "Chart by Gina Reynolds")
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/flipping_seats_16-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df) +
+  aes(x = factor(year), y = percent) +
+  facet_wrap(~ forcats::fct_inorder(category), nrow = 1) +
+  geom_col(aes(y = 100), fill = "white", width = .6, alpha = .1, col = "grey") +
+  geom_col(width = .6, alpha = .5) +
+  aes(fill = category == "White men") +
+  ylim(c(0,100)) +
+  theme_bw() +
+  labs(x = "") +
+  labs(y = "Demographic's percentage \n of the seat flipping") +
+  aes(group = category) +
+  geom_line(col = "grey", lty = "dashed", mapping = aes(x = c(1.3, 1.3, 1.3, 1.3, 1.7, 1.7, 1.7, 1.7))) +
+  scale_fill_manual(values = c("blue", "darkgrey"), guide = FALSE) +
+  labs(title = "Who's the face of the 'Blue Wave'?") +
+  labs(subtitle = "Data: https://twitter.com/williamjordann/status/1063482594938028032 \n --- seats were flipped to democratic in 2006, and --- seats in 2018") +
+  labs(caption = "Chart by Gina Reynolds") 
+ #&lt;&lt;
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/flipping_seats_17-1.png" width="80%" /&gt;
+]]
+
+---
+
+# Highlighting among ratings 
+
+Fine tuning a plot.
+
+Compare the following plot to other possible ways of displaying similar data: https://twitter.com/FILWD/status/1060212703636217856  
+
+
+
+
+
+---
+
+
+
+
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+*ggplot(df)
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/company_ranks_1-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df) +
+* aes(x = rank)
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/company_ranks_2-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df) +
+  aes(x = rank) +
+* aes(y = outcome)
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/company_ranks_3-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df) +
+  aes(x = rank) +
+  aes(y = outcome) +
+* geom_point(size = 2)
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/company_ranks_4-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df) +
+  aes(x = rank) +
+  aes(y = outcome) +
+  geom_point(size = 2) +
+* facet_grid(. ~ cat)
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/company_ranks_5-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df) +
+  aes(x = rank) +
+  aes(y = outcome) +
+  geom_point(size = 2) +
+  facet_grid(. ~ cat) +
+* aes(col = company)
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/company_ranks_6-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df) +
+  aes(x = rank) +
+  aes(y = outcome) +
+  geom_point(size = 2) +
+  facet_grid(. ~ cat) +
+  aes(col = company) +
+* aes(shape = company)
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/company_ranks_7-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df) +
+  aes(x = rank) +
+  aes(y = outcome) +
+  geom_point(size = 2) +
+  facet_grid(. ~ cat) +
+  aes(col = company) +
+  aes(shape = company) +
+* aes(size = company)
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/company_ranks_8-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df) +
+  aes(x = rank) +
+  aes(y = outcome) +
+  geom_point(size = 2) +
+  facet_grid(. ~ cat) +
+  aes(col = company) +
+  aes(shape = company) +
+  aes(size = company) +
+* labs(x = "Rank for among companies for feature")
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/company_ranks_9-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df) +
+  aes(x = rank) +
+  aes(y = outcome) +
+  geom_point(size = 2) +
+  facet_grid(. ~ cat) +
+  aes(col = company) +
+  aes(shape = company) +
+  aes(size = company) +
+  labs(x = "Rank for among companies for feature") +
+* scale_color_manual(name = "", values = c("steelblue", "darkgrey", "darkgrey", "darkgrey", "darkgrey"))
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/company_ranks_10-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df) +
+  aes(x = rank) +
+  aes(y = outcome) +
+  geom_point(size = 2) +
+  facet_grid(. ~ cat) +
+  aes(col = company) +
+  aes(shape = company) +
+  aes(size = company) +
+  labs(x = "Rank for among companies for feature") +
+  scale_color_manual(name = "", values = c("steelblue", "darkgrey", "darkgrey", "darkgrey", "darkgrey")) +
+* scale_shape_discrete(name = "")
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/company_ranks_11-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df) +
+  aes(x = rank) +
+  aes(y = outcome) +
+  geom_point(size = 2) +
+  facet_grid(. ~ cat) +
+  aes(col = company) +
+  aes(shape = company) +
+  aes(size = company) +
+  labs(x = "Rank for among companies for feature") +
+  scale_color_manual(name = "", values = c("steelblue", "darkgrey", "darkgrey", "darkgrey", "darkgrey")) +
+  scale_shape_discrete(name = "") +
+* theme_bw(base_family = "Times")
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/company_ranks_12-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df) +
+  aes(x = rank) +
+  aes(y = outcome) +
+  geom_point(size = 2) +
+  facet_grid(. ~ cat) +
+  aes(col = company) +
+  aes(shape = company) +
+  aes(size = company) +
+  labs(x = "Rank for among companies for feature") +
+  scale_color_manual(name = "", values = c("steelblue", "darkgrey", "darkgrey", "darkgrey", "darkgrey")) +
+  scale_shape_discrete(name = "") +
+  theme_bw(base_family = "Times") +
+* labs(title = "Average Score and Ranks across features exercise w/ R &amp; ggplot2")
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/company_ranks_13-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df) +
+  aes(x = rank) +
+  aes(y = outcome) +
+  geom_point(size = 2) +
+  facet_grid(. ~ cat) +
+  aes(col = company) +
+  aes(shape = company) +
+  aes(size = company) +
+  labs(x = "Rank for among companies for feature") +
+  scale_color_manual(name = "", values = c("steelblue", "darkgrey", "darkgrey", "darkgrey", "darkgrey")) +
+  scale_shape_discrete(name = "") +
+  theme_bw(base_family = "Times") +
+  labs(title = "Average Score and Ranks across features exercise w/ R &amp; ggplot2") +
+* labs(subtitle = "Data Source: Randomly generated toy data in R | Viz: Gina Reynolds")
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/company_ranks_14-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df) +
+  aes(x = rank) +
+  aes(y = outcome) +
+  geom_point(size = 2) +
+  facet_grid(. ~ cat) +
+  aes(col = company) +
+  aes(shape = company) +
+  aes(size = company) +
+  labs(x = "Rank for among companies for feature") +
+  scale_color_manual(name = "", values = c("steelblue", "darkgrey", "darkgrey", "darkgrey", "darkgrey")) +
+  scale_shape_discrete(name = "") +
+  theme_bw(base_family = "Times") +
+  labs(title = "Average Score and Ranks across features exercise w/ R &amp; ggplot2") +
+  labs(subtitle = "Data Source: Randomly generated toy data in R | Viz: Gina Reynolds") +
+* labs(y = "Average Score")
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/company_ranks_15-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df) +
+  aes(x = rank) +
+  aes(y = outcome) +
+  geom_point(size = 2) +
+  facet_grid(. ~ cat) +
+  aes(col = company) +
+  aes(shape = company) +
+  aes(size = company) +
+  labs(x = "Rank for among companies for feature") +
+  scale_color_manual(name = "", values = c("steelblue", "darkgrey", "darkgrey", "darkgrey", "darkgrey")) +
+  scale_shape_discrete(name = "") +
+  theme_bw(base_family = "Times") +
+  labs(title = "Average Score and Ranks across features exercise w/ R &amp; ggplot2") +
+  labs(subtitle = "Data Source: Randomly generated toy data in R | Viz: Gina Reynolds") +
+  labs(y = "Average Score") +
+* scale_x_continuous(breaks = 1:5, labels = 1:5, limits = c(.5, 5.5))
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/company_ranks_16-1.png" width="80%" /&gt;
+]]
+
+---
+
+# Incarceration
+
+This visualization is a sobering one --- showing incarceration rates across different demographics over time.  The data comes via #TidyTuesday via the Vera Institute of Justice.  My strategy is pretty simple - to show changes in rates over time for different groups using facet grid. 
+
+
+
+
+
+
+
+
+
+A random sample from the data set: 
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:right;"&gt; year &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; urbanicity &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; pop_category &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; rate_per_100000 &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1983 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; rural &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Female &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 22.79699 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1983 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; rural &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Male &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 573.79747 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1983 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; small/mid &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Female &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 26.55939 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1983 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; small/mid &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Male &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 549.74687 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1983 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; suburban &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Female &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15.21089 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
 
 
 
@@ -7425,10 +8260,55 @@ count: false
 &lt;img src="ggplot_flipbook_xaringan_files/figure-html/incarceration_01_8-1.png" width="80%" /&gt;
 ]]
 
+
 ---
 
 
 
+A random sample from the data set: 
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:right;"&gt; year &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; urbanicity &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; pop_category &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; rate_per_100000 &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1983 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; rural &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Black &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1116.8762 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1983 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; rural &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; White &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 154.6412 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1983 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; small/mid &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Black &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1137.5779 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1983 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; small/mid &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; White &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 149.7800 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1983 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; suburban &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Black &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 880.4485 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+---
 
 
 
@@ -7568,6 +8448,7 @@ count: false
 
 # Milk Industry
 
+What's a milk cow worth? This data comes via the #TidyTuesday project.  I constructed a waterfall plot to track the average price of milk cows, calculating percent changes year on year. 
 
 
 
@@ -8100,10 +8981,172 @@ count: false
 
 # Wind Turbine Locations 
 
-Relatively clean datasets:  https://github.com/rfordatascience/tidytuesday
+This data on wind turbine locations comes via the #TidyTuesday project.  I map the positions of the turbines in the US. 
 
 
-
+A random sample from the data set: 
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:right;"&gt; case_id &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; faa_ors &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; faa_asn &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; usgs_pr_id &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; t_state &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; t_county &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; t_fips &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; p_name &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; p_year &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; p_tnum &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; p_cap &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; t_manu &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; t_model &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; t_cap &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; t_hh &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; t_rd &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; t_rsa &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; t_ttlh &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; t_conf_atr &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; t_conf_loc &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; t_img_date &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; t_img_srce &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; xlong &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; ylat &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 3073429 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; missing &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; missing &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4960 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; CA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Kern County &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 06029 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 251 Wind &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1987 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 194 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 18.43 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Vestas &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; missing &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 95 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -9999 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -9999 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -9999 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -9999 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1/1/2012 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NAIP &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -118.3607 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 35.08378 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 3071522 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; missing &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; missing &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4997 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; CA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Kern County &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 06029 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 251 Wind &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1987 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 194 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 18.43 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Vestas &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; missing &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 95 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -9999 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -9999 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -9999 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -9999 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1/1/2012 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NAIP &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -118.3612 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 35.08151 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 3073425 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; missing &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; missing &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4957 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; CA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Kern County &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 06029 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 251 Wind &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1987 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 194 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 18.43 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Vestas &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; missing &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 95 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -9999 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -9999 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -9999 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -9999 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1/1/2012 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NAIP &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -118.3604 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 35.08471 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 3071569 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; missing &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; missing &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5023 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; CA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Kern County &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 06029 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 251 Wind &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1987 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 194 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 18.43 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Vestas &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; missing &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 95 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -9999 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -9999 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -9999 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -9999 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 7/31/2016 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Digital Globe &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -118.3640 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 35.07942 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 3005252 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; missing &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; missing &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5768 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; CA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Kern County &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 06029 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 251 Wind &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1987 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 194 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 18.43 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Vestas &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; missing &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 95 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -9999 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -9999 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -9999 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -9999 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 11/23/2017 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Digital Globe &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -118.3543 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 35.08559 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 
 
 
@@ -8201,7 +9244,7 @@ ggplot(data = usa) +
   geom_polygon(fill = "blue", alpha = .4) + 
   theme_classic() +
   coord_map(projection = "mercator") +
-* geom_point(data = us_wind %&gt;% filter(ylat &lt; 50 &amp; ylat &gt; 25), mapping = aes(xlong, ylat, group = NULL), size = .5, col = "orange", alpha = .75)
+* geom_point(data = us_wind %&gt;% filter(ylat &lt; 50 &amp; ylat &gt; 25), mapping = aes(xlong, ylat, group = NULL), size = .5, col = "orange", alpha = .6)
 ```
 ]]
 .column[.content.center[
@@ -8219,7 +9262,7 @@ ggplot(data = usa) +
   geom_polygon(fill = "blue", alpha = .4) + 
   theme_classic() +
   coord_map(projection = "mercator") +
-  geom_point(data = us_wind %&gt;% filter(ylat &lt; 50 &amp; ylat &gt; 25), mapping = aes(xlong, ylat, group = NULL), size = .5, col = "orange", alpha = .75) + 
+  geom_point(data = us_wind %&gt;% filter(ylat &lt; 50 &amp; ylat &gt; 25), mapping = aes(xlong, ylat, group = NULL), size = .5, col = "orange", alpha = .6) + 
 * theme_void()
 ```
 ]]
@@ -8238,7 +9281,7 @@ ggplot(data = usa) +
   geom_polygon(fill = "blue", alpha = .4) + 
   theme_classic() +
   coord_map(projection = "mercator") +
-  geom_point(data = us_wind %&gt;% filter(ylat &lt; 50 &amp; ylat &gt; 25), mapping = aes(xlong, ylat, group = NULL), size = .5, col = "orange", alpha = .75) + 
+  geom_point(data = us_wind %&gt;% filter(ylat &lt; 50 &amp; ylat &gt; 25), mapping = aes(xlong, ylat, group = NULL), size = .5, col = "orange", alpha = .6) + 
   theme_void() + 
 * labs(title = "Wind turbines in the continental US")
 ```
@@ -8258,7 +9301,7 @@ ggplot(data = usa) +
   geom_polygon(fill = "blue", alpha = .4) + 
   theme_classic() +
   coord_map(projection = "mercator") +
-  geom_point(data = us_wind %&gt;% filter(ylat &lt; 50 &amp; ylat &gt; 25), mapping = aes(xlong, ylat, group = NULL), size = .5, col = "orange", alpha = .75) + 
+  geom_point(data = us_wind %&gt;% filter(ylat &lt; 50 &amp; ylat &gt; 25), mapping = aes(xlong, ylat, group = NULL), size = .5, col = "orange", alpha = .6) + 
   theme_void() + 
   labs(title = "Wind turbines in the continental US") + 
 * labs(caption = "Tidy Tuesday exercise")
@@ -8279,7 +9322,7 @@ ggplot(data = usa) +
   geom_polygon(fill = "blue", alpha = .4) + 
   theme_classic() +
   coord_map(projection = "mercator") +
-  geom_point(data = us_wind %&gt;% filter(ylat &lt; 50 &amp; ylat &gt; 25), mapping = aes(xlong, ylat, group = NULL), size = .5, col = "orange", alpha = .75) + 
+  geom_point(data = us_wind %&gt;% filter(ylat &lt; 50 &amp; ylat &gt; 25), mapping = aes(xlong, ylat, group = NULL), size = .5, col = "orange", alpha = .6) + 
   theme_void() + 
   labs(title = "Wind turbines in the continental US") + 
   labs(caption = "Tidy Tuesday exercise") +
@@ -8349,7 +9392,7 @@ count: false
   ggplot(data) +
   aes(xlong, ylat) + 
   borders("state") +
-* geom_point()
+* geom_point(col = "steelblue", alpha = .2)
 ```
 ]]
 .column[.content.center[
@@ -8365,8 +9408,8 @@ count: false
   ggplot(data) +
   aes(xlong, ylat) + 
   borders("state") +
-  geom_point() +
-* coord_map()
+  geom_point(col = "steelblue", alpha = .2) +
+* theme_void()
 ```
 ]]
 .column[.content.center[
@@ -8382,13 +9425,73 @@ count: false
   ggplot(data) +
   aes(xlong, ylat) + 
   borders("state") +
-  geom_point() +
-  coord_map() +
-* theme_void()
+  geom_point(col = "steelblue", alpha = .2) +
+  theme_void() +
+* geom_density_2d(col = "darkgrey")
 ```
 ]]
 .column[.content.center[
 &lt;img src="ggplot_flipbook_xaringan_files/figure-html/wind_02_6-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+  ggplot(data) +
+  aes(xlong, ylat) + 
+  borders("state") +
+  geom_point(col = "steelblue", alpha = .2) +
+  theme_void() +
+  geom_density_2d(col = "darkgrey") + 
+* labs(title = "Wind turbines in the continental US")
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/wind_02_7-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+  ggplot(data) +
+  aes(xlong, ylat) + 
+  borders("state") +
+  geom_point(col = "steelblue", alpha = .2) +
+  theme_void() +
+  geom_density_2d(col = "darkgrey") + 
+  labs(title = "Wind turbines in the continental US") + 
+* labs(caption = "Tidy Tuesday exercise")
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/wind_02_8-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+  ggplot(data) +
+  aes(xlong, ylat) + 
+  borders("state") +
+  geom_point(col = "steelblue", alpha = .2) +
+  theme_void() +
+  geom_density_2d(col = "darkgrey") + 
+  labs(title = "Wind turbines in the continental US") + 
+  labs(caption = "Tidy Tuesday exercise") +
+* labs(subtitle = "Data Source: | Visualization: Gina Reynolds")
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/wind_02_9-1.png" width="80%" /&gt;
 ]]
 
 ---

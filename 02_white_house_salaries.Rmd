@@ -35,7 +35,10 @@ ggplot(both_data) +
   aes(fill = ADMINISTRATION) +
   scale_colour_manual(values = c("blue", "red")) +
   scale_fill_manual(values = c("blue", "red")) +
-  theme_bw()
+  theme_bw() +
+  labs(title = "Obama and Trump White House Salaries as of early 2017") +
+  labs(subtitle = "Data source: NPR via #MakeoverMonday") +
+  labs(caption = "Visualization: Gina Reynolds")
 ```
 
 

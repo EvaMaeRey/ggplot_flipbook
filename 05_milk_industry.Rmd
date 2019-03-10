@@ -1,5 +1,6 @@
 # Milk Industry
 
+What's a milk cow worth? This data comes via the #TidyTuesday project.  I constructed a waterfall plot to track the average price of milk cows, calculating percent changes year on year. 
 
 ```{r, echo = F}
 
@@ -8,11 +9,10 @@ file <- paste0(dir, "/", "milkcow_facts.csv")
 url <- "https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-01-29/milkcow_facts.csv"
 
 # create raw_data folder
-if(!dir.exists(dir)) { dir.create(dir) }
+if (!dir.exists(dir)) { dir.create(dir) }
 
 # download data from internet and save
-download.file(url = url, 
-              destfile = file)
+if (!file.exists(file)) { download.file(url = url, destfile = file) }
 
 # read in downloaded data
 milkcow_facts <- readr::read_csv(file)

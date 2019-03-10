@@ -1,29 +1,39 @@
 # Incarceration
 
+This visualization is a sobering one --- showing incarceration rates across different demographics over time.  The data comes via #TidyTuesday via the Vera Institute of Justice.  My strategy is pretty simple - to show changes in rates over time for different groups using facet grid. 
 
-```{r, echo = F}
+```{r, include = F}
+knitr::opts_chunk$set(cache = F)
+```
+
+
+```{r, echo = F, cache = F}
 dir <- "raw_data"
 file <- paste0(dir, "/", "prison_summary.csv")
 url <- "https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-01-22/prison_summary.csv"
 
 # create raw_data folder
-if(!dir.exists(dir)) { dir.create(dir) }
+if (!dir.exists(dir)) { dir.create(dir) }
 
 # download data from internet and save
-download.file(url = url, 
-              destfile = file)
+if (!file.exists(file)) { download.file(url = url, destfile = file) }
 
 # read in downloaded data
 df <- readr::read_csv(file)
 ```
-
----
 
 
 ```{r, echo = F}
 data <- df %>% 
   filter(pop_category %in% c("Female", "Male")) 
 ```
+
+A random sample from the data set: 
+```{r, echo = F}
+knitr::kable(head(data, 5), format = "html")
+```
+
+---
 
 ```{r incarceration_01, eval=F, echo=F}
   ggplot(data = data) + 
@@ -39,6 +49,7 @@ data <- df %>%
 
 `r apply_reveal("incarceration_01")`
 
+
 ---
 
 ```{r, echo =F}
@@ -46,6 +57,11 @@ dat <- df %>%
   filter(!(pop_category %in% c("Female", "Male", "Total", "Other"))) 
 ```
 
+A random sample from the data set: 
+```{r, echo = F}
+knitr::kable(head(dat, 5), format = "html")
+```
+---
 
 ```{r incarceration_02, eval=F, echo=F}
   ggplot(data = dat) + 
