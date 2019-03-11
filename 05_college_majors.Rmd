@@ -3,7 +3,7 @@
 
 ```{r}
 dir <- "raw_data"
-file <- paste0(dir, "/", "prison_summary.csv")
+file <- paste0(dir, "/", "recent-grads.csv")
 url <- "https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2018/2018-10-16/recent-grads.csv"
 
 # create raw_data folder
