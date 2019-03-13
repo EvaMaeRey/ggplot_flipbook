@@ -88,6 +88,6 @@ ggplot(data = world) +
   labs(subtitle = "Data Source: @mattsmithetc and @YouGov | Design: Gina Reynolds") 
 ```
 
-`r paste(knitr::knit(text = partial_knit_chunks("traits")), collapse = "\n")`
+`r apply_reveal("traits")`
 
 ---

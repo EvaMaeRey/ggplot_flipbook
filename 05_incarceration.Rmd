@@ -2,13 +2,11 @@
 
 This visualization is a sobering one --- showing incarceration rates across different demographics over time.  The data comes via #TidyTuesday via the Vera Institute of Justice.  My strategy is pretty simple - to show changes in rates over time for different groups using facet grid. 
 
-```{r, include = F}
-knitr::opts_chunk$set(cache = F)
-```
 
 
-```{r, echo = F, cache = F}
-dir <- "raw_data"
+
+```{r, echo = F}
+dir <- "raw_data"  
 file <- paste0(dir, "/", "prison_summary.csv")
 url <- "https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-01-22/prison_summary.csv"
 

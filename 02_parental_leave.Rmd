@@ -51,7 +51,7 @@ ggplot(df) +
 ```
 
 
-`r paste(knitr::knit(text = partial_knit_chunks("parent_leave")), collapse = "\n")`
+`r apply_reveal("parent_leave")`
 
 
 ---

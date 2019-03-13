@@ -64,7 +64,7 @@ ggplot(df) +
   labs(lty = "") +
   labs(title = "Freezing cycles: Arctic sea ice extent, 1979-2017") +
   labs(subtitle = "Data Source: National Snow & Ice Data Center | Vis: Gina Reynolds for #MakeoverMonday") +
-  theme_dark(base_size = 14) +
+  theme_dark(base_size = 12) +
   theme(legend.background = element_blank()) +
   theme(legend.position = c(0.1, .35)) +
   theme(legend.text = element_text(colour = "white", size = 15)) +

@@ -62,6 +62,7 @@ data <- us_wind %>%
   borders("state") +
   geom_point(col = "steelblue", alpha = .2) +
   theme_void() +
+  coord_map(projection = "mercator") +
   geom_density_2d(col = "darkgrey") + 
   labs(title = "Wind turbines in the continental US") + 
   labs(caption = "Tidy Tuesday exercise") +

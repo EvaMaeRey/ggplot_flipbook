@@ -31,6 +31,12 @@ df <- milkcow_facts %>%
 df_changes <- df %>% filter(year > 2004)
 ```
 
+A random sample from the data set: 
+```{r, echo = F}
+knitr::kable(head(df, 5), format = "html")
+```
+
+
 ---
 
 
