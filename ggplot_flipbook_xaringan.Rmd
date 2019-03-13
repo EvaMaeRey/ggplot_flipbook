@@ -91,7 +91,7 @@ While I'm hopeful that this book serves as a reference, I think the best introdu
 library(tidyverse)
 library(printr)
 knitr::opts_chunk$set(echo = TRUE)
-knitr::opts_chunk$set(fig.height = 6, out.width = "80%", comment = " ", cache = T)
+knitr::opts_chunk$set(fig.height = 6, out.width = "80%", comment = " ", cache = T, dpi = 300)
 # reveal lines up to `upto` and highlight lines `highlight`
 reveal <- function(name, upto, highlight = upto) {
   content <- knitr:::knit_code$get(name)
