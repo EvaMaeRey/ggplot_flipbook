@@ -14,6 +14,12 @@ output:
 ---
 
 
+<!-- To do -->
+<!-- Write introductions to new plots -->
+<!-- Adress split-40 in movies -->
+<!-- Tweet about tidytuesday plots-->
+<!-- Tweet about twitter plots -->
+
 
 # Introduction
 
@@ -153,7 +159,7 @@ This book is not complete.  The plots that follow aren't as carefully edited as 
 
 ---
 
-```{r, child = list.files()[3:19], warning=F, message=F}
+```{r, child = list.files()[3:20], warning=F, message=F}
 
 ```
 

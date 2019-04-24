@@ -67,3 +67,4 @@ knitr::kable(head(df, 5), format = "html")
 
 `r apply_reveal("milk")`
 
+---

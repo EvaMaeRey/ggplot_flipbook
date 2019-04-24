@@ -2441,7 +2441,7 @@ ggplot(dta) +
 
 # Brexit
 
-This visualization challenge was a proposed makeover for a Financial Times visualization focusing on relative economic growth in G7 countries, with an emphasis on growth in the UK, focusing especially since Brexit.  The visualization I present here is not what I created at the time of the challenge; instead it is inspired by Alan Smith a data journalist at the Financial Times, who created a really compelling visualization a couple of months after MakeoverMonday's treatment.  I try to recreate his plot - which uses a ribbon to contain all G7 countries, and plot the UK's stats thereover.  This declutters the graph, and makes you focus on where the UK falls among other countries, without being needlessly specific about those countries; the data story isn't about them anyway, might be Smith's thinking. My graph actually lightly traces economic growth in other countries, but deemphasizes their importance, like Smith. 
+This visualization challenge was a proposed makeover for a Financial Times visualization focusing on relative economic growth in G7 countries, with an emphasis on growth in the UK, focusing especially since Brexit.  The visualization I present here is not what I created at the time of the challenge; instead it is inspired by Alan Smith a data journalist at the Financial Times, who created a really compelling visualization a couple of months after #MakeoverMonday's treatment.  I try to recreate his plot - which uses a ribbon to contain all G7 countries, and plot the UK's stats thereover.  This declutters the graph, and makes you focus on where the UK falls among other countries, without being needlessly specific about those countries; the data story isn't about them anyway, might be Smith's thinking. My graph actually lightly traces economic growth in other countries, but deemphasizes their importance, like Smith. 
 
 
 
@@ -9083,6 +9083,7 @@ count: false
 &lt;img src="ggplot_flipbook_xaringan_files/figure-html/milk_22-1.png" width="80%" /&gt;
 ]]
 
+---
 
 # Wind Turbine Locations 
 
@@ -9623,6 +9624,539 @@ count: false
 
 ---
 
+
+# Movies
+
+
+
+
+
+
+
+
+
+
+
+
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+*ggplot(data = movies)
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/movies_1-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(data = movies) +
+* aes(x = production_budget)
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/movies_2-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(data = movies) +
+  aes(x = production_budget) +
+* aes(y = worldwide_gross/production_budget)
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/movies_3-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(data = movies) +
+  aes(x = production_budget) +
+  aes(y = worldwide_gross/production_budget) +
+* geom_point(alpha = .25)
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/movies_4-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(data = movies) +
+  aes(x = production_budget) +
+  aes(y = worldwide_gross/production_budget) +
+  geom_point(alpha = .25) +
+* facet_wrap(~ genre)
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/movies_5-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(data = movies) +
+  aes(x = production_budget) +
+  aes(y = worldwide_gross/production_budget) +
+  geom_point(alpha = .25) +
+  facet_wrap(~ genre) +
+* theme_bw()
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/movies_6-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(data = movies) +
+  aes(x = production_budget) +
+  aes(y = worldwide_gross/production_budget) +
+  geom_point(alpha = .25) +
+  facet_wrap(~ genre) +
+  theme_bw() +
+* aes(col = lubridate::year(release_date))
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/movies_7-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(data = movies) +
+  aes(x = production_budget) +
+  aes(y = worldwide_gross/production_budget) +
+  geom_point(alpha = .25) +
+  facet_wrap(~ genre) +
+  theme_bw() +
+  aes(col = lubridate::year(release_date)) +
+* scale_color_viridis_c(option = "B")
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/movies_8-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(data = movies) +
+  aes(x = production_budget) +
+  aes(y = worldwide_gross/production_budget) +
+  geom_point(alpha = .25) +
+  facet_wrap(~ genre) +
+  theme_bw() +
+  aes(col = lubridate::year(release_date)) +
+  scale_color_viridis_c(option = "B") +
+* labs(col = "")
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/movies_9-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(data = movies) +
+  aes(x = production_budget) +
+  aes(y = worldwide_gross/production_budget) +
+  geom_point(alpha = .25) +
+  facet_wrap(~ genre) +
+  theme_bw() +
+  aes(col = lubridate::year(release_date)) +
+  scale_color_viridis_c(option = "B") +
+  labs(col = "") +
+* scale_x_log10(labels = scales::dollar_format(), limits = c(100000, 100000000))
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/movies_10-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(data = movies) +
+  aes(x = production_budget) +
+  aes(y = worldwide_gross/production_budget) +
+  geom_point(alpha = .25) +
+  facet_wrap(~ genre) +
+  theme_bw() +
+  aes(col = lubridate::year(release_date)) +
+  scale_color_viridis_c(option = "B") +
+  labs(col = "") +
+  scale_x_log10(labels = scales::dollar_format(), limits = c(100000, 100000000)) + 
+* scale_y_log10(breaks = c(.0001,.001,.01,.1,1,10,100, 1000), label = c(".0001X", ".001X", ".01X", ".1X", "1X", "10X", "100X", "1000X"), limits = c(.0001, 1000))
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/movies_11-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(data = movies) +
+  aes(x = production_budget) +
+  aes(y = worldwide_gross/production_budget) +
+  geom_point(alpha = .25) +
+  facet_wrap(~ genre) +
+  theme_bw() +
+  aes(col = lubridate::year(release_date)) +
+  scale_color_viridis_c(option = "B") +
+  labs(col = "") +
+  scale_x_log10(labels = scales::dollar_format(), limits = c(100000, 100000000)) + 
+  scale_y_log10(breaks = c(.0001,.001,.01,.1,1,10,100, 1000), label = c(".0001X", ".001X", ".01X", ".1X", "1X", "10X", "100X", "1000X"), limits = c(.0001, 1000)) +
+* aes(label = paste0(movie, "\n$", round(production_budget/1000000, 2), "mil."))
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/movies_12-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(data = movies) +
+  aes(x = production_budget) +
+  aes(y = worldwide_gross/production_budget) +
+  geom_point(alpha = .25) +
+  facet_wrap(~ genre) +
+  theme_bw() +
+  aes(col = lubridate::year(release_date)) +
+  scale_color_viridis_c(option = "B") +
+  labs(col = "") +
+  scale_x_log10(labels = scales::dollar_format(), limits = c(100000, 100000000)) + 
+  scale_y_log10(breaks = c(.0001,.001,.01,.1,1,10,100, 1000), label = c(".0001X", ".001X", ".01X", ".1X", "1X", "10X", "100X", "1000X"), limits = c(.0001, 1000)) +
+  aes(label = paste0(movie, "\n$", round(production_budget/1000000, 2), "mil.")) +
+* ggpmisc::stat_dens2d_filter(data = movies %&gt;% filter(worldwide_gross&gt;10*production_budget), geom = "text_repel", keep.fraction = 0.06, size = 2.8, col = "darkgrey")
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/movies_13-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(data = movies) +
+  aes(x = production_budget) +
+  aes(y = worldwide_gross/production_budget) +
+  geom_point(alpha = .25) +
+  facet_wrap(~ genre) +
+  theme_bw() +
+  aes(col = lubridate::year(release_date)) +
+  scale_color_viridis_c(option = "B") +
+  labs(col = "") +
+  scale_x_log10(labels = scales::dollar_format(), limits = c(100000, 100000000)) + 
+  scale_y_log10(breaks = c(.0001,.001,.01,.1,1,10,100, 1000), label = c(".0001X", ".001X", ".01X", ".1X", "1X", "10X", "100X", "1000X"), limits = c(.0001, 1000)) +
+  aes(label = paste0(movie, "\n$", round(production_budget/1000000, 2), "mil.")) +
+  ggpmisc::stat_dens2d_filter(data = movies %&gt;% filter(worldwide_gross&gt;10*production_budget), geom = "text_repel", keep.fraction = 0.06, size = 2.8, col = "darkgrey") + 
+* ggpmisc::stat_dens2d_filter(data = movies %&gt;% filter(worldwide_gross&lt;production_budget), geom = "text_repel", keep.fraction = 0.002, size = 2.8, col = "darkgrey")
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/movies_14-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(data = movies) +
+  aes(x = production_budget) +
+  aes(y = worldwide_gross/production_budget) +
+  geom_point(alpha = .25) +
+  facet_wrap(~ genre) +
+  theme_bw() +
+  aes(col = lubridate::year(release_date)) +
+  scale_color_viridis_c(option = "B") +
+  labs(col = "") +
+  scale_x_log10(labels = scales::dollar_format(), limits = c(100000, 100000000)) + 
+  scale_y_log10(breaks = c(.0001,.001,.01,.1,1,10,100, 1000), label = c(".0001X", ".001X", ".01X", ".1X", "1X", "10X", "100X", "1000X"), limits = c(.0001, 1000)) +
+  aes(label = paste0(movie, "\n$", round(production_budget/1000000, 2), "mil.")) +
+  ggpmisc::stat_dens2d_filter(data = movies %&gt;% filter(worldwide_gross&gt;10*production_budget), geom = "text_repel", keep.fraction = 0.06, size = 2.8, col = "darkgrey") + 
+  ggpmisc::stat_dens2d_filter(data = movies %&gt;% filter(worldwide_gross&lt;production_budget), geom = "text_repel", keep.fraction = 0.002, size = 2.8, col = "darkgrey") + 
+* geom_abline(intercept = 0, slope = 0, lty = 2, col = "darkgrey")
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/movies_15-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(data = movies) +
+  aes(x = production_budget) +
+  aes(y = worldwide_gross/production_budget) +
+  geom_point(alpha = .25) +
+  facet_wrap(~ genre) +
+  theme_bw() +
+  aes(col = lubridate::year(release_date)) +
+  scale_color_viridis_c(option = "B") +
+  labs(col = "") +
+  scale_x_log10(labels = scales::dollar_format(), limits = c(100000, 100000000)) + 
+  scale_y_log10(breaks = c(.0001,.001,.01,.1,1,10,100, 1000), label = c(".0001X", ".001X", ".01X", ".1X", "1X", "10X", "100X", "1000X"), limits = c(.0001, 1000)) +
+  aes(label = paste0(movie, "\n$", round(production_budget/1000000, 2), "mil.")) +
+  ggpmisc::stat_dens2d_filter(data = movies %&gt;% filter(worldwide_gross&gt;10*production_budget), geom = "text_repel", keep.fraction = 0.06, size = 2.8, col = "darkgrey") + 
+  ggpmisc::stat_dens2d_filter(data = movies %&gt;% filter(worldwide_gross&lt;production_budget), geom = "text_repel", keep.fraction = 0.002, size = 2.8, col = "darkgrey") + 
+  geom_abline(intercept = 0, slope = 0, lty = 2, col = "darkgrey") +
+* labs(x = "production budget")
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/movies_16-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(data = movies) +
+  aes(x = production_budget) +
+  aes(y = worldwide_gross/production_budget) +
+  geom_point(alpha = .25) +
+  facet_wrap(~ genre) +
+  theme_bw() +
+  aes(col = lubridate::year(release_date)) +
+  scale_color_viridis_c(option = "B") +
+  labs(col = "") +
+  scale_x_log10(labels = scales::dollar_format(), limits = c(100000, 100000000)) + 
+  scale_y_log10(breaks = c(.0001,.001,.01,.1,1,10,100, 1000), label = c(".0001X", ".001X", ".01X", ".1X", "1X", "10X", "100X", "1000X"), limits = c(.0001, 1000)) +
+  aes(label = paste0(movie, "\n$", round(production_budget/1000000, 2), "mil.")) +
+  ggpmisc::stat_dens2d_filter(data = movies %&gt;% filter(worldwide_gross&gt;10*production_budget), geom = "text_repel", keep.fraction = 0.06, size = 2.8, col = "darkgrey") + 
+  ggpmisc::stat_dens2d_filter(data = movies %&gt;% filter(worldwide_gross&lt;production_budget), geom = "text_repel", keep.fraction = 0.002, size = 2.8, col = "darkgrey") + 
+  geom_abline(intercept = 0, slope = 0, lty = 2, col = "darkgrey") +
+  labs(x = "production budget") +
+* labs(y = "Profit ratio (worldwide gross)")
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/movies_17-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(data = movies) +
+  aes(x = production_budget) +
+  aes(y = worldwide_gross/production_budget) +
+  geom_point(alpha = .25) +
+  facet_wrap(~ genre) +
+  theme_bw() +
+  aes(col = lubridate::year(release_date)) +
+  scale_color_viridis_c(option = "B") +
+  labs(col = "") +
+  scale_x_log10(labels = scales::dollar_format(), limits = c(100000, 100000000)) + 
+  scale_y_log10(breaks = c(.0001,.001,.01,.1,1,10,100, 1000), label = c(".0001X", ".001X", ".01X", ".1X", "1X", "10X", "100X", "1000X"), limits = c(.0001, 1000)) +
+  aes(label = paste0(movie, "\n$", round(production_budget/1000000, 2), "mil.")) +
+  ggpmisc::stat_dens2d_filter(data = movies %&gt;% filter(worldwide_gross&gt;10*production_budget), geom = "text_repel", keep.fraction = 0.06, size = 2.8, col = "darkgrey") + 
+  ggpmisc::stat_dens2d_filter(data = movies %&gt;% filter(worldwide_gross&lt;production_budget), geom = "text_repel", keep.fraction = 0.002, size = 2.8, col = "darkgrey") + 
+  geom_abline(intercept = 0, slope = 0, lty = 2, col = "darkgrey") +
+  labs(x = "production budget") +
+  labs(y = "Profit ratio (worldwide gross)") +
+* labs(title = "Profit ratio in a 538 movies dataset")
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/movies_18-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(data = movies) +
+  aes(x = production_budget) +
+  aes(y = worldwide_gross/production_budget) +
+  geom_point(alpha = .25) +
+  facet_wrap(~ genre) +
+  theme_bw() +
+  aes(col = lubridate::year(release_date)) +
+  scale_color_viridis_c(option = "B") +
+  labs(col = "") +
+  scale_x_log10(labels = scales::dollar_format(), limits = c(100000, 100000000)) + 
+  scale_y_log10(breaks = c(.0001,.001,.01,.1,1,10,100, 1000), label = c(".0001X", ".001X", ".01X", ".1X", "1X", "10X", "100X", "1000X"), limits = c(.0001, 1000)) +
+  aes(label = paste0(movie, "\n$", round(production_budget/1000000, 2), "mil.")) +
+  ggpmisc::stat_dens2d_filter(data = movies %&gt;% filter(worldwide_gross&gt;10*production_budget), geom = "text_repel", keep.fraction = 0.06, size = 2.8, col = "darkgrey") + 
+  ggpmisc::stat_dens2d_filter(data = movies %&gt;% filter(worldwide_gross&lt;production_budget), geom = "text_repel", keep.fraction = 0.002, size = 2.8, col = "darkgrey") + 
+  geom_abline(intercept = 0, slope = 0, lty = 2, col = "darkgrey") +
+  labs(x = "production budget") +
+  labs(y = "Profit ratio (worldwide gross)") +
+  labs(title = "Profit ratio in a 538 movies dataset") +
+* labs(subtitle = "Data source: 538 via TidyTuesday | Vis: Gina Reynolds")
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/movies_19-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(data = movies) +
+  aes(x = production_budget) +
+  aes(y = worldwide_gross/production_budget) +
+  geom_point(alpha = .25) +
+  facet_wrap(~ genre) +
+  theme_bw() +
+  aes(col = lubridate::year(release_date)) +
+  scale_color_viridis_c(option = "B") +
+  labs(col = "") +
+  scale_x_log10(labels = scales::dollar_format(), limits = c(100000, 100000000)) + 
+  scale_y_log10(breaks = c(.0001,.001,.01,.1,1,10,100, 1000), label = c(".0001X", ".001X", ".01X", ".1X", "1X", "10X", "100X", "1000X"), limits = c(.0001, 1000)) +
+  aes(label = paste0(movie, "\n$", round(production_budget/1000000, 2), "mil.")) +
+  ggpmisc::stat_dens2d_filter(data = movies %&gt;% filter(worldwide_gross&gt;10*production_budget), geom = "text_repel", keep.fraction = 0.06, size = 2.8, col = "darkgrey") + 
+  ggpmisc::stat_dens2d_filter(data = movies %&gt;% filter(worldwide_gross&lt;production_budget), geom = "text_repel", keep.fraction = 0.002, size = 2.8, col = "darkgrey") + 
+  geom_abline(intercept = 0, slope = 0, lty = 2, col = "darkgrey") +
+  labs(x = "production budget") +
+  labs(y = "Profit ratio (worldwide gross)") +
+  labs(title = "Profit ratio in a 538 movies dataset") +
+  labs(subtitle = "Data source: 538 via TidyTuesday | Vis: Gina Reynolds")
+ #&lt;&lt;
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/movies_20-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(data = movies) +
+  aes(x = production_budget) +
+  aes(y = worldwide_gross/production_budget) +
+  geom_point(alpha = .25) +
+  facet_wrap(~ genre) +
+  theme_bw() +
+  aes(col = lubridate::year(release_date)) +
+  scale_color_viridis_c(option = "B") +
+  labs(col = "") +
+  scale_x_log10(labels = scales::dollar_format(), limits = c(100000, 100000000)) + 
+  scale_y_log10(breaks = c(.0001,.001,.01,.1,1,10,100, 1000), label = c(".0001X", ".001X", ".01X", ".1X", "1X", "10X", "100X", "1000X"), limits = c(.0001, 1000)) +
+  aes(label = paste0(movie, "\n$", round(production_budget/1000000, 2), "mil.")) +
+  ggpmisc::stat_dens2d_filter(data = movies %&gt;% filter(worldwide_gross&gt;10*production_budget), geom = "text_repel", keep.fraction = 0.06, size = 2.8, col = "darkgrey") + 
+  ggpmisc::stat_dens2d_filter(data = movies %&gt;% filter(worldwide_gross&lt;production_budget), geom = "text_repel", keep.fraction = 0.002, size = 2.8, col = "darkgrey") + 
+  geom_abline(intercept = 0, slope = 0, lty = 2, col = "darkgrey") +
+  labs(x = "production budget") +
+  labs(y = "Profit ratio (worldwide gross)") +
+  labs(title = "Profit ratio in a 538 movies dataset") +
+  labs(subtitle = "Data source: 538 via TidyTuesday | Vis: Gina Reynolds")
+
+*  
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/movies_21-1.png" width="80%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(data = movies) +
+  aes(x = production_budget) +
+  aes(y = worldwide_gross/production_budget) +
+  geom_point(alpha = .25) +
+  facet_wrap(~ genre) +
+  theme_bw() +
+  aes(col = lubridate::year(release_date)) +
+  scale_color_viridis_c(option = "B") +
+  labs(col = "") +
+  scale_x_log10(labels = scales::dollar_format(), limits = c(100000, 100000000)) + 
+  scale_y_log10(breaks = c(.0001,.001,.01,.1,1,10,100, 1000), label = c(".0001X", ".001X", ".01X", ".1X", "1X", "10X", "100X", "1000X"), limits = c(.0001, 1000)) +
+  aes(label = paste0(movie, "\n$", round(production_budget/1000000, 2), "mil.")) +
+  ggpmisc::stat_dens2d_filter(data = movies %&gt;% filter(worldwide_gross&gt;10*production_budget), geom = "text_repel", keep.fraction = 0.06, size = 2.8, col = "darkgrey") + 
+  ggpmisc::stat_dens2d_filter(data = movies %&gt;% filter(worldwide_gross&lt;production_budget), geom = "text_repel", keep.fraction = 0.002, size = 2.8, col = "darkgrey") + 
+  geom_abline(intercept = 0, slope = 0, lty = 2, col = "darkgrey") +
+  labs(x = "production budget") +
+  labs(y = "Profit ratio (worldwide gross)") +
+  labs(title = "Profit ratio in a 538 movies dataset") +
+  labs(subtitle = "Data source: 538 via TidyTuesday | Vis: Gina Reynolds")
+
+  
+ #&lt;&lt;
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_flipbook_xaringan_files/figure-html/movies_22-1.png" width="80%" /&gt;
+]]
+
+
+---
 
 
 
