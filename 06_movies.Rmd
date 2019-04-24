@@ -1,0 +1,63 @@
+# Movies
+
+
+
+```{r, echo = F}
+
+dir <- "raw_data"
+file <- paste0(dir, "/", "movies.csv")
+url <- "https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2018/2018-10-23/movie_profit.csv"
+
+# create raw_data folder
+if (!dir.exists(dir)) { dir.create(dir) }
+
+# download data from internet and save
+if (!file.exists(file)) { download.file(url = url, destfile = file) }
+
+# read in downloaded data
+movies_0 <- readr::read_csv(file)
+```
+
+
+```{r, echo = F, warning=F, message=F}
+library(ggrepel)
+
+
+movies <- movies_0 %>% 
+  mutate(release_date = lubridate::mdy(release_date)) %>% 
+  filter(worldwide_gross != 0) %>% 
+  mutate(label = paste0(movie, "\n$", round(production_budget/1000000, 2), "mil."))
+
+```
+
+
+
+```{r movies, eval=F, echo=F, fig.width=12}
+ggplot(data = movies) +
+  aes(x = production_budget) +
+  aes(y = worldwide_gross/production_budget) +
+  geom_point(alpha = .25) +
+  facet_wrap(~ genre) +
+  theme_bw() +
+  aes(col = lubridate::year(release_date)) +
+  scale_color_viridis_c(option = "B") +
+  labs(col = "") +
+  scale_x_log10(labels = scales::dollar_format(), limits = c(100000, 100000000)) + 
+  scale_y_log10(breaks = c(.0001,.001,.01,.1,1,10,100, 1000), label = c(".0001X", ".001X", ".01X", ".1X", "1X", "10X", "100X", "1000X"), limits = c(.0001, 1000)) +
+  aes(label = paste0(movie, "\n$", round(production_budget/1000000, 2), "mil.")) +
+  ggpmisc::stat_dens2d_filter(data = movies %>% filter(worldwide_gross>10*production_budget), geom = "text_repel", keep.fraction = 0.06, size = 2.8, col = "darkgrey") + 
+  ggpmisc::stat_dens2d_filter(data = movies %>% filter(worldwide_gross<production_budget), geom = "text_repel", keep.fraction = 0.002, size = 2.8, col = "darkgrey") + 
+  geom_abline(intercept = 0, slope = 0, lty = 2, col = "darkgrey") +
+  labs(x = "production budget") +
+  labs(y = "Profit ratio (worldwide gross)") +
+  labs(title = "Profit ratio in a 538 movies dataset") +
+  labs(subtitle = "Data source: 538 via TidyTuesday | Vis: Gina Reynolds")
+
+  
+
+```
+
+`r apply_reveal("movies")`
+
+
+---
