@@ -14,11 +14,6 @@ output:
 ---
 
 
-<!-- To do -->
-<!-- Write introductions to new plots -->
-<!-- Adress split-40 in movies -->
-<!-- Tweet about tidytuesday plots-->
-<!-- Tweet about twitter plots -->
 
 
 # Introduction
