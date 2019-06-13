@@ -52,12 +52,22 @@ ggplot(df) +
   aes(group = year) +
   geom_line() +
   aes(col = year) +
-  scale_x_continuous(breaks = as.numeric(lubridate::ymd(c( "2000-01-01", "2000-04-01",  "2000-07-01", "2000-10-01", "2001-01-01"))), labels = c("Jan-01", "Apr-01", "Jul-01", "Oct-01", "Jan-01"), expand = c(0, 0)) +
-  scale_y_continuous(expand = c(0, 0), limits = c(0, 20)) +
-  scale_color_continuous(guide = guide_colourbar(reverse = TRUE), breaks = seq(2010, 1980, -10)) +
-  geom_line(aes(lty = factor(year)), data = df %>% filter(year == 2016 | year == 1982),  col = "white") +
-  scale_linetype_manual( name = "", values = c("dashed", "solid") ) +
-  annotate( geom = "text", x = 11210, y = 15, label = str_wrap("For this period, 1982 had the highest calendar-year average extent of Arctic sea ice while 2016 had the lowest", 30),col = "white",size = 7) +
+  scale_x_continuous(
+    breaks = as.numeric(lubridate::ymd(c( "2000-01-01", "2000-04-01",  "2000-07-01", "2000-10-01", "2001-01-01"))), 
+    labels = c("Jan-01", "Apr-01", "Jul-01", "Oct-01", "Jan-01"), 
+    expand = c(0, 0)) +
+  scale_y_continuous(expand = c(0, 0), 
+                     limits = c(0, 20)) +
+  scale_color_continuous(guide = guide_colourbar(reverse = TRUE), 
+                         breaks = seq(2010, 1980, -10)) +
+  geom_line(data = df %>% filter(year == 2016 | year == 1982), 
+            mapping = aes(lty = factor(year)), 
+            col = "white") +
+  scale_linetype_manual(name = "", values = c("dashed", "solid") ) +
+  annotate(geom = "text", x = 11210, y = 15, 
+           label = str_wrap("For this period, 1982 had the highest calendar-year average extent of Arctic sea ice while 2016 had the lowest", 30),
+           col = "white", 
+           size = 7) +
   labs(x = "") +
   labs(y = "extent (million sq km)") +
   labs(col = "") +

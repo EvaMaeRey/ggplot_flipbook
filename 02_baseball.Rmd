@@ -24,7 +24,8 @@ knitr::kable(sample_n(df_gather, 8), format = "html")
 ggplot(df_gather) +
   aes(x = Year, y = Percent) +
   facet_wrap(~ Ethnicity) +
-  geom_area(alpha = .5, position = "dodge") +
+  geom_area(alpha = .5, 
+            position = "dodge") +
   aes(fill = type) +
   labs(fill = "") +
   labs(x = "") +

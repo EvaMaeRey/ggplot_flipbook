@@ -29,12 +29,16 @@ knitr::kable(sample_n(both_data %>% select(-position_and_name), 5), format = "ht
 ggplot(both_data) +
   aes(x = ADMINISTRATION) + 
   aes(y = SALARY) +
-  geom_jitter(alpha = .5, height = 0, width = .25) +
+  geom_jitter(alpha = .5, 
+              height = 0, 
+              width = .25) +
   aes(col = ADMINISTRATION) +
   geom_boxplot(alpha = .25) +
   aes(fill = ADMINISTRATION) +
-  scale_colour_manual(values = c("blue", "red")) +
-  scale_fill_manual(values = c("blue", "red")) +
+  scale_colour_manual(values = 
+                        c("blue", "red")) +
+  scale_fill_manual(values = 
+                      c("blue", "red")) +
   theme_bw() +
   labs(title = "Obama and Trump White House Salaries as of early 2017") +
   labs(subtitle = "Data source: NPR via #MakeoverMonday") +

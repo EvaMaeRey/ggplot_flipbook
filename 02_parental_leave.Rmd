@@ -39,10 +39,16 @@ ggplot(df) +
   geom_rect(fill = "blue", alpha = .2) +
   aes(yend = 0) +
   aes(xend = 0) +
-  geom_segment(aes(yend = `Total paid leave avg payment rate (%)`), lty = "dashed") +
-  geom_segment(aes(xend = paid_leave_months), lty = "dashed") +
-  scale_y_continuous(limits = c(0, 100), expand = c(0, 0), breaks = c(0, 50, 100)) +
-  scale_x_continuous(limits = c(0, 44), expand = c(0, 0)) +
+  geom_segment(
+    aes(yend = `Total paid leave avg payment rate (%)`), 
+    lty = "dashed") +
+  geom_segment(aes(xend = paid_leave_months), 
+               lty = "dashed") +
+  scale_y_continuous(limits = c(0, 100), 
+                     expand = c(0, 0), 
+                     breaks = c(0, 50, 100)) +
+  scale_x_continuous(limits = c(0, 44), 
+                     expand = c(0, 0)) +
   labs(x = "Length of paid leave entitlement (months)") +
   labs(y = "Percent of income paid (average over entitlement period)") +
   labs(title = "Total paid leave available to mothers in the OECD") +

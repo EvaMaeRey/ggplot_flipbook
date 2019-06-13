@@ -20,12 +20,13 @@ knitr::kable(sample_n(dta, 5), format = "html")
 
 ```{r christmas, eval=F, echo=F}
 ggplot(data = dta) +
-  aes(Year) +
+  aes(x = Year) +
   aes(y = `Number of trees sold (millions)`) +
   geom_point() +
   aes(col = fct_rev(`Type of tree`)) +
   geom_smooth(method = "lm", se = F) +
-  scale_color_manual(values = c("darkgreen", "green")) +
+  scale_color_manual(values = 
+                       c("darkgreen", "green")) +
   ylim(c(0, 35)) +
   labs(col = "") +
   labs(title = "Wie echt sind deine Blätter?") +

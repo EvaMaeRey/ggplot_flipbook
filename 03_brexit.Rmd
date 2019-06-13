@@ -62,9 +62,14 @@ ggplot(data = data) +
   geom_ribbon(alpha = .2) +
   geom_line(aes(col = Country), alpha = .2) +
   geom_line(data = data_gbr, col = "black") +
-  geom_vline(xintercept = as.numeric(as.POSIXct("2016-06-23")), lty = 2) +
-  annotate(geom = "text", x = as.POSIXct("2016-04-23"), y = 1.5, label = "Brexit Vote", angle = 90) +
-  labs(title = "Quarterly GDP Growth of G7 in Relation to Brexit Vote", subtitle = "Source: OECD", col = "") +
+  geom_vline(xintercept = 
+               as.numeric(as.POSIXct("2016-06-23")), 
+             lty = 2) +
+  annotate(geom = "text", 
+           x = as.POSIXct("2016-04-23"), y = 1.5, 
+           label = "Brexit Vote", angle = 90) +
+  labs(title = "Quarterly GDP Growth of G7 in Relation to Brexit Vote", 
+       subtitle = "Source: OECD", col = "") +
   theme_bw()
 ```
 
