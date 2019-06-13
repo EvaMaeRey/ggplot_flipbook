@@ -30,13 +30,17 @@ ggplot(df) +
   aes(shape = company) +
   aes(size = company) +
   labs(x = "Rank for among companies for feature") +
-  scale_color_manual(name = "", values = c("steelblue", "darkgrey", "darkgrey", "darkgrey", "darkgrey")) +
+  scale_color_manual(name = "", 
+                     values = c("steelblue", "darkgrey", 
+                                "darkgrey", "darkgrey", 
+                                "darkgrey")) +
   scale_shape_discrete(name = "") +
   theme_bw(base_family = "Times") +
   labs(title = "Average Score and Ranks across features exercise w/ R & ggplot2") +
   labs(subtitle = "Data Source: Randomly generated toy data in R | Viz: Gina Reynolds") +
   labs(y = "Average Score") +
-  scale_x_continuous(breaks = 1:5, labels = 1:5, limits = c(.5, 5.5)) 
+  scale_x_continuous(breaks = 1:5, labels = 1:5, 
+                     limits = c(.5, 5.5)) 
 ```
 
 

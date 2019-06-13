@@ -19,7 +19,10 @@ df <- readxl::read_xlsx("raw_data/Looks vs Personality.xlsx") %>%
     Thai = "Thailand",
     Vietnamese = "Vietnam"
   )) %>%
-  mutate(country_name = countrycode::countrycode(country, "country.name", "country.name")) %>%
+  mutate(country_name = 
+           countrycode::countrycode(country, 
+                                    "country.name", 
+                                    "country.name")) %>%
   mutate(Percent = Percentage * 100) %>%
   mutate(
     Question_short =
@@ -76,12 +79,16 @@ knitr::kable(sample_n(world %>% ungroup() %>% select(-Question_short_wrap), 5), 
 
 ```{r traits, fig.height=6, fig.width=12, eval=F, echo=F}
 ggplot(data = world) + 
-  aes(x = Question_short_wrap, y = Percent) +
+  aes(x = Question_short_wrap) +
+  aes(y = Percent) +
   aes(fill = `Rank (text)`) +
   facet_grid(Gender ~ .) +
   geom_col() +
   coord_flip() +
-  scale_fill_manual(values = colorRampPalette(RColorBrewer::brewer.pal(9, "Purples"))(6)[1:6], guide = guide_legend(reverse = TRUE)) +
+  scale_fill_manual(
+    values = colorRampPalette(
+      RColorBrewer::brewer.pal(n = 9, name = "Purples"))(6), 
+                    guide = guide_legend(reverse = TRUE)) +
   labs(fill = "") +
   xlab("") +
   labs(title = "Why do I love thee?  Let me rank the traits... \nHow 10,689 men and 11,370 women across 20 countries rank romantic partner trait importance") +

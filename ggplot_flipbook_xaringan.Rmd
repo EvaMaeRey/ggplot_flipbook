@@ -92,50 +92,24 @@ While I'm hopeful that this book serves as a reference, I think the best introdu
 
 
 ---
+# The tidyverse
 
-```{r setup, include=FALSE}
+We are using the tidyverse, which ggplot is a part of.  
+
+
+
+
+```{r, echo = F}
 library(tidyverse)
 library(printr)
 knitr::opts_chunk$set(echo = TRUE)
-knitr::opts_chunk$set(fig.height = 6, out.width = "80%", comment = " ", cache = T, dpi = 300)
-# reveal lines up to `upto` and highlight lines `highlight`
-reveal <- function(name, upto, highlight = upto) {
-  content <- knitr:::knit_code$get(name)
-  # Only replce the last %>% or + on the line, but keep comments
-  content[upto] <- gsub("%>%\\s*(#.+)?$", "\\1", content[upto])
-  content[upto] <- gsub("\\+\\s*(#.+)?$", "\\1", content[upto])
-  content[highlight] <- paste(content[highlight], "#<<")
-  content[1:upto]
-}
+knitr::opts_chunk$set(fig.height = 6, out.width = "80%", comment = " ", cache = T, dpi = 300, warning = F, message = F)
+source(file = "xaringan_reveal_parenthetical.R")
+```
 
-partial_knit_chunks <- function(chunk_name) {
-  browser()
-  # Create slide for lines 1:N for each line N in the given chunk
-  idx_lines <- seq_along(knitr:::knit_code$get(chunk_name))
-  partial_knit_steps <- glue::glue(
-    "class: split-40",
-    "count: false",
-    "",
-    ".column[.content[",
-    "```{r plot{{idx_lines}}, eval=FALSE, code=reveal('{{chunk_name}}', {{idx_lines}})}",
-    "```",
-    "]]",
-    ".column[.content.center[",
-    "```{r {{chunk_name}}_{{idx_lines}}, echo=FALSE, code=reveal('{{chunk_name}}', {{idx_lines}})}",
-    "```",
-    "]]",
-    .open = "{{", .close = "}}", .sep = "\n"
-  )
-  glue::glue_collapse(partial_knit_steps, "\n---\n")
-}
-
-apply_reveal <- function(chunk_name){
-  paste(knitr::knit(text = partial_knit_chunks(chunk_name)), collapse = "\n")
-}
-``` 
-
-
-
+```{r}
+library(tidyverse)
+```
 
 ---
 
@@ -166,7 +140,7 @@ This book is not complete.  The plots that follow aren't as carefully edited as 
 
 
 ```{css, eval = TRUE, echo = F}
-.remark-code{line-height: 1.5; font-size: 50%}
+.remark-code{line-height: 1.5; font-size: 85%}
 ```
 
 

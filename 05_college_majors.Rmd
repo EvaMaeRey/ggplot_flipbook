@@ -78,12 +78,17 @@ ggplot(data = college_majors ) +
   aes(y = Unemployment_rate) +
   aes(label = Major) +
   aes(col = Median/1000) +
-  facet_wrap(~ factor(Major_category, summarized$Major_category)) +
+  facet_wrap(~ factor(Major_category, 
+                      summarized$Major_category)) +
   geom_point(alpha = .7) +
-  geom_vline(data = summarized, aes(xintercept = mean_share_non_college), lty = "dotted") +
-  geom_hline(data = summarized, aes(yintercept = mean_unemployment_rate), lty = "dotted") +
+  geom_vline(data = summarized, 
+             mapping = aes(xintercept = mean_share_non_college), 
+             lty = "dotted") +
+  geom_hline(data = summarized, 
+             mapping = aes(yintercept = mean_unemployment_rate), 
+             lty = "dotted") +
   theme_light() +
-  scale_colour_viridis_c(option = "D") +
+  scale_colour_viridis_c(option = "viridis") +
   labs(y = "unemployment rate") +
   labs(x = "share working jobs requiring no college") +
   labs(size = "Total\nestimated\n(thousands)") +

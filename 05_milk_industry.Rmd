@@ -42,27 +42,42 @@ knitr::kable(head(df, 5), format = "html")
 
 ```{r milk, eval=F, echo=F}
   ggplot(df_changes) +
-  aes(xmin = year - .3, xmax = year + .3) + 
-  aes(ymin = milk_cow_cost_per_animal_lag, ymax = milk_cow_cost_per_animal) +
+  aes(xmin = year - .3, 
+      xmax = year + .3) + 
+  aes(ymin = milk_cow_cost_per_animal_lag, 
+      ymax = milk_cow_cost_per_animal) +
   geom_rect(fill = "blue", alpha = .3) +
-  geom_col(aes(x = year, y = milk_cow_cost_per_animal), data = df %>% filter(year == 2004), fill = "grey", alpha = .5) +
+  geom_col(data = df %>% filter(year == 2004), 
+           mapping = aes(x = year, y = milk_cow_cost_per_animal), 
+           fill = "grey", alpha = .5) +
   labs(x = "") +
   labs(fill = "") +
   labs(y = "Cost (US$)") +
   labs(title = "Cost of milk cows in the United States") +
   labs(subtitle = "Per animal cost, 2004-2014 | Viz: Gina Reynolds") +
   scale_y_continuous(limits = c(0, 2004)) +
-  scale_x_continuous(breaks = seq(2004,2014, by = 2), limits = c(2003.5, 2014.5)) +
-  aes(x = year - .5,  xend = year + 1.5) +
-  aes(y = milk_cow_cost_per_animal, yend = milk_cow_cost_per_animal) +
-  geom_segment(data = df %>% filter(year >= 2004 & year < 2014), linetype = "dashed", col = "gray39") +
-  geom_segment(data = df %>% filter(year == 2014), linetype = "dashed", aes(x = year - .5, xend = year + .5), col = "gray39") +
+  scale_x_continuous(breaks = seq(2004, 2014, by = 2), 
+                     limits = c(2003.5, 2014.5)) +
+  aes(x = year - .5,  
+      xend = year + 1.5) +
+  aes(y = milk_cow_cost_per_animal, 
+      yend = milk_cow_cost_per_animal) +
+  geom_segment(data = df %>% filter(year >= 2004 & year < 2014),
+               linetype = "dashed", col = "gray39") +
+  geom_segment(data = df %>% filter(year == 2014),
+               linetype = "dashed", col = "gray39",
+               mapping = aes(x = year - .5, xend = year + .5)) +
   scale_fill_viridis_d() +
   theme_bw(base_family = "Times") +
   aes(label = paste0(percent_change, "%")) +
-  geom_text(show.legend = F, aes(y = milk_cow_cost_per_animal, x = year, col = percent_change > 0),  size = 3, nudge_y = 90 * ((df_changes$percent_change > 0) - .5)) +
-  scale_color_manual(values = rev(c("gray39", "tomato4"))) +
-  labs(x = "", y = "Price ($US)")
+  geom_text(mapping = aes(y = milk_cow_cost_per_animal, 
+                          x = year, 
+                          col = percent_change > 0),  
+            size = 3, nudge_y = 90 * ((df_changes$percent_change > 0) - .5),
+            show.legend = F) +
+  scale_color_manual(values = c("tomato4", "gray39")) +
+  labs(x = "") +
+  labs(y = "Price ($US)")
 ```
 
 `r apply_reveal("milk")`

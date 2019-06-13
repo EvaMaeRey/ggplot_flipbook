@@ -33,11 +33,13 @@ usa <- map_data("state")
   
 ```{r wind_01, eval=F, echo=F}
 ggplot(data = usa) +  
-  aes(long, lat, group = group) + 
+  aes(x = long, y = lat, group = group) + 
   geom_polygon(fill = "blue", alpha = .4) + 
   theme_classic() +
   coord_map(projection = "mercator") +
-  geom_point(data = us_wind %>% filter(ylat < 50 & ylat > 25), mapping = aes(xlong, ylat, group = NULL), size = .5, col = "orange", alpha = .6) + 
+  geom_point(data = us_wind %>% filter(ylat < 50 & ylat > 25), 
+             mapping = aes(x = xlong, y = ylat, group = NULL), 
+             size = .5, col = "orange", alpha = .6) + 
   theme_void() + 
   labs(title = "Wind turbines in the continental US") + 
   labs(caption = "Tidy Tuesday exercise") +
@@ -58,7 +60,7 @@ data <- us_wind %>%
 
 ```{r wind_02, eval=F, echo=F}
   ggplot(data) +
-  aes(xlong, ylat) + 
+  aes(x = xlong, y = ylat) + 
   borders("state") +
   geom_point(col = "steelblue", alpha = .2) +
   theme_void() +
