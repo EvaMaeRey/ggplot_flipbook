@@ -1,9 +1,7 @@
 # Winter Games
 
 ```{r, echo = F}
-library(ggplot2)
-# library(ggridges)
-library(dplyr)
+library(tidyverse)
 df <- readxl::read_xlsx("raw_data/Winter Olympic Medals.xlsx")
 library(knitr)
 ```
@@ -84,7 +82,8 @@ ggplot(dta) +
   geom_jitter(mapping = aes(col = fct_inorder(Medal)), 
               width = 1, height = .5, size = 1) +
   geom_smooth(col = "grey30") +
-  geom_ribbon(ymin = 20, ymax = 30, 
+  annotate(geom = "ribbon", x = c(1945,2016),
+           ymin = 20, ymax = 30, 
               alpha = .1, fill = "blue") +
   geom_hline(yintercept = c(20, 30), lty = "dotted") +
   geom_hline(yintercept = c(25), lty = "dashed") +
