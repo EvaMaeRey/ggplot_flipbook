@@ -135,7 +135,7 @@ This book is not complete.  The plots that follow aren't as carefully edited as 
 
 
 ```{css, eval = TRUE, echo = F}
-.remark-code{line-height: 1.5; font-size: 85%}
+.remark-code{line-height: 1.5; font-size: 65%}
 ```
 
 
