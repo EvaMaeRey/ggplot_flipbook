@@ -1,3 +1,4 @@
+name: milkindustry
 # Milk Industry
 
 What's a milk cow worth? This data comes via the #TidyTuesday project.  I constructed a waterfall plot to track the average price of milk cows, calculating percent changes year on year. 
@@ -78,6 +79,12 @@ knitr::kable(head(df, 5), format = "html")
   scale_color_manual(values = c("tomato4", "gray39")) +
   labs(x = "") +
   labs(y = "Price ($US)")
+```
+
+```{r, echo = F, warning=F, message=F, eval = T, fig.show='hide'}
+get_what_save_what <- "milk"
+eval(parse(text = paste(knitr:::knit_code$get(get_what_save_what), collapse = "")))
+ggsave(paste0("figures/", get_what_save_what, ".png"), dpi = 300)
 ```
 
 `r apply_reveal("milk")`

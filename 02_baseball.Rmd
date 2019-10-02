@@ -1,6 +1,8 @@
+name: baseball
 # Baseball, WAR, and Ethnicity
 
 This data visualization uses the WAR measure in baseball, a calculation based on the contributions of players.  The visualizations show that new ethnicities and races started to be included in Major League baseball, the minority players that joined tended to contribute more than the expected value for players overall.  For example, from 1947, when Jackie Robinson joined Major League baseball, and onward, the percent of African American players was outpaced by the percent calculated contributions (WAR) of African American players.  
+
 
 
 
@@ -34,6 +36,11 @@ ggplot(df_gather) +
   theme_light() 
 ```
 
+```{r, echo = F, warning=F, message=F, eval = T, fig.show='hide'}
+get_what_save_what <- "baseball"
+eval(parse(text = paste(knitr:::knit_code$get(get_what_save_what), collapse = "")))
+ggsave(paste0("figures/", get_what_save_what, ".png"), dpi = 300)
+```
 
 `r paste(knitr::knit(text = partial_knit_chunks("baseball")), collapse = "\n")`
 

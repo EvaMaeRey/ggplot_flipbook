@@ -1,0 +1,1043 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  29 DEC 2016 21:07
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**SpecialHistogram.tex
+(./SpecialHistogram.tex
+LaTeX2e <2015/01/01>
+Babel <3.9l> and hyphenation patterns for 79 languages loaded.
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/size10.clo
+File: size10.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks14
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2014/10/28 v1.0p Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/latexconfig/graphics.cfg
+File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
+)
+Package graphics Info: Driver file: pdftex.def on input line 94.
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/pdftex-def/pdftex.def
+File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
+
+(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/infwarerr.sty
+Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
+)
+(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
+Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
+)
+\Gread@gobject=\count87
+))
+\Gin@req@height=\dimen103
+\Gin@req@width=\dimen104
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/graphics/color.sty
+Package: color 2014/10/28 v1.1a Standard LaTeX Color (DPC)
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/latexconfig/color.cfg
+File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
+)
+Package color Info: Driver file: pdftex.def on input line 142.
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/framed/framed.sty
+Package: framed 2011/10/22 v 0.96: framed or shaded text with page breaks
+\OuterFrameSep=\skip43
+\fb@frw=\dimen105
+\fb@frh=\dimen106
+\FrameRule=\dimen107
+\FrameSep=\dimen108
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/alltt.sty
+Package: alltt 1997/06/16 v2.0g defines alltt environment
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/upquote/upquote.sty
+Package: upquote 2012/04/19 v1.3 upright-quote and grave-accent glyphs in verba
+tim
+)
+(./SpecialHistogram.aux)
+\openout1 = `SpecialHistogram.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 53.
+LaTeX Font Info:    ... okay on input line 53.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 53.
+LaTeX Font Info:    ... okay on input line 53.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 53.
+LaTeX Font Info:    ... okay on input line 53.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 53.
+LaTeX Font Info:    ... okay on input line 53.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 53.
+LaTeX Font Info:    ... okay on input line 53.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 53.
+LaTeX Font Info:    ... okay on input line 53.
+
+(/usr/local/texlive/2015/texmf-dist/tex/context/base/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count88
+\scratchdimen=\dimen109
+\scratchbox=\box26
+\nofMPsegments=\count89
+\nofMParguments=\count90
+\everyMPshowfont=\toks15
+\MPscratchCnt=\count91
+\MPscratchDim=\dimen110
+\MPnumerator=\count92
+\makeMPintoPDFobject=\count93
+\everyMPtoPDFconversion=\toks16
+) (/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
+Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
+)
+
+(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/ifluatex.sty
+Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+)
+(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/ifpdf.sty
+Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
+Package ifpdf Info: pdfTeX in PDF mode is detected.
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
+Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/oberdiek/grfext.sty
+Package: grfext 2010/08/19 v1.1 Manage graphics extensions (HO)
+
+(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/kvdefinekeys.sty
+Package: kvdefinekeys 2011/04/07 v1.3 Define keys (HO)
+))
+(/usr/local/texlive/2015/texmf-dist/tex/latex/oberdiek/kvoptions.sty
+Package: kvoptions 2011/06/30 v3.11 Key value format for package options (HO)
+
+(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/kvsetkeys.sty
+Package: kvsetkeys 2012/04/25 v1.16 Key value parser (HO)
+
+(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/etexcmds.sty
+Package: etexcmds 2011/02/16 v1.5 Avoid name clashes with e-TeX commands (HO)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+)))
+Package grfext Info: Graphics extension search list:
+(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 452.
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+))
+Package color Info: Redefining color shadecolor on input line 62.
+
+<figure/unnamed-chunk-3-1.pdf, id=1, 505.89pt x 361.35pt>
+File: figure/unnamed-chunk-3-1.pdf Graphic file (type pdf)
+
+<use figure/unnamed-chunk-3-1.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-3-1.pdf used on input line 63.
+(pdftex.def)             Requested size: 345.0pt x 246.43153pt.
+
+Overfull \hbox (15.0pt too wide) in paragraph at lines 63--64
+[][] 
+ []
+
+Package color Info: Redefining color shadecolor on input line 69.
+<figure/unnamed-chunk-4-1.pdf, id=2, 505.89pt x 505.89pt>
+File: figure/unnamed-chunk-4-1.pdf Graphic file (type pdf)
+
+<use figure/unnamed-chunk-4-1.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-4-1.pdf used on input line 70.
+(pdftex.def)             Requested size: 345.0pt x 345.00414pt.
+
+Overfull \hbox (15.0pt too wide) in paragraph at lines 70--71
+[][] 
+ []
+
+Package color Info: Redefining color shadecolor on input line 76.
+[1
+
+{/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map} <./figur
+e/unnamed-chunk-3-1.pdf>]
+LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <10> not available
+(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 78.
+
+Overfull \hbox (69.74638pt too wide) in paragraph at lines 99--99
+[][]\OT1/cmtt/m/n/10 files[][]=[][]c[][]([][]"Careless Driving-Table 1.csv"[][]
+,[][]"Fatalities per 100M Miles-Table 1.csv"[][])[][] 
+ []
+
+
+Overfull \hbox (80.24629pt too wide) in paragraph at lines 100--100
+[][]\OT1/cmtt/m/it/10 # "Careless Driving-Table 1.csv"          "Copy of Final 
+Scoring-Table 1.csv"    [][] 
+ []
+
+
+Overfull \hbox (80.24629pt too wide) in paragraph at lines 101--101
+[][]\OT1/cmtt/m/it/10 # "Drunk Driving-Table 1.csv"             "Failure to Obe
+y-Table 1.csv"          [][] 
+ []
+
+
+Overfull \hbox (80.24629pt too wide) in paragraph at lines 102--102
+[][]\OT1/cmtt/m/it/10 # "Fatalities per 100M Miles-Table 1.csv" "Final Scoring-
+Table 1.csv"            [][] 
+ []
+
+LaTeX Font Info:    Try loading font information for OMS+cmtt on input line 107
+.
+(/Library/Frameworks/R.framework/Resources/share/texmf/tex/latex/omscmtt.fd
+File: omscmtt.fd 
+)
+LaTeX Font Info:    Font shape `OMS/cmtt/m/n' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 107.
+
+Overfull \hbox (122.24593pt too wide) in paragraph at lines 114--114
+[][]\OT1/cmtt/m/n/10 data[][]$[][]MillionMilesTraveled[][]=[][]100[][]/[][]data
+[][]$[][]Fatalities.Rate.per.100.Million.Vehicle.Miles.Traveled[][] 
+ []
+
+
+Overfull \hbox (59.24648pt too wide) in paragraph at lines 126--126
+[]\OT1/cmtt/m/n/10 ##  [1]  76.33588  95.23810  71.42857  69.44444 109.89011  9
+8.03922 112.35955[] 
+ []
+
+
+Overfull \hbox (59.24648pt too wide) in paragraph at lines 126--126
+[]\OT1/cmtt/m/n/10 ##  [8]  94.33962 175.43860  80.00000  92.59259  99.00990  7
+4.62687 106.38298[] 
+ []
+
+
+Overfull \hbox (59.24648pt too wide) in paragraph at lines 126--126
+[]\OT1/cmtt/m/n/10 ## [15] 100.00000 100.00000  86.20690  73.52941  68.02721  9
+7.08738 121.95122[] 
+ []
+
+
+Overfull \hbox (59.24648pt too wide) in paragraph at lines 126--126
+[]\OT1/cmtt/m/n/10 ## [22] 172.41379 100.00000 147.05882  63.29114  91.74312  5
+2.63158  91.74312[] 
+ []
+
+
+Overfull \hbox (59.24648pt too wide) in paragraph at lines 126--126
+[]\OT1/cmtt/m/n/10 ## [29]  94.33962  95.23810 136.98630  80.64516 108.69565  8
+1.30081  68.02721[] 
+ []
+
+
+Overfull \hbox (59.24648pt too wide) in paragraph at lines 126--126
+[]\OT1/cmtt/m/n/10 ## [36] 113.63636  70.92199 107.52688  81.96721 119.04762  6
+3.69427  67.56757[] 
+ []
+
+
+Overfull \hbox (59.24648pt too wide) in paragraph at lines 126--126
+[]\OT1/cmtt/m/n/10 ## [43]  71.42857  72.46377 123.45679 103.09278 108.69565 13
+1.57895  57.80347[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ##    Population..Thousands. Pedestrian.Fatality.Rate.per.10
+0.000.Population[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 1                    4834                                
+            1.22[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 2                     735                                
+            0.82[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 3                    6627                                
+            2.00[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 4                    2959                                
+            1.52[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 5                   38333                                
+            1.83[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 6                    5268                                
+            0.95[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 7                    3596                                
+            1.00[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 8                     926                                
+            2.70[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 9                     646                                
+            1.39[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 10                  19553                                
+            3.00[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 11                   9992                                
+            1.76[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 12                   1404                                
+            1.64[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 13                   1612                                
+            0.87[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 14                  12882                                
+            1.00[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 15                   6571                                
+            1.17[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 16                   3090                                
+            0.65[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 17                   2894                                
+            1.00[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 18                   4395                                
+            1.00[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 19                   4625                                
+            2.10[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 20                   1328                                
+            0.83[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 21                   5929                                
+            1.82[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 22                   6693                                
+            1.02[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 23                   9896                                
+            1.50[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 24                   5420                                
+            0.59[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 25                   2991                                
+            2.00[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 26                   6044                                
+            1.21[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 27                   1015                                
+            2.36[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 28                   1869                                
+            0.64[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 29                   2790                                
+            2.33[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 30                   1323                                
+            1.00[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 31                   8899                                
+            1.45[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 32                   2085                                
+            2.35[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 33                  19651                                
+            2.00[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 34                   9848                                
+            1.76[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 35                    723                                
+            0.14[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 36                  11571                                
+            1.00[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 37                   3851                                
+            1.51[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 38                   3930                                
+            1.00[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 39                  12774                                
+            1.15[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 40                   1052                                
+            1.33[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 41                   4775                                
+            2.09[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 42                    845                                
+            1.07[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 43                   6496                                
+            1.23[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 44                  26448                                
+            2.00[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 45                   2901                                
+            1.00[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 46                    627                                
+            0.80[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 47                   8260                                
+            0.91[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 48                   6971                                
+            1.00[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 49                   1854                                
+            1.51[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 50                   5743                                
+            0.64[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 51                    583                                
+            0.69[] 
+ []
+
+
+Overfull \hbox (6.74693pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ##                                                         S
+ources.[] 
+ []
+
+
+Overfull \hbox (6.74693pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 1    http://www-fars.nhtsa.dot.gov/States/StatesPedestria
+ns.aspx[] 
+ []
+
+
+Overfull \hbox (6.74693pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 2  http://www-fars.nhtsa.dot.gov/People/PeoplePedalcyclis
+ts.aspx[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ##    Fatalities.Rate.per.100.Million.Vehicle.Miles.Traveled
+ Rank.y X.y[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 1                                                    1.31
+     15  NA[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 2                                                    1.05
+     26  NA[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 3                                                    1.40
+     10  NA[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 4                                                    1.44
+      8  NA[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 5                                                    0.91
+     40  NA[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 6                                                    1.02
+     29  NA[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 7                                                    0.89
+     42  NA[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 8                                                    1.06
+     24  NA[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 9                                                    0.57
+     51  NA[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 10                                                   1.25
+     16  NA[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 11                                                   1.08
+     23  NA[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 12                                                   1.01
+     30  NA[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 13                                                   1.34
+     14  NA[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 14                                                   0.94
+     35  NA[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 15                                                   1.00
+     31  NA[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 16                                                   1.00
+     31  NA[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 17                                                   1.16
+     20  NA[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 18                                                   1.36
+     13  NA[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 19                                                   1.47
+      6  NA[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 20                                                   1.03
+     28  NA[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 21                                                   0.82
+     45  NA[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 22                                                   0.58
+     50  NA[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 23                                                   1.00
+     31  NA[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 24                                                   0.68
+     49  NA[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 25                                                   1.58
+      3  NA[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 26                                                   1.09
+     21  NA[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 27                                                   1.90
+      1  NA[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 28                                                   1.09
+     21  NA[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 29                                                   1.06
+     24  NA[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 30                                                   1.05
+     26  NA[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 31                                                   0.73
+     48  NA[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 32                                                   1.24
+     17  NA[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 33                                                   0.92
+     38  NA[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 34                                                   1.23
+     18  NA[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 35                                                   1.47
+      6  NA[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 36                                                   0.88
+     43  NA[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 37                                                   1.41
+      9  NA[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 38                                                   0.93
+     36  NA[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 39                                                   1.22
+     19  NA[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 40                                                   0.84
+     44  NA[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 41                                                   1.57
+      4  NA[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 42                                                   1.48
+      5  NA[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 43                                                   1.40
+     10  NA[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 44                                                   1.38
+     12  NA[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 45                                                   0.81
+     46  NA[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 46                                                   0.97
+     34  NA[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 47                                                   0.92
+     38  NA[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 48                                                   0.76
+     47  NA[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 49                                                   1.73
+      2  NA[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 50                                                   0.91
+     40  NA[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 51                                                   0.93
+     36  NA[] 
+ []
+
+
+Overfull \hbox (59.24648pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ##                                                          
+          Source.[] 
+ []
+
+
+Overfull \hbox (59.24648pt too wide) in paragraph at lines 547--547
+[]\OT1/cmtt/m/n/10 ## 1  http://www-fars.nhtsa.dot.gov/States/StatesFatalitiesF
+atalityRates.aspx[] 
+ []
+
+[2 <./figure/unnamed-chunk-4-1.pdf>] [3]
+Underfull \vbox (badness 10000) detected at line 551
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 551
+ []
+
+[4]
+Underfull \vbox (badness 10000) detected at line 551
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 551
+ []
+
+[5]
+Underfull \vbox (badness 10000) detected at line 551
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 551
+ []
+
+[6]
+Underfull \vbox (badness 10000) detected at line 551
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 551
+ []
+
+[7]
+Underfull \vbox (badness 10000) detected at line 551
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 551
+ []
+
+[8]
+Underfull \vbox (badness 10000) detected at line 551
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 551
+ []
+
+[9]
+Underfull \vbox (badness 10000) detected at line 551
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 551
+ []
+
+[10]
+Underfull \vbox (badness 10000) detected at line 551
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 551
+ []
+
+[11] <figure/unnamed-chunk-5-1.pdf, id=54, 867.24pt x 505.89pt>
+File: figure/unnamed-chunk-5-1.pdf Graphic file (type pdf)
+
+<use figure/unnamed-chunk-5-1.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-5-1.pdf used on input line 552.
+(pdftex.def)             Requested size: 345.0pt x 201.24855pt.
+
+Overfull \hbox (15.0pt too wide) in paragraph at lines 552--553
+[][] 
+ []
+
+[12] [13 <./figure/unnamed-chunk-5-1.pdf>]
+<figure/unnamed-chunk-5-2.pdf, id=67, 867.24pt x 505.89pt>
+File: figure/unnamed-chunk-5-2.pdf Graphic file (type pdf)
+
+<use figure/unnamed-chunk-5-2.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-5-2.pdf used on input line 615.
+(pdftex.def)             Requested size: 345.0pt x 201.24855pt.
+
+Overfull \hbox (15.0pt too wide) in paragraph at lines 615--616
+[][] 
+ []
+
+[14 <./figure/unnamed-chunk-5-2.pdf>]
+<figure/unnamed-chunk-5-3.pdf, id=77, 867.24pt x 505.89pt>
+File: figure/unnamed-chunk-5-3.pdf Graphic file (type pdf)
+
+<use figure/unnamed-chunk-5-3.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-5-3.pdf used on input line 626.
+(pdftex.def)             Requested size: 345.0pt x 201.24855pt.
+
+Overfull \hbox (15.0pt too wide) in paragraph at lines 626--627
+[][] 
+ []
+
+Package color Info: Redefining color shadecolor on input line 631.
+[15 <./figure/unnamed-chunk-5-3.pdf>] (./SpecialHistogram.aux) ) 
+Here is how much of TeX's memory you used:
+ 1648 strings out of 493089
+ 24559 string characters out of 6134842
+ 241585 words of memory out of 5000000
+ 5126 multiletter control sequences out of 15000+600000
+ 3976 words of font info for 16 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 38i,5n,33p,294b,286s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/local/tex
+live/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmitt10.pfb></usr/local/tex
+live/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texli
+ve/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texliv
+e/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
+Output written on SpecialHistogram.pdf (15 pages, 98911 bytes).
+PDF statistics:
+ 102 PDF objects out of 1000 (max. 8388607)
+ 70 compressed objects within 1 object stream
+ 0 named destinations out of 1000 (max. 500000)
+ 26 words of extra memory for PDF output out of 10000 (max. 10000000)
+

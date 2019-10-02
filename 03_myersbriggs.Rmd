@@ -1,3 +1,4 @@
+name: myersbriggs
 # Myers Briggs
 
 This visualization is of prevelence of Myers Briggs type distributions within the US population.  So the data allows one to look at the relationship betweeen the four Myers Briggs types.    The challenge is how to display that in one visualization.  My first idea was to use a mosaic plot.  However, I came across advice from "The Perceptual Edge", that generally advised against the use of the mosaic plot, instead favoring a kind of nested bar plot.  I tried to implement that.  While I do think that the result is pretty, I think that it still requires a lot of the reader to interpret the graph.  More annotation might alleviate this burden. 
@@ -43,6 +44,11 @@ ggplot(data) +
   theme_bw(base_size = 10, base_family = "Times") 
 ```
 
+```{r, echo = F, warning=F, message=F, eval = T, fig.show='hide'}
+get_what_save_what <- "myers_briggs"
+eval(parse(text = paste(knitr:::knit_code$get(get_what_save_what), collapse = "")))
+ggsave(paste0("figures/", get_what_save_what, ".png"), dpi = 300)
+```
 
 `r paste(knitr::knit(text = partial_knit_chunks("myers_briggs")), collapse = "\n")`
 

@@ -1,0 +1,116 @@
+---
+title: "ggplot tutorial"
+subtitle: "with kunoichi + ninjutsu theme"
+author: "<br><br> Emi Tanaka"
+date: "<br>2018/09/16"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["kunoichi", "ninjutsu"]
+    nature:
+      ratio: "16:9"
+      highlightLines: true
+---
+
+
+```{r}
+library(tidyverse)
+df <- readxl::read_xlsx("../raw_data/Wine_Production_by_country.xlsx") %>%
+  filter(Country != "World total")
+
+Europe <- c(
+  "Italy", "France", "Spain",
+  "Germany", "Portugal", "Romania",
+  "Austria", "Greece", "Hungary"
+)
+```
+
+
+
+```{r}
+  ggplot(df %>% filter(Country %in% Europe)) +
+  aes(x = Year) +
+  aes(y = `Wine production in mhl`) +
+  facet_wrap(~ fct_inorder(Country), strip.position = "bottom", nrow = 1) +
+  geom_col(aes(alpha = Year), position = "dodge", fill = "darkred", width = 1) +
+  geom_line(col = "black", lty = 2) +
+  scale_y_continuous(expand = c(0, 0)) +
+  labs(fill = "") +
+  labs(alpha = "")+
+  labs(title = "Wine production (mhl) in principle European markets, 2012-2016") +
+  labs(subtitle = "The EU program to regulate viticultural production ended upon the 2011/2012 harvest.") + 
+    labs(caption = "Design: Gina Reynolds @EvaMaeRey  \nData Source: International Organisation of Vine and Wine") + # \nProduction volitility for top producers followed.
+  theme_classic(base_family = "Times") +
+  theme(
+    axis.title = element_blank(),
+    strip.placement = "outside",
+    axis.text.x = element_blank(),
+    axis.ticks.x = element_blank(),
+    strip.background = element_blank(),
+    plot.caption = element_text(size = 10)
+  )
+```
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=TRUE)
+knitr::opts_chunk$set(fig.height=6, out.width="100%")
+library(ggplot2)
+# reveal lines up to `upto` and highlight lines `highlight`
+reveal <- function(name, upto, highlight = upto) {
+  content <- knitr:::knit_code$get(name)
+  content[upto] <- gsub("+", "", content[upto], fixed=T)
+  content[highlight] <- paste(content[highlight], "#<<")
+  content[1:upto]
+}
+
+partial_knit_chunks <- function(chunk_name) {
+  # Create slide for lines 1:N for each line N in the given chunk
+  idx_lines <- seq_along(knitr:::knit_code$get(chunk_name))
+  partial_knit_steps <- glue::glue(
+    "class: split-40",
+    "count: false",
+    "",
+    ".column[.content[",
+    "```{r plot{{idx_lines}}, eval=FALSE, code=reveal('{{chunk_name}}', {{idx_lines}})}",
+    "```",
+    "]]",
+    ".column[.content.center[",
+    "```{r output{{idx_lines}}, echo=FALSE, code=reveal('{{chunk_name}}', {{idx_lines}})}",
+    "```",
+    "]]",
+    .open = "{{", .close = "}}", .sep = "\n"
+  )
+  glue::glue_collapse(partial_knit_steps, "\n---\n")
+}
+```
+
+```{r complete, eval=F, echo=F}
+ggplot(df %>% filter(Country %in% Europe)) +
+aes(x = Year) +
+aes(y = `Wine production in mhl`) +
+facet_wrap(~ fct_inorder(Country), strip.position = "bottom", nrow = 1) +
+geom_col(aes(alpha = Year), position = "dodge", fill = "darkred", width = 1) +
+geom_line(col = "black", lty = 2) +
+scale_y_continuous(expand = c(0, 0)) +
+labs(fill = "") +
+labs(alpha = "")+
+labs(title = "Wine production (mhl) in principle European markets, 2012-2016") +
+labs(subtitle = "The EU program to regulate viticultural production ended upon the 2011/2012 harvest.") + 
+labs(caption = "Design: Gina Reynolds @EvaMaeRey  \nData Source: International Organisation of Vine and Wine") + 
+theme_classic(base_family = "Times") +
+theme(axis.title = element_blank(), strip.placement = "outside", axis.text.x = element_blank(), axis.ticks.x = element_blank(), strip.background = element_blank(), plot.caption = element_text(size = 10))
+```
+
+`r paste(knitr::knit(text = partial_knit_chunks("complete")), collapse = "\n")`
+
+<!--
+Create slides for the "complete" chunk
+...it's just R Markdown as a vector of strings
+...and why not be super concise about it?
+-->
+
+<!-- This css chunk can't be before the first class: split-40... lines -->
+```{css, eval=TRUE}
+.remark-code{ line-height: 2; }
+```

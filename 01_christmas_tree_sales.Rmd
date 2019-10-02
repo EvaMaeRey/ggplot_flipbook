@@ -1,3 +1,4 @@
+name: christmastreesales
 # Christmas Trees
 
 Here is a simple plot of Christmas Tree Sales in the U.S.  The plot shows that artificial tree sales are on the rise, contrasting with declines in real trees.  The title plays on the German Christmas Carol "O Tannenbaum", "Oh Christmas Tree" in English. "Wie echt sind deine Blätter?" means "how real are your leaves"; the original text from the carol is "Wie treu sind deine Blätter!" which means "How true your leaves are!"
@@ -5,6 +6,9 @@ Here is a simple plot of Christmas Tree Sales in the U.S.  The plot shows that a
 I also plot the cumulative number of trees purchased of each type, artificial and real, from 2004 to 2014, comparing that to the 2016 U.S. population.  Almost one real tree per person was bought over the course of 10 years!   
 
 
+```{r}
+library(tidyverse)
+```
 
 ```{r, echo = F}
 dta <- readxl::read_xlsx("raw_data/Christmas tree sales.xlsx") %>%
@@ -32,6 +36,11 @@ ggplot(data = dta) +
   labs(title = "Wie echt sind deine Blätter?") +
   labs(subtitle = "Real and fake Christmas trees sold in the US | Data Source: Statista | @EvaMaeRey ") +
   theme_bw() 
+```
+```{r, echo = F, warning=F, message=F, eval = T, fig.show='hide'}
+get_what_save_what <- "christmas"
+eval(parse(text = paste(knitr:::knit_code$get(get_what_save_what), collapse = "")))
+ggsave(paste0("figures/", get_what_save_what, ".png"), dpi = 300)
 ```
 
 

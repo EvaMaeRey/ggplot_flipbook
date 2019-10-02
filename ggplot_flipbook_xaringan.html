@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
   <head>
     <title>the ggplot flipbook</title>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <meta name="author" content="Gina Reynolds" />
     <link href="libs/remark-css-0.0.1/kunoichi.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/ninjutsu.css" rel="stylesheet" />
@@ -12,7 +12,7 @@
 class: center, middle, inverse, title-slide
 
 # the ggplot flipbook
-## ⚔<br/>made with xaringan
+## made with xaringan
 ### Gina Reynolds
 ### 2019/01/31
 
@@ -21,19 +21,26 @@ class: center, middle, inverse, title-slide
 
 
 
+&lt;!-- #Table of Contents --&gt;
+&lt;!-- - [Visual Table of Contents](#visualtoc) --&gt;
+&lt;!-- - [Introduction](#introduction) --&gt;
+&lt;!-- - [What's the slow ggplot workflow?](#whatsslow) --&gt;
+&lt;!-- - [Getting started with R and RStudio](#gettingstarted) --&gt;
+&lt;!-- - [Acknowledgements](#acknowledgements) --&gt;
+&lt;!-- - [The tidyverse](#thetidyverse) --&gt;
+
+
 
 # Introduction
 
+The ggplot2 package in the programming language R implements the "layered grammar of graphics" --- a proposal of Leland Wilkinson and the product of the dissertation and ongoing work of Hadley Wickham. This data visualization system idea is at once powerful, novel, and intuitive. Wickham and collaborators have built a system where data visualization is dividable into parameters: data to visualize, aesthetics that represent variables, geometric objects, a coordinate system, specific scales, and statistical transformation.
 
-The ggplot2 package in the programming language R implements the "layered grammar of graphics" --- a proposal of Leland Wilkinson and the product of the dissertation and ongoing work of Hadley Wickham.  This data visualization system idea is at once powerful, novel, and intuitive.  Wickham and collaborators have built a system where data visualization is dividable into parameters:  data to visualize, aesthetics that represent variables, geometric objects, a coordinate system, specific scales, and statistical transformation.  
+In this book, I use a "slow ggplotting" method as well as a "flipbook" format to facilitate the introduction of this plotting method. "Slow ggplotting" makes modifications to plots as incrementally as possible so that it is clear to users what code triggers each new layer or modification. The aim is less to be concise, and more to be explicit about how new statements modify the plot; repetition should facilitating more interactions with ggplotting to help newcomers internalize the functions. The flipbook layout is designed to show what code is triggering each change in the plot output.
 
-In this book, I use a "slow ggplotting" method as well as a "flipbook" format to facilitate the introduction of this plotting method. "Slow ggplotting" makes modifications to plots as incrementally as possible so that it is clear to users what code triggers each new layer or modification.  The aim is less to be concise, and more to be explicit about how new statements modify the plot; repetition should facilitating more interactions with ggplotting to help newcomers internalize the functions. The flipbook layout is designed to show what code is triggering each change in the plot output. 
-
-Readers of the book should easily be able to follow along with how plots are built up.  While intuitive, using ggplotting effectively and efficiently nevertheless requires practice.  My hope is that these examples will be a helpful reference point for those that endeavor to pick up data visualization with ggplot2. 
-
+Readers of the book should easily be able to follow along with how plots are built up. While intuitive, using ggplotting effectively and efficiently nevertheless requires practice. My hope is that these examples will be a helpful reference point for those that endeavor to pick up data visualization with ggplot2.
 
 ---
-
+name: whatsslow
 # What's the slow ggplot workflow?
 
 "Slow ggplot" just means working more incrementally than is typical. Elements of the approach are as follows:
@@ -77,7 +84,7 @@ ggplot(data = my_data) +
 
 
 ---
-
+name: gettingstarted
 # Getting started with R and RStudio
 
 
@@ -86,7 +93,7 @@ ggplot(data = my_data) +
 
 
 ---
-
+name: acknowledgements
 # Acknowledgements
 
 I'm grateful to the ggplot team for their tireless work on developing and maintaining this fantastic resource.  Additionally most of the visualizations here were produced for the Tableau-users-associated initiative #MakeoverMonday. I'm grateful to that community for feedback and encouragement and for welcoming work from outside of Tableau.  Additional visualizations have been made with data curated by #TidyTuesday, a similar initiative from RStudio. Many thanks are due to Emi Tanaka (@statsgen) and Garrick Aden-Buie (@grrrck) helped by writing the "reveal" function to made the flipbook style possible.  Also to Yihui Xie and others that work on the Xaringan package for creating slides from markdown and R code; I'm using Emi Tanaka's themes kunoichi and ninjutsu. 
@@ -94,56 +101,32 @@ I'm grateful to the ggplot team for their tireless work on developing and mainta
 While I'm hopeful that this book serves as a reference, I think the best introductions and learning happens in person.  My formal introduction to ggplot2 was at The Zurich Summer School for Women in Political Methodology in 2017 at the University of Zürich.  I'm very grateful to the organizers and presenters of that workshop; Denise Traber gave an excellent presention on ggplot2.  I'm grateful too to my students who motivate me to think about how to teach what I've been so lucky to learn.    And thanks to David, who is supportive of plotting and of me. 
 
 
+
+
+
+
 ---
-# The tidyverse
+name:visualtoc
+#Visual Table of Contents
 
-We are using the tidyverse, which ggplot is a part of.  
+&lt;a href="#christmastreesales"&gt;&lt;img src="figures/christmas.png"width="150" height="150" title=figures/christmas.png alt=figures/christmas.png&gt;&lt;/a&gt;&lt;a href="#baseball"&gt;&lt;img src="figures/baseball.png"width="150" height="150" title=figures/baseball.png alt=figures/baseball.png&gt;&lt;/a&gt;&lt;a href="#parentalleave"&gt;&lt;img src="figures/parent_leave.png"width="150" height="150" title=figures/parent_leave.png alt=figures/parent_leave.png&gt;&lt;/a&gt;&lt;a href="#traits"&gt;&lt;img src="figures/traits.png"width="150" height="150" title=figures/traits.png alt=figures/traits.png&gt;&lt;/a&gt;&lt;a href="#salaries"&gt;&lt;img src="figures/white_house.png"width="150" height="150" title=figures/white_house.png alt=figures/white_house.png&gt;&lt;/a&gt;&lt;a href="#wintergamemedals"&gt;&lt;img src="figures/winter_games.png"width="150" height="150" title=figures/winter_games.png alt=figures/winter_games.png&gt;&lt;/a&gt;
 
+&lt;a href="#brexit"&gt;&lt;img src="figures/brexit_1.png"width="150" height="150" title=figures/brexit_1.png alt=figures/brexit_1.png&gt;&lt;/a&gt;&lt;a href="#britishburgers"&gt;&lt;img src="figures/map_curry.png"width="150" height="150" title=figures/map_curry.png alt=figures/map_curry.png&gt;&lt;/a&gt;&lt;a href="#britishfood"&gt;&lt;img src="figures/away_from_ben.png"width="150" height="150" title=figures/away_from_ben.png alt=figures/away_from_ben.png&gt;&lt;/a&gt;&lt;a href="#lifeexpect"&gt;&lt;img src="figures/life_expect.png"width="150" height="150" title=figures/life_expect.png alt=figures/life_expect.png&gt;&lt;/a&gt;&lt;a href="#myersbriggs"&gt;&lt;img src="figures/myers_briggs.png"width="150" height="150" title=figures/myers_briggs.png alt=figures/myers_briggs.png&gt;&lt;/a&gt;&lt;a href="#womensrepresentation"&gt;&lt;img src="figures/women.png"width="150" height="150" title=figures/women.png alt=figures/women.png&gt;&lt;/a&gt;
 
+&lt;a href="#wine"&gt;&lt;img src="figures/wine.png"width="150" height="150" title=figures/wine.png alt=figures/wine.png&gt;&lt;/a&gt;&lt;a href="#ice"&gt;&lt;img src="figures/ice.png"width="150" height="150" title=figures/ice.png alt=figures/ice.png&gt;&lt;/a&gt;&lt;a href="#collegemajors01"&gt;&lt;img src="figures/recent_grads_01.png"width="150" height="150" title=figures/recent_grads_01.png alt=figures/recent_grads_01.png&gt;&lt;/a&gt;&lt;a href="#collegemajors02"&gt;&lt;img src="figures/recent_grads_02.png"width="150" height="150" title=figures/recent_grads_02.png alt=figures/recent_grads_02.png&gt;&lt;/a&gt;&lt;a href="#flippingseats"&gt;&lt;img src="figures/flipping_seats.png"width="150" height="150" title=figures/flipping_seats.png alt=figures/flipping_seats.png&gt;&lt;/a&gt;&lt;a href="#ratings"&gt;&lt;img src="figures/company_ranks.png"width="150" height="150" title=figures/company_ranks.png alt=figures/company_ranks.png&gt;&lt;/a&gt;
+                                                                        [More on next page](#visualtoc2)
 
-
-
-```
-## ── Attaching packages ────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
-```
-
-```
-## ✔ ggplot2 3.2.0     ✔ purrr   0.3.2
-## ✔ tibble  2.1.3     ✔ dplyr   0.7.8
-## ✔ tidyr   0.8.2     ✔ stringr 1.4.0
-## ✔ readr   1.1.1     ✔ forcats 0.3.0
-```
-
-```
-## Warning: package 'ggplot2' was built under R version 3.5.2
-```
-
-```
-## Warning: package 'tibble' was built under R version 3.5.2
-```
-
-```
-## Warning: package 'purrr' was built under R version 3.5.2
-```
-
-```
-## Warning: package 'stringr' was built under R version 3.5.2
-```
-
-```
-## ── Conflicts ───────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
-## ✖ dplyr::filter() masks stats::filter()
-## ✖ dplyr::lag()    masks stats::lag()
-```
-
-
-```r
-library(tidyverse)
-```
+---
+name: visualtoc2
+#Visual Table of Contents
+ 
+&lt;a href="#incarcerationbysex"&gt;&lt;img src="figures/incarceration_01.png"width="150" height="150" title=figures/incarceration_01.png alt=figures/incarceration_01.png&gt;&lt;/a&gt;&lt;a href="#incarcerationbygender"&gt;&lt;img src="figures/incarceration_02.png"width="150" height="150" title=figures/incarceration_02.png alt=figures/incarceration_02.png&gt;&lt;/a&gt;&lt;a href="#milkindustry"&gt;&lt;img src="figures/milk.png"width="150" height="150" title=figures/milk.png alt=figures/milk.png&gt;&lt;/a&gt;&lt;a href="#windturbinelocations01"&gt;&lt;img src="figures/wind_01.png"width="150" height="150" title=figures/wind_01.png alt=figures/wind_01.png&gt;&lt;/a&gt;&lt;a href="#windturbinelocations02"&gt;&lt;img src="figures/wind_02.png"width="150" height="150" title=figures/wind_02.png alt=figures/wind_02.png&gt;&lt;/a&gt;&lt;a href="#movies"&gt;&lt;img src="figures/movies.png"width="150" height="150" title=figures/movies.png alt=figures/movies.png&gt;&lt;/a&gt;
+---
 
 ---
 
 
+name: christmastreesales
 # Christmas Trees
 
 Here is a simple plot of Christmas Tree Sales in the U.S.  The plot shows that artificial tree sales are on the rise, contrasting with declines in real trees.  The title plays on the German Christmas Carol "O Tannenbaum", "Oh Christmas Tree" in English. "Wie echt sind deine Blätter?" means "how real are your leaves"; the original text from the carol is "Wie treu sind deine Blätter!" which means "How true your leaves are!"
@@ -151,6 +134,10 @@ Here is a simple plot of Christmas Tree Sales in the U.S.  The plot shows that a
 I also plot the cumulative number of trees purchased of each type, artificial and real, from 2004 to 2014, comparing that to the 2016 U.S. population.  Almost one real tree per person was bought over the course of 10 years!   
 
 
+
+```r
+library(tidyverse)
+```
 
 
 
@@ -166,22 +153,22 @@ A random sample from the data set:
  &lt;/thead&gt;
 &lt;tbody&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:right;"&gt; 2011 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 30800000 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Real tree &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 30.8 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:right;"&gt; 2011 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 9500000 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2009 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11700000 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; Fake tree &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 9.5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11.7 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:right;"&gt; 2016 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 27400000 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Real tree &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 27.4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2005 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9300000 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Fake tree &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9.3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 2015 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12500000 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Fake tree &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12.5 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:right;"&gt; 2008 &lt;/td&gt;
@@ -190,15 +177,16 @@ A random sample from the data set:
    &lt;td style="text-align:right;"&gt; 11.7 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:right;"&gt; 2004 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 27100000 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2016 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 27400000 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; Real tree &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 27.1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 27.4 &lt;/td&gt;
   &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 
 ---
+
 
 
 
@@ -439,9 +427,11 @@ ggplot(data = dta) +
 
 
 
+name: baseball
 # Baseball, WAR, and Ethnicity
 
 This data visualization uses the WAR measure in baseball, a calculation based on the contributions of players.  The visualizations show that new ethnicities and races started to be included in Major League baseball, the minority players that joined tended to contribute more than the expected value for players overall.  For example, from 1947, when Jackie Robinson joined Major League baseball, and onward, the percent of African American players was outpaced by the percent calculated contributions (WAR) of African American players.  
+
 
 
 
@@ -511,6 +501,7 @@ A random sample from the data set:
 &lt;/table&gt;
 
 ---
+
 
 
 
@@ -713,6 +704,7 @@ This book is not complete.  The plots that follow aren't as carefully edited as 
 ---
 
 
+name:parentalleave
 # Maternal Leave
 
 The OECD provides a comparative report on how much paid leave women are entitled to after childbirth.  But leave takes different forms.  In some places, the allowed leave is longer, but sometimes that means that the pay out compared to the regular salary is lower.  To emphasize the different forms that law around paid leave take, I plotted the total payout available to mothers as areas of rectangles, where one side is the length of leave allowed, and the other side is the proportion of salary paid to the new mom.  
@@ -821,6 +813,8 @@ A random sample from the data set:
 
 
 ---
+
+
 
 
 
@@ -1324,6 +1318,7 @@ ggplot(df) +
 
 ---
 
+name: traits
 # Traits
 
 
@@ -1385,6 +1380,8 @@ A random sample from the data set:
 &lt;/table&gt;
 
 ---
+
+
 
 
 
@@ -1627,6 +1624,7 @@ ggplot(data = world) +
 
 ---
 
+name: salaries
 # Salarys of Trump and Obama White House Employees
 
 The data set, originally reported on in an NPR article, shows the difference in the distribution of salaries for the Obama and early Trump White House. 
@@ -1979,665 +1977,7 @@ ggplot(both_data) +
 
 ---
 
-# Winter Games
-
-
-
-
-
-A random sample from the data set: 
-&lt;table&gt;
- &lt;thead&gt;
-  &lt;tr&gt;
-   &lt;th style="text-align:right;"&gt; Year &lt;/th&gt;
-   &lt;th style="text-align:left;"&gt; Sport &lt;/th&gt;
-   &lt;th style="text-align:left;"&gt; Event &lt;/th&gt;
-   &lt;th style="text-align:left;"&gt; Country &lt;/th&gt;
-   &lt;th style="text-align:left;"&gt; Gender &lt;/th&gt;
-   &lt;th style="text-align:right;"&gt; Medal Rank &lt;/th&gt;
-   &lt;th style="text-align:left;"&gt; Medal &lt;/th&gt;
-   &lt;th style="text-align:left;"&gt; Name of Athlete or Team &lt;/th&gt;
-   &lt;th style="text-align:right;"&gt; Age of Athlete &lt;/th&gt;
-  &lt;/tr&gt;
- &lt;/thead&gt;
-&lt;tbody&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:right;"&gt; 1988 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Alpine Skiing &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Men's Slalom &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; West Germany &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Men &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; silver &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Frank WÃ¶rndl &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 28 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:right;"&gt; 1972 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Cross-Country Skiing &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Men's 15 Kilometers &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Soviet Union &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Men &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; silver &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Fyodor Simashov &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 26 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:right;"&gt; 2010 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Speedskating &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Women's Team Pursuit (6 laps) &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Japan &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Women &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; silver &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Japan &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; NA &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:right;"&gt; 1994 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Speedskating &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Men's 1,500 Meters &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Norway &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Men &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; gold &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Johann Olav Koss &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 25 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:right;"&gt; 2002 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Alpine Skiing &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Women's Combined &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Germany &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Women &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; bronze &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Martina Ertl-Renz &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 28 &lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-
----
-
-
-
-
-class: split-40
-count: false
-
-.column[.content[
-
-```r
-*ggplot(data = dta)
-```
-]]
-.column[.content.center[
-&lt;img src="ggplot_flipbook_xaringan_files/figure-html/output_countries_games_1-1.png" width="80%" /&gt;
-]]
----
-class: split-40
-count: false
-
-.column[.content[
-
-```r
-ggplot(data = dta) + 
-* aes(x = Year)
-```
-]]
-.column[.content.center[
-&lt;img src="ggplot_flipbook_xaringan_files/figure-html/output_countries_games_2-1.png" width="80%" /&gt;
-]]
----
-class: split-40
-count: false
-
-.column[.content[
-
-```r
-ggplot(data = dta) + 
-  aes(x = Year) +
-* aes(y = percent_medals)
-```
-]]
-.column[.content.center[
-&lt;img src="ggplot_flipbook_xaringan_files/figure-html/output_countries_games_3-1.png" width="80%" /&gt;
-]]
----
-class: split-40
-count: false
-
-.column[.content[
-
-```r
-ggplot(data = dta) + 
-  aes(x = Year) +
-  aes(y = percent_medals) +
-* geom_line()
-```
-]]
-.column[.content.center[
-&lt;img src="ggplot_flipbook_xaringan_files/figure-html/output_countries_games_4-1.png" width="80%" /&gt;
-]]
----
-class: split-40
-count: false
-
-.column[.content[
-
-```r
-ggplot(data = dta) + 
-  aes(x = Year) +
-  aes(y = percent_medals) +
-  geom_line() + 
-* facet_wrap(~ Country)
-```
-]]
-.column[.content.center[
-&lt;img src="ggplot_flipbook_xaringan_files/figure-html/output_countries_games_5-1.png" width="80%" /&gt;
-]]
----
-class: split-40
-count: false
-
-.column[.content[
-
-```r
-ggplot(data = dta) + 
-  aes(x = Year) +
-  aes(y = percent_medals) +
-  geom_line() + 
-  facet_wrap(~ Country) +
-* labs(y = "")
-```
-]]
-.column[.content.center[
-&lt;img src="ggplot_flipbook_xaringan_files/figure-html/output_countries_games_6-1.png" width="80%" /&gt;
-]]
----
-class: split-40
-count: false
-
-.column[.content[
-
-```r
-ggplot(data = dta) + 
-  aes(x = Year) +
-  aes(y = percent_medals) +
-  geom_line() + 
-  facet_wrap(~ Country) +
-  labs(y = "") +
-* labs(title = "Number of Winter Olympic Medals among 16 most winning countries, 1948-2014")
-```
-]]
-.column[.content.center[
-&lt;img src="ggplot_flipbook_xaringan_files/figure-html/output_countries_games_7-1.png" width="80%" /&gt;
-]]
----
-class: split-40
-count: false
-
-.column[.content[
-
-```r
-ggplot(data = dta) + 
-  aes(x = Year) +
-  aes(y = percent_medals) +
-  geom_line() + 
-  facet_wrap(~ Country) +
-  labs(y = "") +
-  labs(title = "Number of Winter Olympic Medals among 16 most winning countries, 1948-2014") +
-* labs(caption = "Vis: @EvaMaeRey | Source: Sports-Reference.com")
-```
-]]
-.column[.content.center[
-&lt;img src="ggplot_flipbook_xaringan_files/figure-html/output_countries_games_8-1.png" width="80%" /&gt;
-]]
----
-class: split-40
-count: false
-
-.column[.content[
-
-```r
-ggplot(data = dta) + 
-  aes(x = Year) +
-  aes(y = percent_medals) +
-  geom_line() + 
-  facet_wrap(~ Country) +
-  labs(y = "") +
-  labs(title = "Number of Winter Olympic Medals among 16 most winning countries, 1948-2014") +
-  labs(caption = "Vis: @EvaMaeRey | Source: Sports-Reference.com") +
-* theme_minimal()
-```
-]]
-.column[.content.center[
-&lt;img src="ggplot_flipbook_xaringan_files/figure-html/output_countries_games_9-1.png" width="80%" /&gt;
-]]
-
----
-
-
-
-A random sample from the data set: 
-&lt;table&gt;
- &lt;thead&gt;
-  &lt;tr&gt;
-   &lt;th style="text-align:right;"&gt; Year &lt;/th&gt;
-   &lt;th style="text-align:left;"&gt; Sport &lt;/th&gt;
-   &lt;th style="text-align:left;"&gt; Event &lt;/th&gt;
-   &lt;th style="text-align:left;"&gt; Country &lt;/th&gt;
-   &lt;th style="text-align:left;"&gt; Gender &lt;/th&gt;
-   &lt;th style="text-align:right;"&gt; Medal Rank &lt;/th&gt;
-   &lt;th style="text-align:left;"&gt; Medal &lt;/th&gt;
-   &lt;th style="text-align:left;"&gt; Name of Athlete or Team &lt;/th&gt;
-   &lt;th style="text-align:right;"&gt; Age of Athlete &lt;/th&gt;
-   &lt;th style="text-align:left;"&gt; cold_war &lt;/th&gt;
-  &lt;/tr&gt;
- &lt;/thead&gt;
-&lt;tbody&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:right;"&gt; 1976 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Luge &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Women's Singles &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; East Germany &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Women &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; silver &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Ute RÃ¼hrold &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 21 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; East Germany &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:right;"&gt; 2014 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Speedskating &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Women's 1,500 Meters &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Netherlands &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Women &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; gold &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Jorien Ter Mors &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 24 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; A &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:right;"&gt; 1956 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Speedskating &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Men's 1,500 Meters &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Soviet Union &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Men &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; gold &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Yury Mikhaylov &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 25 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Soviet Union &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:right;"&gt; 1964 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Cross-Country Skiing &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Women's 3 Ã— 5-Kilometer Relay &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Soviet Union &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Women &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; gold &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Soviet Union &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; NA &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Soviet Union &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:right;"&gt; 1960 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Speedskating &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Men's 5,000 Meters &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Norway &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Men &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; silver &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Knut Johannesen &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 26 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; A &lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-
----
-
-
-
-
-
-class: split-40
-count: false
-
-.column[.content[
-
-```r
-*ggplot(dta)
-```
-]]
-.column[.content.center[
-&lt;img src="ggplot_flipbook_xaringan_files/figure-html/output_winter_games_1-1.png" width="80%" /&gt;
-]]
----
-class: split-40
-count: false
-
-.column[.content[
-
-```r
-ggplot(dta) +
-* aes(x = Year)
-```
-]]
-.column[.content.center[
-&lt;img src="ggplot_flipbook_xaringan_files/figure-html/output_winter_games_2-1.png" width="80%" /&gt;
-]]
----
-class: split-40
-count: false
-
-.column[.content[
-
-```r
-ggplot(dta) +
-  aes(x = Year) +
-* aes(y = `Age of Athlete`)
-```
-]]
-.column[.content.center[
-&lt;img src="ggplot_flipbook_xaringan_files/figure-html/output_winter_games_3-1.png" width="80%" /&gt;
-]]
----
-class: split-40
-count: false
-
-.column[.content[
-
-```r
-ggplot(dta) +
-  aes(x = Year) +
-  aes(y = `Age of Athlete`) +
-* facet_wrap(~ Sport, scales = "free_y", nrow = 2)
-```
-]]
-.column[.content.center[
-&lt;img src="ggplot_flipbook_xaringan_files/figure-html/output_winter_games_4-1.png" width="80%" /&gt;
-]]
----
-class: split-40
-count: false
-
-.column[.content[
-
-```r
-ggplot(dta) +
-  aes(x = Year) +
-  aes(y = `Age of Athlete`) +
-  facet_wrap(~ Sport, scales = "free_y", nrow = 2) +
-* geom_jitter(mapping = aes(col = fct_inorder(Medal)),
-*             width = 1, height = .5, size = 1)
-```
-]]
-.column[.content.center[
-&lt;img src="ggplot_flipbook_xaringan_files/figure-html/output_winter_games_6-1.png" width="80%" /&gt;
-]]
----
-class: split-40
-count: false
-
-.column[.content[
-
-```r
-ggplot(dta) +
-  aes(x = Year) +
-  aes(y = `Age of Athlete`) +
-  facet_wrap(~ Sport, scales = "free_y", nrow = 2) +
-  geom_jitter(mapping = aes(col = fct_inorder(Medal)), 
-              width = 1, height = .5, size = 1) +
-* geom_smooth(col = "grey30")
-```
-]]
-.column[.content.center[
-&lt;img src="ggplot_flipbook_xaringan_files/figure-html/output_winter_games_7-1.png" width="80%" /&gt;
-]]
----
-class: split-40
-count: false
-
-.column[.content[
-
-```r
-ggplot(dta) +
-  aes(x = Year) +
-  aes(y = `Age of Athlete`) +
-  facet_wrap(~ Sport, scales = "free_y", nrow = 2) +
-  geom_jitter(mapping = aes(col = fct_inorder(Medal)), 
-              width = 1, height = .5, size = 1) +
-  geom_smooth(col = "grey30") +
-* annotate(geom = "ribbon", x = c(1945,2016),
-*          ymin = 20, ymax = 30,
-*             alpha = .1, fill = "blue")
-```
-]]
-.column[.content.center[
-&lt;img src="ggplot_flipbook_xaringan_files/figure-html/output_winter_games_10-1.png" width="80%" /&gt;
-]]
----
-class: split-40
-count: false
-
-.column[.content[
-
-```r
-ggplot(dta) +
-  aes(x = Year) +
-  aes(y = `Age of Athlete`) +
-  facet_wrap(~ Sport, scales = "free_y", nrow = 2) +
-  geom_jitter(mapping = aes(col = fct_inorder(Medal)), 
-              width = 1, height = .5, size = 1) +
-  geom_smooth(col = "grey30") +
-  annotate(geom = "ribbon", x = c(1945,2016),
-           ymin = 20, ymax = 30, 
-              alpha = .1, fill = "blue") +
-* geom_hline(yintercept = c(20, 30), lty = "dotted")
-```
-]]
-.column[.content.center[
-&lt;img src="ggplot_flipbook_xaringan_files/figure-html/output_winter_games_11-1.png" width="80%" /&gt;
-]]
----
-class: split-40
-count: false
-
-.column[.content[
-
-```r
-ggplot(dta) +
-  aes(x = Year) +
-  aes(y = `Age of Athlete`) +
-  facet_wrap(~ Sport, scales = "free_y", nrow = 2) +
-  geom_jitter(mapping = aes(col = fct_inorder(Medal)), 
-              width = 1, height = .5, size = 1) +
-  geom_smooth(col = "grey30") +
-  annotate(geom = "ribbon", x = c(1945,2016),
-           ymin = 20, ymax = 30, 
-              alpha = .1, fill = "blue") +
-  geom_hline(yintercept = c(20, 30), lty = "dotted") +
-* geom_hline(yintercept = c(25), lty = "dashed")
-```
-]]
-.column[.content.center[
-&lt;img src="ggplot_flipbook_xaringan_files/figure-html/output_winter_games_12-1.png" width="80%" /&gt;
-]]
----
-class: split-40
-count: false
-
-.column[.content[
-
-```r
-ggplot(dta) +
-  aes(x = Year) +
-  aes(y = `Age of Athlete`) +
-  facet_wrap(~ Sport, scales = "free_y", nrow = 2) +
-  geom_jitter(mapping = aes(col = fct_inorder(Medal)), 
-              width = 1, height = .5, size = 1) +
-  geom_smooth(col = "grey30") +
-  annotate(geom = "ribbon", x = c(1945,2016),
-           ymin = 20, ymax = 30, 
-              alpha = .1, fill = "blue") +
-  geom_hline(yintercept = c(20, 30), lty = "dotted") +
-  geom_hline(yintercept = c(25), lty = "dashed") +
-* scale_color_manual(values = c("goldenrod3", "grey40", "goldenrod4"))
-```
-]]
-.column[.content.center[
-&lt;img src="ggplot_flipbook_xaringan_files/figure-html/output_winter_games_13-1.png" width="80%" /&gt;
-]]
----
-class: split-40
-count: false
-
-.column[.content[
-
-```r
-ggplot(dta) +
-  aes(x = Year) +
-  aes(y = `Age of Athlete`) +
-  facet_wrap(~ Sport, scales = "free_y", nrow = 2) +
-  geom_jitter(mapping = aes(col = fct_inorder(Medal)), 
-              width = 1, height = .5, size = 1) +
-  geom_smooth(col = "grey30") +
-  annotate(geom = "ribbon", x = c(1945,2016),
-           ymin = 20, ymax = 30, 
-              alpha = .1, fill = "blue") +
-  geom_hline(yintercept = c(20, 30), lty = "dotted") +
-  geom_hline(yintercept = c(25), lty = "dashed") +
-  scale_color_manual(values = c("goldenrod3", "grey40", "goldenrod4")) +
-* labs(x = "", col = "")
-```
-]]
-.column[.content.center[
-&lt;img src="ggplot_flipbook_xaringan_files/figure-html/output_winter_games_14-1.png" width="80%" /&gt;
-]]
----
-class: split-40
-count: false
-
-.column[.content[
-
-```r
-ggplot(dta) +
-  aes(x = Year) +
-  aes(y = `Age of Athlete`) +
-  facet_wrap(~ Sport, scales = "free_y", nrow = 2) +
-  geom_jitter(mapping = aes(col = fct_inorder(Medal)), 
-              width = 1, height = .5, size = 1) +
-  geom_smooth(col = "grey30") +
-  annotate(geom = "ribbon", x = c(1945,2016),
-           ymin = 20, ymax = 30, 
-              alpha = .1, fill = "blue") +
-  geom_hline(yintercept = c(20, 30), lty = "dotted") +
-  geom_hline(yintercept = c(25), lty = "dashed") +
-  scale_color_manual(values = c("goldenrod3", "grey40", "goldenrod4")) +
-  labs(x = "", col = "") +
-* labs(title = "Young and old at the Winter Olympics: medalists' declared ages have risen in recent years")
-```
-]]
-.column[.content.center[
-&lt;img src="ggplot_flipbook_xaringan_files/figure-html/output_winter_games_15-1.png" width="80%" /&gt;
-]]
----
-class: split-40
-count: false
-
-.column[.content[
-
-```r
-ggplot(dta) +
-  aes(x = Year) +
-  aes(y = `Age of Athlete`) +
-  facet_wrap(~ Sport, scales = "free_y", nrow = 2) +
-  geom_jitter(mapping = aes(col = fct_inorder(Medal)), 
-              width = 1, height = .5, size = 1) +
-  geom_smooth(col = "grey30") +
-  annotate(geom = "ribbon", x = c(1945,2016),
-           ymin = 20, ymax = 30, 
-              alpha = .1, fill = "blue") +
-  geom_hline(yintercept = c(20, 30), lty = "dotted") +
-  geom_hline(yintercept = c(25), lty = "dashed") +
-  scale_color_manual(values = c("goldenrod3", "grey40", "goldenrod4")) +
-  labs(x = "", col = "") +
-  labs(title = "Young and old at the Winter Olympics: medalists' declared ages have risen in recent years") + 
-* labs(subtitle = "Includes individual sports that have been in Olympic since 1965")
-```
-]]
-.column[.content.center[
-&lt;img src="ggplot_flipbook_xaringan_files/figure-html/output_winter_games_16-1.png" width="80%" /&gt;
-]]
----
-class: split-40
-count: false
-
-.column[.content[
-
-```r
-ggplot(dta) +
-  aes(x = Year) +
-  aes(y = `Age of Athlete`) +
-  facet_wrap(~ Sport, scales = "free_y", nrow = 2) +
-  geom_jitter(mapping = aes(col = fct_inorder(Medal)), 
-              width = 1, height = .5, size = 1) +
-  geom_smooth(col = "grey30") +
-  annotate(geom = "ribbon", x = c(1945,2016),
-           ymin = 20, ymax = 30, 
-              alpha = .1, fill = "blue") +
-  geom_hline(yintercept = c(20, 30), lty = "dotted") +
-  geom_hline(yintercept = c(25), lty = "dashed") +
-  scale_color_manual(values = c("goldenrod3", "grey40", "goldenrod4")) +
-  labs(x = "", col = "") +
-  labs(title = "Young and old at the Winter Olympics: medalists' declared ages have risen in recent years") + 
-  labs(subtitle = "Includes individual sports that have been in Olympic since 1965") +
-* labs(caption = "Source: Sports-Reference.com | Vis: Gina Reynolds @EvaMaeRey \nValues 'jittered' to reduce overplotting")
-```
-]]
-.column[.content.center[
-&lt;img src="ggplot_flipbook_xaringan_files/figure-html/output_winter_games_17-1.png" width="80%" /&gt;
-]]
----
-class: split-40
-count: false
-
-.column[.content[
-
-```r
-ggplot(dta) +
-  aes(x = Year) +
-  aes(y = `Age of Athlete`) +
-  facet_wrap(~ Sport, scales = "free_y", nrow = 2) +
-  geom_jitter(mapping = aes(col = fct_inorder(Medal)), 
-              width = 1, height = .5, size = 1) +
-  geom_smooth(col = "grey30") +
-  annotate(geom = "ribbon", x = c(1945,2016),
-           ymin = 20, ymax = 30, 
-              alpha = .1, fill = "blue") +
-  geom_hline(yintercept = c(20, 30), lty = "dotted") +
-  geom_hline(yintercept = c(25), lty = "dashed") +
-  scale_color_manual(values = c("goldenrod3", "grey40", "goldenrod4")) +
-  labs(x = "", col = "") +
-  labs(title = "Young and old at the Winter Olympics: medalists' declared ages have risen in recent years") + 
-  labs(subtitle = "Includes individual sports that have been in Olympic since 1965") +
-  labs(caption = "Source: Sports-Reference.com | Vis: Gina Reynolds @EvaMaeRey \nValues 'jittered' to reduce overplotting") +
-* theme_bw(base_size = 13)
-```
-]]
-.column[.content.center[
-&lt;img src="ggplot_flipbook_xaringan_files/figure-html/output_winter_games_18-1.png" width="80%" /&gt;
-]]
-
----
-
+name: brexit
 # Brexit
 
 This visualization challenge was a proposed makeover for a Financial Times visualization focusing on relative economic growth in G7 countries, with an emphasis on growth in the UK, focusing especially since Brexit.  The visualization I present here is not what I created at the time of the challenge; instead it is inspired by Alan Smith a data journalist at the Financial Times, who created a really compelling visualization a couple of months after #MakeoverMonday's treatment.  I try to recreate his plot - which uses a ribbon to contain all G7 countries, and plot the UK's stats thereover.  This declutters the graph, and makes you focus on where the UK falls among other countries, without being needlessly specific about those countries; the data story isn't about them anyway, might be Smith's thinking. My graph actually lightly traces economic growth in other countries, but deemphasizes their importance, like Smith. 
@@ -2659,48 +1999,49 @@ A random sample from the data set:
 &lt;tbody&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; CAN &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 2013 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 2013-04-01 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.648283 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 2013-04-01 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; JPN &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 2010 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 2010-04-01 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.983190 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 2010-04-01 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; ITA &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 2012 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 2012-07-01 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; -0.470006 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 2012-07-01 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; FRA &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 2012 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 2012-01-01 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.070486 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 2012-01-01 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2015 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2015-10-01 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.131436 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2015-10-01 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; JPN &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 2015 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2015-04-01 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.019508 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2015-04-01 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; FRA &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2011 &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 2015-07-01 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.171346 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 2015-07-01 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2011-07-01 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.233193 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2011-07-01 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; USA &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2016 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2016-04-01 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.554563 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2016-04-01 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; DEU &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2013 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2013-04-01 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.886494 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2013-04-01 &lt;/td&gt;
   &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 
 ---
+
 
 
 
@@ -3200,6 +2541,7 @@ ggplot(data = data) +
 
 ---
 
+name: britishburgers
 # Curry in London
 
 This visualization task seemed to get at the question: Does where you eat matter?  The data was the cost of identical menu items at different locations of the same restaurant, the Wetherspoon, around the UK.
@@ -3350,7 +2692,6 @@ A random sample from the data set:
 &lt;table&gt;
  &lt;thead&gt;
   &lt;tr&gt;
-   &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
    &lt;th style="text-align:right;"&gt; long &lt;/th&gt;
    &lt;th style="text-align:right;"&gt; lat &lt;/th&gt;
    &lt;th style="text-align:right;"&gt; group &lt;/th&gt;
@@ -3361,7 +2702,6 @@ A random sample from the data set:
  &lt;/thead&gt;
 &lt;tbody&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; 46543 &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 22.58242 &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 48.134033 &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 691 &lt;/td&gt;
@@ -3370,7 +2710,6 @@ A random sample from the data set:
    &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; 57427 &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 72.18095 &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 41.118458 &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 904 &lt;/td&gt;
@@ -3379,7 +2718,6 @@ A random sample from the data set:
    &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; 2465 &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; -59.78564 &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; -80.001076 &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 29 &lt;/td&gt;
@@ -3388,7 +2726,6 @@ A random sample from the data set:
    &lt;td style="text-align:left;"&gt; Henry Ice Rise &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; 43146 &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; -53.75435 &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 69.260155 &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 651 &lt;/td&gt;
@@ -3397,7 +2734,6 @@ A random sample from the data set:
    &lt;td style="text-align:left;"&gt; Quqertarsuaq &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; 73693 &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 148.79179 &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; -9.089453 &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 1195 &lt;/td&gt;
@@ -3413,6 +2749,8 @@ A random sample from the data set:
 
 
 ---
+
+
 
 
 
@@ -3664,7 +3002,7 @@ ggplot(data = data_UK) +
 ]]
 
 ---
-
+name: britishfood
 
 
 A random sample from the data set: 
@@ -3766,6 +3104,7 @@ A random sample from the data set:
 &lt;/table&gt;
 
 ---
+
 
 
 
@@ -3925,6 +3264,7 @@ ggplot(data = dataLong) +
 
 ---
 
+name: lifeexpect
 # Life Expectancy Increases
 
 To dramatically show the increases in life expectancy by country from 1960 to 2010, I plot the variable in 1960 versus itself in 2010.  The line of equivilance (a 45% angle) is used as a reference and shows the result that you would see if there where no growth.  The vertical distance from this line is the increase in life expectancy. I also superimpose a linear model on top of the scatter plot.  You can see that the gains are greater for countries that started off with lower life expectancies.    
@@ -4433,6 +3773,7 @@ ggplot(compare) +
 
 ---
 
+name: myersbriggs
 # Myers Briggs
 
 This visualization is of prevelence of Myers Briggs type distributions within the US population.  So the data allows one to look at the relationship betweeen the four Myers Briggs types.    The challenge is how to display that in one visualization.  My first idea was to use a mosaic plot.  However, I came across advice from "The Perceptual Edge", that generally advised against the use of the mosaic plot, instead favoring a kind of nested bar plot.  I tried to implement that.  While I do think that the result is pretty, I think that it still requires a lot of the reader to interpret the graph.  More annotation might alleviate this burden. 
@@ -4496,6 +3837,7 @@ A random sample from the data set:
 &lt;/table&gt;
 
 ---
+
 
 
 
@@ -4749,6 +4091,7 @@ ggplot(data) +
 
 ---
 
+name: womensrepresentation
 # Officials' beliefs about women's representation
 
 The data provided is based on a small survey of elite officials in five less developed countries.  The question that arrises from the data is: How well do elites know the conditions in their countries.  In general, the elites overestimate women's representation.  But this is not the case in Senegal, where there are gender quotas in the Parliament.  Most elites therefore estimate that the representation is about equal with men. I jitter the responses of the elites horizontally to avoid overplotting. 
@@ -4812,6 +4155,9 @@ A random sample from the data set:
 &lt;/table&gt;
 
 ---
+
+
+
 
 
 
@@ -5235,1367 +4581,7 @@ ggplot(data = df_all) +
 
 ---
 
-# Wine
-
-Wine production in Europe may have been volitile during the years plotted because of production control policies implemented by the EU. Particularly, the big three, Italy, France and Spain, saw a lot of volitility early in this period.  
-
-
-```r
-df &lt;- readxl::read_xlsx("raw_data/Wine_Production_by_country.xlsx") %&gt;%
-  filter(Country != "World total")
-
-Europe &lt;- c(
-  "Italy", "France", "Spain",
-  "Germany", "Portugal", "Romania",
-  "Austria", "Greece", "Hungary"
-)
-```
-
-
-```r
-theme_opts &lt;- 
-  theme(
-    axis.title = element_blank(),
-    strip.placement = "outside",
-    axis.text.x = element_blank(),
-    axis.ticks.x = element_blank(),
-    strip.background = element_blank(),
-    plot.caption = element_text(size = 10)
-  )
-```
-
----
-
-
-
-class: split-40
-count: false
-
-.column[.content[
-
-```r
-* ggplot(df %&gt;% filter(Country %in% Europe))
-```
-]]
-.column[.content.center[
-&lt;img src="ggplot_flipbook_xaringan_files/figure-html/output_wine_1-1.png" width="80%" /&gt;
-]]
----
-class: split-40
-count: false
-
-.column[.content[
-
-```r
-  ggplot(df %&gt;% filter(Country %in% Europe)) +
-* aes(x = Year)
-```
-]]
-.column[.content.center[
-&lt;img src="ggplot_flipbook_xaringan_files/figure-html/output_wine_2-1.png" width="80%" /&gt;
-]]
----
-class: split-40
-count: false
-
-.column[.content[
-
-```r
-  ggplot(df %&gt;% filter(Country %in% Europe)) +
-  aes(x = Year) +
-* aes(y = `Wine production in mhl`)
-```
-]]
-.column[.content.center[
-&lt;img src="ggplot_flipbook_xaringan_files/figure-html/output_wine_3-1.png" width="80%" /&gt;
-]]
----
-class: split-40
-count: false
-
-.column[.content[
-
-```r
-  ggplot(df %&gt;% filter(Country %in% Europe)) +
-  aes(x = Year) +
-  aes(y = `Wine production in mhl`) +
-* facet_wrap(~ fct_inorder(Country), strip.position = "bottom", nrow = 1)
-```
-]]
-.column[.content.center[
-&lt;img src="ggplot_flipbook_xaringan_files/figure-html/output_wine_4-1.png" width="80%" /&gt;
-]]
----
-class: split-40
-count: false
-
-.column[.content[
-
-```r
-  ggplot(df %&gt;% filter(Country %in% Europe)) +
-  aes(x = Year) +
-  aes(y = `Wine production in mhl`) +
-  facet_wrap(~ fct_inorder(Country), strip.position = "bottom", nrow = 1) +
-* geom_col(aes(alpha = Year), position = "dodge", fill = "darkred", width = 1)
-```
-]]
-.column[.content.center[
-&lt;img src="ggplot_flipbook_xaringan_files/figure-html/output_wine_5-1.png" width="80%" /&gt;
-]]
----
-class: split-40
-count: false
-
-.column[.content[
-
-```r
-  ggplot(df %&gt;% filter(Country %in% Europe)) +
-  aes(x = Year) +
-  aes(y = `Wine production in mhl`) +
-  facet_wrap(~ fct_inorder(Country), strip.position = "bottom", nrow = 1) +
-  geom_col(aes(alpha = Year), position = "dodge", fill = "darkred", width = 1) +
-* geom_line(col = "black", lty = 2)
-```
-]]
-.column[.content.center[
-&lt;img src="ggplot_flipbook_xaringan_files/figure-html/output_wine_6-1.png" width="80%" /&gt;
-]]
----
-class: split-40
-count: false
-
-.column[.content[
-
-```r
-  ggplot(df %&gt;% filter(Country %in% Europe)) +
-  aes(x = Year) +
-  aes(y = `Wine production in mhl`) +
-  facet_wrap(~ fct_inorder(Country), strip.position = "bottom", nrow = 1) +
-  geom_col(aes(alpha = Year), position = "dodge", fill = "darkred", width = 1) +
-  geom_line(col = "black", lty = 2) +
-* scale_y_continuous(expand = c(0, 0))
-```
-]]
-.column[.content.center[
-&lt;img src="ggplot_flipbook_xaringan_files/figure-html/output_wine_7-1.png" width="80%" /&gt;
-]]
----
-class: split-40
-count: false
-
-.column[.content[
-
-```r
-  ggplot(df %&gt;% filter(Country %in% Europe)) +
-  aes(x = Year) +
-  aes(y = `Wine production in mhl`) +
-  facet_wrap(~ fct_inorder(Country), strip.position = "bottom", nrow = 1) +
-  geom_col(aes(alpha = Year), position = "dodge", fill = "darkred", width = 1) +
-  geom_line(col = "black", lty = 2) +
-  scale_y_continuous(expand = c(0, 0)) +
-* labs(fill = "")
-```
-]]
-.column[.content.center[
-&lt;img src="ggplot_flipbook_xaringan_files/figure-html/output_wine_8-1.png" width="80%" /&gt;
-]]
----
-class: split-40
-count: false
-
-.column[.content[
-
-```r
-  ggplot(df %&gt;% filter(Country %in% Europe)) +
-  aes(x = Year) +
-  aes(y = `Wine production in mhl`) +
-  facet_wrap(~ fct_inorder(Country), strip.position = "bottom", nrow = 1) +
-  geom_col(aes(alpha = Year), position = "dodge", fill = "darkred", width = 1) +
-  geom_line(col = "black", lty = 2) +
-  scale_y_continuous(expand = c(0, 0)) +
-  labs(fill = "") +
-* labs(alpha = "")
-```
-]]
-.column[.content.center[
-&lt;img src="ggplot_flipbook_xaringan_files/figure-html/output_wine_9-1.png" width="80%" /&gt;
-]]
----
-class: split-40
-count: false
-
-.column[.content[
-
-```r
-  ggplot(df %&gt;% filter(Country %in% Europe)) +
-  aes(x = Year) +
-  aes(y = `Wine production in mhl`) +
-  facet_wrap(~ fct_inorder(Country), strip.position = "bottom", nrow = 1) +
-  geom_col(aes(alpha = Year), position = "dodge", fill = "darkred", width = 1) +
-  geom_line(col = "black", lty = 2) +
-  scale_y_continuous(expand = c(0, 0)) +
-  labs(fill = "") +
-  labs(alpha = "")+
-* labs(title = "Wine production (mhl) in principle European markets, 2012-2016")
-```
-]]
-.column[.content.center[
-&lt;img src="ggplot_flipbook_xaringan_files/figure-html/output_wine_10-1.png" width="80%" /&gt;
-]]
----
-class: split-40
-count: false
-
-.column[.content[
-
-```r
-  ggplot(df %&gt;% filter(Country %in% Europe)) +
-  aes(x = Year) +
-  aes(y = `Wine production in mhl`) +
-  facet_wrap(~ fct_inorder(Country), strip.position = "bottom", nrow = 1) +
-  geom_col(aes(alpha = Year), position = "dodge", fill = "darkred", width = 1) +
-  geom_line(col = "black", lty = 2) +
-  scale_y_continuous(expand = c(0, 0)) +
-  labs(fill = "") +
-  labs(alpha = "")+
-  labs(title = "Wine production (mhl) in principle European markets, 2012-2016") +
-* labs(subtitle = "The EU program to regulate viticultural production ended upon the 2011/2012 harvest.")
-```
-]]
-.column[.content.center[
-&lt;img src="ggplot_flipbook_xaringan_files/figure-html/output_wine_11-1.png" width="80%" /&gt;
-]]
----
-class: split-40
-count: false
-
-.column[.content[
-
-```r
-  ggplot(df %&gt;% filter(Country %in% Europe)) +
-  aes(x = Year) +
-  aes(y = `Wine production in mhl`) +
-  facet_wrap(~ fct_inorder(Country), strip.position = "bottom", nrow = 1) +
-  geom_col(aes(alpha = Year), position = "dodge", fill = "darkred", width = 1) +
-  geom_line(col = "black", lty = 2) +
-  scale_y_continuous(expand = c(0, 0)) +
-  labs(fill = "") +
-  labs(alpha = "")+
-  labs(title = "Wine production (mhl) in principle European markets, 2012-2016") +
-  labs(subtitle = "The EU program to regulate viticultural production ended upon the 2011/2012 harvest.") + 
-* labs(caption = "Design: Gina Reynolds @EvaMaeRey  \nData Source: International Organisation of Vine and Wine") # \nProduction volitility for top producers followed.
-```
-]]
-.column[.content.center[
-&lt;img src="ggplot_flipbook_xaringan_files/figure-html/output_wine_12-1.png" width="80%" /&gt;
-]]
----
-class: split-40
-count: false
-
-.column[.content[
-
-```r
-  ggplot(df %&gt;% filter(Country %in% Europe)) +
-  aes(x = Year) +
-  aes(y = `Wine production in mhl`) +
-  facet_wrap(~ fct_inorder(Country), strip.position = "bottom", nrow = 1) +
-  geom_col(aes(alpha = Year), position = "dodge", fill = "darkred", width = 1) +
-  geom_line(col = "black", lty = 2) +
-  scale_y_continuous(expand = c(0, 0)) +
-  labs(fill = "") +
-  labs(alpha = "")+
-  labs(title = "Wine production (mhl) in principle European markets, 2012-2016") +
-  labs(subtitle = "The EU program to regulate viticultural production ended upon the 2011/2012 harvest.") + 
-  labs(caption = "Design: Gina Reynolds @EvaMaeRey  \nData Source: International Organisation of Vine and Wine") + # \nProduction volitility for top producers followed.
-* theme_classic(base_family = "Times")
-```
-]]
-.column[.content.center[
-&lt;img src="ggplot_flipbook_xaringan_files/figure-html/output_wine_13-1.png" width="80%" /&gt;
-]]
-
----
-
-# Arctic Ice
-
-This visualization shows the trend in Arctic Ice Sea Extent, data from the National Snow and Ice Data Center.  The definition for coverage is the case where at least 15 percent of the sea surface ice.  
-
-The visualization shows melting and freezing cycles, in accordance with the seasons --- and the disconcerting trend of a general decrease in ice extent over the years.  
-
-Inconsistant number of days in each year, mostly 365 but sometimes 366, results in a technical problem.  This means that plotting cycles over the years leads to imperfect alignment.  My solution was just to treat all data as if they come from a single year, 2000 which is a leap year.  The measurement on February 29th for leap years is therefore not deleted; for other years, there is of course no measurement.  The earliest year cycle and last year cycle are highlighted in white.  
-
-
-
-
-A random sample from the data set: 
-&lt;table&gt;
- &lt;thead&gt;
-  &lt;tr&gt;
-   &lt;th style="text-align:left;"&gt; Date &lt;/th&gt;
-   &lt;th style="text-align:right;"&gt; Extent (million sq km) &lt;/th&gt;
-   &lt;th style="text-align:right;"&gt; year &lt;/th&gt;
-   &lt;th style="text-align:left;"&gt; month_day &lt;/th&gt;
-   &lt;th style="text-align:left;"&gt; month_day_plus &lt;/th&gt;
-   &lt;th style="text-align:right;"&gt; proportion_ocean_covered_in_ice &lt;/th&gt;
-   &lt;th style="text-align:right;"&gt; mean_for_day &lt;/th&gt;
-   &lt;th style="text-align:right;"&gt; diff_from_mean_day &lt;/th&gt;
-  &lt;/tr&gt;
- &lt;/thead&gt;
-&lt;tbody&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; 2012-01-03 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 13.379 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 2012 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 01-03 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 2000-01-03 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.0371639 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 13.664879 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; -0.2858788 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; 1983-08-05 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 8.935 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 1983 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 08-05 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 2000-08-05 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.0248194 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 7.452294 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 1.4827059 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; 1983-03-30 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 15.849 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 1983 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 03-30 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 2000-03-30 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.0440250 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 15.091059 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.7579412 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; 1991-04-28 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 14.249 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 1991 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 04-28 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 2000-04-28 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.0395806 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 14.084571 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.1644286 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; 2005-05-10 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 13.227 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 2005 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 05-10 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 2000-05-10 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.0367417 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 13.432771 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; -0.2057714 &lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-
-
-
-
----
-
-
-
-
-class: split-40
-count: false
-
-.column[.content[
-
-```r
-*ggplot(df)
-```
-]]
-.column[.content.center[
-&lt;img src="ggplot_flipbook_xaringan_files/figure-html/output_ice_1-1.png" width="80%" /&gt;
-]]
----
-class: split-40
-count: false
-
-.column[.content[
-
-```r
-ggplot(df) +
-* aes(x = as.numeric(month_day_plus))
-```
-]]
-.column[.content.center[
-&lt;img src="ggplot_flipbook_xaringan_files/figure-html/output_ice_2-1.png" width="80%" /&gt;
-]]
----
-class: split-40
-count: false
-
-.column[.content[
-
-```r
-ggplot(df) +
-  aes(x = as.numeric(month_day_plus)) +
-* aes(y = `Extent (million sq km)`)
-```
-]]
-.column[.content.center[
-&lt;img src="ggplot_flipbook_xaringan_files/figure-html/output_ice_3-1.png" width="80%" /&gt;
-]]
----
-class: split-40
-count: false
-
-.column[.content[
-
-```r
-ggplot(df) +
-  aes(x = as.numeric(month_day_plus)) +
-  aes(y = `Extent (million sq km)`) +
-* aes(group = year)
-```
-]]
-.column[.content.center[
-&lt;img src="ggplot_flipbook_xaringan_files/figure-html/output_ice_4-1.png" width="80%" /&gt;
-]]
----
-class: split-40
-count: false
-
-.column[.content[
-
-```r
-ggplot(df) +
-  aes(x = as.numeric(month_day_plus)) +
-  aes(y = `Extent (million sq km)`) +
-  aes(group = year) +
-* geom_line()
-```
-]]
-.column[.content.center[
-&lt;img src="ggplot_flipbook_xaringan_files/figure-html/output_ice_5-1.png" width="80%" /&gt;
-]]
----
-class: split-40
-count: false
-
-.column[.content[
-
-```r
-ggplot(df) +
-  aes(x = as.numeric(month_day_plus)) +
-  aes(y = `Extent (million sq km)`) +
-  aes(group = year) +
-  geom_line() +
-* aes(col = year)
-```
-]]
-.column[.content.center[
-&lt;img src="ggplot_flipbook_xaringan_files/figure-html/output_ice_6-1.png" width="80%" /&gt;
-]]
----
-class: split-40
-count: false
-
-.column[.content[
-
-```r
-ggplot(df) +
-  aes(x = as.numeric(month_day_plus)) +
-  aes(y = `Extent (million sq km)`) +
-  aes(group = year) +
-  geom_line() +
-  aes(col = year) +
-* scale_x_continuous(
-*   breaks = as.numeric(lubridate::ymd(c( "2000-01-01", "2000-04-01",  "2000-07-01", "2000-10-01", "2001-01-01"))),
-*   labels = c("Jan-01", "Apr-01", "Jul-01", "Oct-01", "Jan-01"),
-*   expand = c(0, 0))
-```
-]]
-.column[.content.center[
-&lt;img src="ggplot_flipbook_xaringan_files/figure-html/output_ice_10-1.png" width="80%" /&gt;
-]]
----
-class: split-40
-count: false
-
-.column[.content[
-
-```r
-ggplot(df) +
-  aes(x = as.numeric(month_day_plus)) +
-  aes(y = `Extent (million sq km)`) +
-  aes(group = year) +
-  geom_line() +
-  aes(col = year) +
-  scale_x_continuous(
-    breaks = as.numeric(lubridate::ymd(c( "2000-01-01", "2000-04-01",  "2000-07-01", "2000-10-01", "2001-01-01"))), 
-    labels = c("Jan-01", "Apr-01", "Jul-01", "Oct-01", "Jan-01"), 
-    expand = c(0, 0)) +
-* scale_y_continuous(expand = c(0, 0),
-*                    limits = c(0, 20))
-```
-]]
-.column[.content.center[
-&lt;img src="ggplot_flipbook_xaringan_files/figure-html/output_ice_12-1.png" width="80%" /&gt;
-]]
----
-class: split-40
-count: false
-
-.column[.content[
-
-```r
-ggplot(df) +
-  aes(x = as.numeric(month_day_plus)) +
-  aes(y = `Extent (million sq km)`) +
-  aes(group = year) +
-  geom_line() +
-  aes(col = year) +
-  scale_x_continuous(
-    breaks = as.numeric(lubridate::ymd(c( "2000-01-01", "2000-04-01",  "2000-07-01", "2000-10-01", "2001-01-01"))), 
-    labels = c("Jan-01", "Apr-01", "Jul-01", "Oct-01", "Jan-01"), 
-    expand = c(0, 0)) +
-  scale_y_continuous(expand = c(0, 0), 
-                     limits = c(0, 20)) +
-* scale_color_continuous(guide = guide_colourbar(reverse = TRUE),
-*                        breaks = seq(2010, 1980, -10))
-```
-]]
-.column[.content.center[
-&lt;img src="ggplot_flipbook_xaringan_files/figure-html/output_ice_14-1.png" width="80%" /&gt;
-]]
----
-class: split-40
-count: false
-
-.column[.content[
-
-```r
-ggplot(df) +
-  aes(x = as.numeric(month_day_plus)) +
-  aes(y = `Extent (million sq km)`) +
-  aes(group = year) +
-  geom_line() +
-  aes(col = year) +
-  scale_x_continuous(
-    breaks = as.numeric(lubridate::ymd(c( "2000-01-01", "2000-04-01",  "2000-07-01", "2000-10-01", "2001-01-01"))), 
-    labels = c("Jan-01", "Apr-01", "Jul-01", "Oct-01", "Jan-01"), 
-    expand = c(0, 0)) +
-  scale_y_continuous(expand = c(0, 0), 
-                     limits = c(0, 20)) +
-  scale_color_continuous(guide = guide_colourbar(reverse = TRUE), 
-                         breaks = seq(2010, 1980, -10)) +
-* geom_line(data = df %&gt;% filter(year == 2016 | year == 1982),
-*           mapping = aes(lty = factor(year)),
-*           col = "white")
-```
-]]
-.column[.content.center[
-&lt;img src="ggplot_flipbook_xaringan_files/figure-html/output_ice_17-1.png" width="80%" /&gt;
-]]
----
-class: split-40
-count: false
-
-.column[.content[
-
-```r
-ggplot(df) +
-  aes(x = as.numeric(month_day_plus)) +
-  aes(y = `Extent (million sq km)`) +
-  aes(group = year) +
-  geom_line() +
-  aes(col = year) +
-  scale_x_continuous(
-    breaks = as.numeric(lubridate::ymd(c( "2000-01-01", "2000-04-01",  "2000-07-01", "2000-10-01", "2001-01-01"))), 
-    labels = c("Jan-01", "Apr-01", "Jul-01", "Oct-01", "Jan-01"), 
-    expand = c(0, 0)) +
-  scale_y_continuous(expand = c(0, 0), 
-                     limits = c(0, 20)) +
-  scale_color_continuous(guide = guide_colourbar(reverse = TRUE), 
-                         breaks = seq(2010, 1980, -10)) +
-  geom_line(data = df %&gt;% filter(year == 2016 | year == 1982), 
-            mapping = aes(lty = factor(year)), 
-            col = "white") +
-* scale_linetype_manual(name = "", values = c("dashed", "solid") )
-```
-]]
-.column[.content.center[
-&lt;img src="ggplot_flipbook_xaringan_files/figure-html/output_ice_18-1.png" width="80%" /&gt;
-]]
----
-class: split-40
-count: false
-
-.column[.content[
-
-```r
-ggplot(df) +
-  aes(x = as.numeric(month_day_plus)) +
-  aes(y = `Extent (million sq km)`) +
-  aes(group = year) +
-  geom_line() +
-  aes(col = year) +
-  scale_x_continuous(
-    breaks = as.numeric(lubridate::ymd(c( "2000-01-01", "2000-04-01",  "2000-07-01", "2000-10-01", "2001-01-01"))), 
-    labels = c("Jan-01", "Apr-01", "Jul-01", "Oct-01", "Jan-01"), 
-    expand = c(0, 0)) +
-  scale_y_continuous(expand = c(0, 0), 
-                     limits = c(0, 20)) +
-  scale_color_continuous(guide = guide_colourbar(reverse = TRUE), 
-                         breaks = seq(2010, 1980, -10)) +
-  geom_line(data = df %&gt;% filter(year == 2016 | year == 1982), 
-            mapping = aes(lty = factor(year)), 
-            col = "white") +
-  scale_linetype_manual(name = "", values = c("dashed", "solid") ) +
-* annotate(geom = "text", x = 11210, y = 15,
-*          label = str_wrap("For this period, 1982 had the highest calendar-year average extent of Arctic sea ice while 2016 had the lowest", 30),
-*          col = "white",
-*          size = 7)
-```
-]]
-.column[.content.center[
-&lt;img src="ggplot_flipbook_xaringan_files/figure-html/output_ice_22-1.png" width="80%" /&gt;
-]]
----
-class: split-40
-count: false
-
-.column[.content[
-
-```r
-ggplot(df) +
-  aes(x = as.numeric(month_day_plus)) +
-  aes(y = `Extent (million sq km)`) +
-  aes(group = year) +
-  geom_line() +
-  aes(col = year) +
-  scale_x_continuous(
-    breaks = as.numeric(lubridate::ymd(c( "2000-01-01", "2000-04-01",  "2000-07-01", "2000-10-01", "2001-01-01"))), 
-    labels = c("Jan-01", "Apr-01", "Jul-01", "Oct-01", "Jan-01"), 
-    expand = c(0, 0)) +
-  scale_y_continuous(expand = c(0, 0), 
-                     limits = c(0, 20)) +
-  scale_color_continuous(guide = guide_colourbar(reverse = TRUE), 
-                         breaks = seq(2010, 1980, -10)) +
-  geom_line(data = df %&gt;% filter(year == 2016 | year == 1982), 
-            mapping = aes(lty = factor(year)), 
-            col = "white") +
-  scale_linetype_manual(name = "", values = c("dashed", "solid") ) +
-  annotate(geom = "text", x = 11210, y = 15, 
-           label = str_wrap("For this period, 1982 had the highest calendar-year average extent of Arctic sea ice while 2016 had the lowest", 30),
-           col = "white", 
-           size = 7) +
-* labs(x = "")
-```
-]]
-.column[.content.center[
-&lt;img src="ggplot_flipbook_xaringan_files/figure-html/output_ice_23-1.png" width="80%" /&gt;
-]]
----
-class: split-40
-count: false
-
-.column[.content[
-
-```r
-ggplot(df) +
-  aes(x = as.numeric(month_day_plus)) +
-  aes(y = `Extent (million sq km)`) +
-  aes(group = year) +
-  geom_line() +
-  aes(col = year) +
-  scale_x_continuous(
-    breaks = as.numeric(lubridate::ymd(c( "2000-01-01", "2000-04-01",  "2000-07-01", "2000-10-01", "2001-01-01"))), 
-    labels = c("Jan-01", "Apr-01", "Jul-01", "Oct-01", "Jan-01"), 
-    expand = c(0, 0)) +
-  scale_y_continuous(expand = c(0, 0), 
-                     limits = c(0, 20)) +
-  scale_color_continuous(guide = guide_colourbar(reverse = TRUE), 
-                         breaks = seq(2010, 1980, -10)) +
-  geom_line(data = df %&gt;% filter(year == 2016 | year == 1982), 
-            mapping = aes(lty = factor(year)), 
-            col = "white") +
-  scale_linetype_manual(name = "", values = c("dashed", "solid") ) +
-  annotate(geom = "text", x = 11210, y = 15, 
-           label = str_wrap("For this period, 1982 had the highest calendar-year average extent of Arctic sea ice while 2016 had the lowest", 30),
-           col = "white", 
-           size = 7) +
-  labs(x = "") +
-* labs(y = "extent (million sq km)")
-```
-]]
-.column[.content.center[
-&lt;img src="ggplot_flipbook_xaringan_files/figure-html/output_ice_24-1.png" width="80%" /&gt;
-]]
----
-class: split-40
-count: false
-
-.column[.content[
-
-```r
-ggplot(df) +
-  aes(x = as.numeric(month_day_plus)) +
-  aes(y = `Extent (million sq km)`) +
-  aes(group = year) +
-  geom_line() +
-  aes(col = year) +
-  scale_x_continuous(
-    breaks = as.numeric(lubridate::ymd(c( "2000-01-01", "2000-04-01",  "2000-07-01", "2000-10-01", "2001-01-01"))), 
-    labels = c("Jan-01", "Apr-01", "Jul-01", "Oct-01", "Jan-01"), 
-    expand = c(0, 0)) +
-  scale_y_continuous(expand = c(0, 0), 
-                     limits = c(0, 20)) +
-  scale_color_continuous(guide = guide_colourbar(reverse = TRUE), 
-                         breaks = seq(2010, 1980, -10)) +
-  geom_line(data = df %&gt;% filter(year == 2016 | year == 1982), 
-            mapping = aes(lty = factor(year)), 
-            col = "white") +
-  scale_linetype_manual(name = "", values = c("dashed", "solid") ) +
-  annotate(geom = "text", x = 11210, y = 15, 
-           label = str_wrap("For this period, 1982 had the highest calendar-year average extent of Arctic sea ice while 2016 had the lowest", 30),
-           col = "white", 
-           size = 7) +
-  labs(x = "") +
-  labs(y = "extent (million sq km)") +
-* labs(col = "")
-```
-]]
-.column[.content.center[
-&lt;img src="ggplot_flipbook_xaringan_files/figure-html/output_ice_25-1.png" width="80%" /&gt;
-]]
----
-class: split-40
-count: false
-
-.column[.content[
-
-```r
-ggplot(df) +
-  aes(x = as.numeric(month_day_plus)) +
-  aes(y = `Extent (million sq km)`) +
-  aes(group = year) +
-  geom_line() +
-  aes(col = year) +
-  scale_x_continuous(
-    breaks = as.numeric(lubridate::ymd(c( "2000-01-01", "2000-04-01",  "2000-07-01", "2000-10-01", "2001-01-01"))), 
-    labels = c("Jan-01", "Apr-01", "Jul-01", "Oct-01", "Jan-01"), 
-    expand = c(0, 0)) +
-  scale_y_continuous(expand = c(0, 0), 
-                     limits = c(0, 20)) +
-  scale_color_continuous(guide = guide_colourbar(reverse = TRUE), 
-                         breaks = seq(2010, 1980, -10)) +
-  geom_line(data = df %&gt;% filter(year == 2016 | year == 1982), 
-            mapping = aes(lty = factor(year)), 
-            col = "white") +
-  scale_linetype_manual(name = "", values = c("dashed", "solid") ) +
-  annotate(geom = "text", x = 11210, y = 15, 
-           label = str_wrap("For this period, 1982 had the highest calendar-year average extent of Arctic sea ice while 2016 had the lowest", 30),
-           col = "white", 
-           size = 7) +
-  labs(x = "") +
-  labs(y = "extent (million sq km)") +
-  labs(col = "") +
-* labs(lty = "")
-```
-]]
-.column[.content.center[
-&lt;img src="ggplot_flipbook_xaringan_files/figure-html/output_ice_26-1.png" width="80%" /&gt;
-]]
----
-class: split-40
-count: false
-
-.column[.content[
-
-```r
-ggplot(df) +
-  aes(x = as.numeric(month_day_plus)) +
-  aes(y = `Extent (million sq km)`) +
-  aes(group = year) +
-  geom_line() +
-  aes(col = year) +
-  scale_x_continuous(
-    breaks = as.numeric(lubridate::ymd(c( "2000-01-01", "2000-04-01",  "2000-07-01", "2000-10-01", "2001-01-01"))), 
-    labels = c("Jan-01", "Apr-01", "Jul-01", "Oct-01", "Jan-01"), 
-    expand = c(0, 0)) +
-  scale_y_continuous(expand = c(0, 0), 
-                     limits = c(0, 20)) +
-  scale_color_continuous(guide = guide_colourbar(reverse = TRUE), 
-                         breaks = seq(2010, 1980, -10)) +
-  geom_line(data = df %&gt;% filter(year == 2016 | year == 1982), 
-            mapping = aes(lty = factor(year)), 
-            col = "white") +
-  scale_linetype_manual(name = "", values = c("dashed", "solid") ) +
-  annotate(geom = "text", x = 11210, y = 15, 
-           label = str_wrap("For this period, 1982 had the highest calendar-year average extent of Arctic sea ice while 2016 had the lowest", 30),
-           col = "white", 
-           size = 7) +
-  labs(x = "") +
-  labs(y = "extent (million sq km)") +
-  labs(col = "") +
-  labs(lty = "") +
-* labs(title = "Freezing cycles: Arctic sea ice extent, 1979-2017")
-```
-]]
-.column[.content.center[
-&lt;img src="ggplot_flipbook_xaringan_files/figure-html/output_ice_27-1.png" width="80%" /&gt;
-]]
----
-class: split-40
-count: false
-
-.column[.content[
-
-```r
-ggplot(df) +
-  aes(x = as.numeric(month_day_plus)) +
-  aes(y = `Extent (million sq km)`) +
-  aes(group = year) +
-  geom_line() +
-  aes(col = year) +
-  scale_x_continuous(
-    breaks = as.numeric(lubridate::ymd(c( "2000-01-01", "2000-04-01",  "2000-07-01", "2000-10-01", "2001-01-01"))), 
-    labels = c("Jan-01", "Apr-01", "Jul-01", "Oct-01", "Jan-01"), 
-    expand = c(0, 0)) +
-  scale_y_continuous(expand = c(0, 0), 
-                     limits = c(0, 20)) +
-  scale_color_continuous(guide = guide_colourbar(reverse = TRUE), 
-                         breaks = seq(2010, 1980, -10)) +
-  geom_line(data = df %&gt;% filter(year == 2016 | year == 1982), 
-            mapping = aes(lty = factor(year)), 
-            col = "white") +
-  scale_linetype_manual(name = "", values = c("dashed", "solid") ) +
-  annotate(geom = "text", x = 11210, y = 15, 
-           label = str_wrap("For this period, 1982 had the highest calendar-year average extent of Arctic sea ice while 2016 had the lowest", 30),
-           col = "white", 
-           size = 7) +
-  labs(x = "") +
-  labs(y = "extent (million sq km)") +
-  labs(col = "") +
-  labs(lty = "") +
-  labs(title = "Freezing cycles: Arctic sea ice extent, 1979-2017") +
-* labs(subtitle = "Data Source: National Snow &amp; Ice Data Center | Vis: Gina Reynolds for #MakeoverMonday")
-```
-]]
-.column[.content.center[
-&lt;img src="ggplot_flipbook_xaringan_files/figure-html/output_ice_28-1.png" width="80%" /&gt;
-]]
----
-class: split-40
-count: false
-
-.column[.content[
-
-```r
-ggplot(df) +
-  aes(x = as.numeric(month_day_plus)) +
-  aes(y = `Extent (million sq km)`) +
-  aes(group = year) +
-  geom_line() +
-  aes(col = year) +
-  scale_x_continuous(
-    breaks = as.numeric(lubridate::ymd(c( "2000-01-01", "2000-04-01",  "2000-07-01", "2000-10-01", "2001-01-01"))), 
-    labels = c("Jan-01", "Apr-01", "Jul-01", "Oct-01", "Jan-01"), 
-    expand = c(0, 0)) +
-  scale_y_continuous(expand = c(0, 0), 
-                     limits = c(0, 20)) +
-  scale_color_continuous(guide = guide_colourbar(reverse = TRUE), 
-                         breaks = seq(2010, 1980, -10)) +
-  geom_line(data = df %&gt;% filter(year == 2016 | year == 1982), 
-            mapping = aes(lty = factor(year)), 
-            col = "white") +
-  scale_linetype_manual(name = "", values = c("dashed", "solid") ) +
-  annotate(geom = "text", x = 11210, y = 15, 
-           label = str_wrap("For this period, 1982 had the highest calendar-year average extent of Arctic sea ice while 2016 had the lowest", 30),
-           col = "white", 
-           size = 7) +
-  labs(x = "") +
-  labs(y = "extent (million sq km)") +
-  labs(col = "") +
-  labs(lty = "") +
-  labs(title = "Freezing cycles: Arctic sea ice extent, 1979-2017") +
-  labs(subtitle = "Data Source: National Snow &amp; Ice Data Center | Vis: Gina Reynolds for #MakeoverMonday") +
-* theme_dark(base_size = 12)
-```
-]]
-.column[.content.center[
-&lt;img src="ggplot_flipbook_xaringan_files/figure-html/output_ice_29-1.png" width="80%" /&gt;
-]]
----
-class: split-40
-count: false
-
-.column[.content[
-
-```r
-ggplot(df) +
-  aes(x = as.numeric(month_day_plus)) +
-  aes(y = `Extent (million sq km)`) +
-  aes(group = year) +
-  geom_line() +
-  aes(col = year) +
-  scale_x_continuous(
-    breaks = as.numeric(lubridate::ymd(c( "2000-01-01", "2000-04-01",  "2000-07-01", "2000-10-01", "2001-01-01"))), 
-    labels = c("Jan-01", "Apr-01", "Jul-01", "Oct-01", "Jan-01"), 
-    expand = c(0, 0)) +
-  scale_y_continuous(expand = c(0, 0), 
-                     limits = c(0, 20)) +
-  scale_color_continuous(guide = guide_colourbar(reverse = TRUE), 
-                         breaks = seq(2010, 1980, -10)) +
-  geom_line(data = df %&gt;% filter(year == 2016 | year == 1982), 
-            mapping = aes(lty = factor(year)), 
-            col = "white") +
-  scale_linetype_manual(name = "", values = c("dashed", "solid") ) +
-  annotate(geom = "text", x = 11210, y = 15, 
-           label = str_wrap("For this period, 1982 had the highest calendar-year average extent of Arctic sea ice while 2016 had the lowest", 30),
-           col = "white", 
-           size = 7) +
-  labs(x = "") +
-  labs(y = "extent (million sq km)") +
-  labs(col = "") +
-  labs(lty = "") +
-  labs(title = "Freezing cycles: Arctic sea ice extent, 1979-2017") +
-  labs(subtitle = "Data Source: National Snow &amp; Ice Data Center | Vis: Gina Reynolds for #MakeoverMonday") +
-  theme_dark(base_size = 12) +
-* theme(legend.background = element_blank())
-```
-]]
-.column[.content.center[
-&lt;img src="ggplot_flipbook_xaringan_files/figure-html/output_ice_30-1.png" width="80%" /&gt;
-]]
----
-class: split-40
-count: false
-
-.column[.content[
-
-```r
-ggplot(df) +
-  aes(x = as.numeric(month_day_plus)) +
-  aes(y = `Extent (million sq km)`) +
-  aes(group = year) +
-  geom_line() +
-  aes(col = year) +
-  scale_x_continuous(
-    breaks = as.numeric(lubridate::ymd(c( "2000-01-01", "2000-04-01",  "2000-07-01", "2000-10-01", "2001-01-01"))), 
-    labels = c("Jan-01", "Apr-01", "Jul-01", "Oct-01", "Jan-01"), 
-    expand = c(0, 0)) +
-  scale_y_continuous(expand = c(0, 0), 
-                     limits = c(0, 20)) +
-  scale_color_continuous(guide = guide_colourbar(reverse = TRUE), 
-                         breaks = seq(2010, 1980, -10)) +
-  geom_line(data = df %&gt;% filter(year == 2016 | year == 1982), 
-            mapping = aes(lty = factor(year)), 
-            col = "white") +
-  scale_linetype_manual(name = "", values = c("dashed", "solid") ) +
-  annotate(geom = "text", x = 11210, y = 15, 
-           label = str_wrap("For this period, 1982 had the highest calendar-year average extent of Arctic sea ice while 2016 had the lowest", 30),
-           col = "white", 
-           size = 7) +
-  labs(x = "") +
-  labs(y = "extent (million sq km)") +
-  labs(col = "") +
-  labs(lty = "") +
-  labs(title = "Freezing cycles: Arctic sea ice extent, 1979-2017") +
-  labs(subtitle = "Data Source: National Snow &amp; Ice Data Center | Vis: Gina Reynolds for #MakeoverMonday") +
-  theme_dark(base_size = 12) +
-  theme(legend.background = element_blank()) +
-* theme(legend.position = c(0.1, .35))
-```
-]]
-.column[.content.center[
-&lt;img src="ggplot_flipbook_xaringan_files/figure-html/output_ice_31-1.png" width="80%" /&gt;
-]]
----
-class: split-40
-count: false
-
-.column[.content[
-
-```r
-ggplot(df) +
-  aes(x = as.numeric(month_day_plus)) +
-  aes(y = `Extent (million sq km)`) +
-  aes(group = year) +
-  geom_line() +
-  aes(col = year) +
-  scale_x_continuous(
-    breaks = as.numeric(lubridate::ymd(c( "2000-01-01", "2000-04-01",  "2000-07-01", "2000-10-01", "2001-01-01"))), 
-    labels = c("Jan-01", "Apr-01", "Jul-01", "Oct-01", "Jan-01"), 
-    expand = c(0, 0)) +
-  scale_y_continuous(expand = c(0, 0), 
-                     limits = c(0, 20)) +
-  scale_color_continuous(guide = guide_colourbar(reverse = TRUE), 
-                         breaks = seq(2010, 1980, -10)) +
-  geom_line(data = df %&gt;% filter(year == 2016 | year == 1982), 
-            mapping = aes(lty = factor(year)), 
-            col = "white") +
-  scale_linetype_manual(name = "", values = c("dashed", "solid") ) +
-  annotate(geom = "text", x = 11210, y = 15, 
-           label = str_wrap("For this period, 1982 had the highest calendar-year average extent of Arctic sea ice while 2016 had the lowest", 30),
-           col = "white", 
-           size = 7) +
-  labs(x = "") +
-  labs(y = "extent (million sq km)") +
-  labs(col = "") +
-  labs(lty = "") +
-  labs(title = "Freezing cycles: Arctic sea ice extent, 1979-2017") +
-  labs(subtitle = "Data Source: National Snow &amp; Ice Data Center | Vis: Gina Reynolds for #MakeoverMonday") +
-  theme_dark(base_size = 12) +
-  theme(legend.background = element_blank()) +
-  theme(legend.position = c(0.1, .35)) +
-* theme(legend.text = element_text(colour = "white", size = 15))
-```
-]]
-.column[.content.center[
-&lt;img src="ggplot_flipbook_xaringan_files/figure-html/output_ice_32-1.png" width="80%" /&gt;
-]]
----
-class: split-40
-count: false
-
-.column[.content[
-
-```r
-ggplot(df) +
-  aes(x = as.numeric(month_day_plus)) +
-  aes(y = `Extent (million sq km)`) +
-  aes(group = year) +
-  geom_line() +
-  aes(col = year) +
-  scale_x_continuous(
-    breaks = as.numeric(lubridate::ymd(c( "2000-01-01", "2000-04-01",  "2000-07-01", "2000-10-01", "2001-01-01"))), 
-    labels = c("Jan-01", "Apr-01", "Jul-01", "Oct-01", "Jan-01"), 
-    expand = c(0, 0)) +
-  scale_y_continuous(expand = c(0, 0), 
-                     limits = c(0, 20)) +
-  scale_color_continuous(guide = guide_colourbar(reverse = TRUE), 
-                         breaks = seq(2010, 1980, -10)) +
-  geom_line(data = df %&gt;% filter(year == 2016 | year == 1982), 
-            mapping = aes(lty = factor(year)), 
-            col = "white") +
-  scale_linetype_manual(name = "", values = c("dashed", "solid") ) +
-  annotate(geom = "text", x = 11210, y = 15, 
-           label = str_wrap("For this period, 1982 had the highest calendar-year average extent of Arctic sea ice while 2016 had the lowest", 30),
-           col = "white", 
-           size = 7) +
-  labs(x = "") +
-  labs(y = "extent (million sq km)") +
-  labs(col = "") +
-  labs(lty = "") +
-  labs(title = "Freezing cycles: Arctic sea ice extent, 1979-2017") +
-  labs(subtitle = "Data Source: National Snow &amp; Ice Data Center | Vis: Gina Reynolds for #MakeoverMonday") +
-  theme_dark(base_size = 12) +
-  theme(legend.background = element_blank()) +
-  theme(legend.position = c(0.1, .35)) +
-  theme(legend.text = element_text(colour = "white", size = 15)) +
-* theme(plot.background = element_rect(fill = "grey30"))
-```
-]]
-.column[.content.center[
-&lt;img src="ggplot_flipbook_xaringan_files/figure-html/output_ice_33-1.png" width="80%" /&gt;
-]]
----
-class: split-40
-count: false
-
-.column[.content[
-
-```r
-ggplot(df) +
-  aes(x = as.numeric(month_day_plus)) +
-  aes(y = `Extent (million sq km)`) +
-  aes(group = year) +
-  geom_line() +
-  aes(col = year) +
-  scale_x_continuous(
-    breaks = as.numeric(lubridate::ymd(c( "2000-01-01", "2000-04-01",  "2000-07-01", "2000-10-01", "2001-01-01"))), 
-    labels = c("Jan-01", "Apr-01", "Jul-01", "Oct-01", "Jan-01"), 
-    expand = c(0, 0)) +
-  scale_y_continuous(expand = c(0, 0), 
-                     limits = c(0, 20)) +
-  scale_color_continuous(guide = guide_colourbar(reverse = TRUE), 
-                         breaks = seq(2010, 1980, -10)) +
-  geom_line(data = df %&gt;% filter(year == 2016 | year == 1982), 
-            mapping = aes(lty = factor(year)), 
-            col = "white") +
-  scale_linetype_manual(name = "", values = c("dashed", "solid") ) +
-  annotate(geom = "text", x = 11210, y = 15, 
-           label = str_wrap("For this period, 1982 had the highest calendar-year average extent of Arctic sea ice while 2016 had the lowest", 30),
-           col = "white", 
-           size = 7) +
-  labs(x = "") +
-  labs(y = "extent (million sq km)") +
-  labs(col = "") +
-  labs(lty = "") +
-  labs(title = "Freezing cycles: Arctic sea ice extent, 1979-2017") +
-  labs(subtitle = "Data Source: National Snow &amp; Ice Data Center | Vis: Gina Reynolds for #MakeoverMonday") +
-  theme_dark(base_size = 12) +
-  theme(legend.background = element_blank()) +
-  theme(legend.position = c(0.1, .35)) +
-  theme(legend.text = element_text(colour = "white", size = 15)) +
-  theme(plot.background = element_rect(fill = "grey30")) +
-* theme(plot.title = element_text(colour = "lightgrey"))
-```
-]]
-.column[.content.center[
-&lt;img src="ggplot_flipbook_xaringan_files/figure-html/output_ice_34-1.png" width="80%" /&gt;
-]]
----
-class: split-40
-count: false
-
-.column[.content[
-
-```r
-ggplot(df) +
-  aes(x = as.numeric(month_day_plus)) +
-  aes(y = `Extent (million sq km)`) +
-  aes(group = year) +
-  geom_line() +
-  aes(col = year) +
-  scale_x_continuous(
-    breaks = as.numeric(lubridate::ymd(c( "2000-01-01", "2000-04-01",  "2000-07-01", "2000-10-01", "2001-01-01"))), 
-    labels = c("Jan-01", "Apr-01", "Jul-01", "Oct-01", "Jan-01"), 
-    expand = c(0, 0)) +
-  scale_y_continuous(expand = c(0, 0), 
-                     limits = c(0, 20)) +
-  scale_color_continuous(guide = guide_colourbar(reverse = TRUE), 
-                         breaks = seq(2010, 1980, -10)) +
-  geom_line(data = df %&gt;% filter(year == 2016 | year == 1982), 
-            mapping = aes(lty = factor(year)), 
-            col = "white") +
-  scale_linetype_manual(name = "", values = c("dashed", "solid") ) +
-  annotate(geom = "text", x = 11210, y = 15, 
-           label = str_wrap("For this period, 1982 had the highest calendar-year average extent of Arctic sea ice while 2016 had the lowest", 30),
-           col = "white", 
-           size = 7) +
-  labs(x = "") +
-  labs(y = "extent (million sq km)") +
-  labs(col = "") +
-  labs(lty = "") +
-  labs(title = "Freezing cycles: Arctic sea ice extent, 1979-2017") +
-  labs(subtitle = "Data Source: National Snow &amp; Ice Data Center | Vis: Gina Reynolds for #MakeoverMonday") +
-  theme_dark(base_size = 12) +
-  theme(legend.background = element_blank()) +
-  theme(legend.position = c(0.1, .35)) +
-  theme(legend.text = element_text(colour = "white", size = 15)) +
-  theme(plot.background = element_rect(fill = "grey30")) +
-  theme(plot.title = element_text(colour = "lightgrey")) +
-* theme(plot.subtitle = element_text(colour = "lightgrey"))
-```
-]]
-.column[.content.center[
-&lt;img src="ggplot_flipbook_xaringan_files/figure-html/output_ice_35-1.png" width="80%" /&gt;
-]]
----
-class: split-40
-count: false
-
-.column[.content[
-
-```r
-ggplot(df) +
-  aes(x = as.numeric(month_day_plus)) +
-  aes(y = `Extent (million sq km)`) +
-  aes(group = year) +
-  geom_line() +
-  aes(col = year) +
-  scale_x_continuous(
-    breaks = as.numeric(lubridate::ymd(c( "2000-01-01", "2000-04-01",  "2000-07-01", "2000-10-01", "2001-01-01"))), 
-    labels = c("Jan-01", "Apr-01", "Jul-01", "Oct-01", "Jan-01"), 
-    expand = c(0, 0)) +
-  scale_y_continuous(expand = c(0, 0), 
-                     limits = c(0, 20)) +
-  scale_color_continuous(guide = guide_colourbar(reverse = TRUE), 
-                         breaks = seq(2010, 1980, -10)) +
-  geom_line(data = df %&gt;% filter(year == 2016 | year == 1982), 
-            mapping = aes(lty = factor(year)), 
-            col = "white") +
-  scale_linetype_manual(name = "", values = c("dashed", "solid") ) +
-  annotate(geom = "text", x = 11210, y = 15, 
-           label = str_wrap("For this period, 1982 had the highest calendar-year average extent of Arctic sea ice while 2016 had the lowest", 30),
-           col = "white", 
-           size = 7) +
-  labs(x = "") +
-  labs(y = "extent (million sq km)") +
-  labs(col = "") +
-  labs(lty = "") +
-  labs(title = "Freezing cycles: Arctic sea ice extent, 1979-2017") +
-  labs(subtitle = "Data Source: National Snow &amp; Ice Data Center | Vis: Gina Reynolds for #MakeoverMonday") +
-  theme_dark(base_size = 12) +
-  theme(legend.background = element_blank()) +
-  theme(legend.position = c(0.1, .35)) +
-  theme(legend.text = element_text(colour = "white", size = 15)) +
-  theme(plot.background = element_rect(fill = "grey30")) +
-  theme(plot.title = element_text(colour = "lightgrey")) +
-  theme(plot.subtitle = element_text(colour = "lightgrey")) +
-* theme(axis.title = element_text(colour = "lightgrey"))
-```
-]]
-.column[.content.center[
-&lt;img src="ggplot_flipbook_xaringan_files/figure-html/output_ice_36-1.png" width="80%" /&gt;
-]]
----
-class: split-40
-count: false
-
-.column[.content[
-
-```r
-ggplot(df) +
-  aes(x = as.numeric(month_day_plus)) +
-  aes(y = `Extent (million sq km)`) +
-  aes(group = year) +
-  geom_line() +
-  aes(col = year) +
-  scale_x_continuous(
-    breaks = as.numeric(lubridate::ymd(c( "2000-01-01", "2000-04-01",  "2000-07-01", "2000-10-01", "2001-01-01"))), 
-    labels = c("Jan-01", "Apr-01", "Jul-01", "Oct-01", "Jan-01"), 
-    expand = c(0, 0)) +
-  scale_y_continuous(expand = c(0, 0), 
-                     limits = c(0, 20)) +
-  scale_color_continuous(guide = guide_colourbar(reverse = TRUE), 
-                         breaks = seq(2010, 1980, -10)) +
-  geom_line(data = df %&gt;% filter(year == 2016 | year == 1982), 
-            mapping = aes(lty = factor(year)), 
-            col = "white") +
-  scale_linetype_manual(name = "", values = c("dashed", "solid") ) +
-  annotate(geom = "text", x = 11210, y = 15, 
-           label = str_wrap("For this period, 1982 had the highest calendar-year average extent of Arctic sea ice while 2016 had the lowest", 30),
-           col = "white", 
-           size = 7) +
-  labs(x = "") +
-  labs(y = "extent (million sq km)") +
-  labs(col = "") +
-  labs(lty = "") +
-  labs(title = "Freezing cycles: Arctic sea ice extent, 1979-2017") +
-  labs(subtitle = "Data Source: National Snow &amp; Ice Data Center | Vis: Gina Reynolds for #MakeoverMonday") +
-  theme_dark(base_size = 12) +
-  theme(legend.background = element_blank()) +
-  theme(legend.position = c(0.1, .35)) +
-  theme(legend.text = element_text(colour = "white", size = 15)) +
-  theme(plot.background = element_rect(fill = "grey30")) +
-  theme(plot.title = element_text(colour = "lightgrey")) +
-  theme(plot.subtitle = element_text(colour = "lightgrey")) +
-  theme(axis.title = element_text(colour = "lightgrey")) +
-* theme(axis.line = element_line(colour = "lightgrey"))
-```
-]]
-.column[.content.center[
-&lt;img src="ggplot_flipbook_xaringan_files/figure-html/output_ice_37-1.png" width="80%" /&gt;
-]]
----
-class: split-40
-count: false
-
-.column[.content[
-
-```r
-ggplot(df) +
-  aes(x = as.numeric(month_day_plus)) +
-  aes(y = `Extent (million sq km)`) +
-  aes(group = year) +
-  geom_line() +
-  aes(col = year) +
-  scale_x_continuous(
-    breaks = as.numeric(lubridate::ymd(c( "2000-01-01", "2000-04-01",  "2000-07-01", "2000-10-01", "2001-01-01"))), 
-    labels = c("Jan-01", "Apr-01", "Jul-01", "Oct-01", "Jan-01"), 
-    expand = c(0, 0)) +
-  scale_y_continuous(expand = c(0, 0), 
-                     limits = c(0, 20)) +
-  scale_color_continuous(guide = guide_colourbar(reverse = TRUE), 
-                         breaks = seq(2010, 1980, -10)) +
-  geom_line(data = df %&gt;% filter(year == 2016 | year == 1982), 
-            mapping = aes(lty = factor(year)), 
-            col = "white") +
-  scale_linetype_manual(name = "", values = c("dashed", "solid") ) +
-  annotate(geom = "text", x = 11210, y = 15, 
-           label = str_wrap("For this period, 1982 had the highest calendar-year average extent of Arctic sea ice while 2016 had the lowest", 30),
-           col = "white", 
-           size = 7) +
-  labs(x = "") +
-  labs(y = "extent (million sq km)") +
-  labs(col = "") +
-  labs(lty = "") +
-  labs(title = "Freezing cycles: Arctic sea ice extent, 1979-2017") +
-  labs(subtitle = "Data Source: National Snow &amp; Ice Data Center | Vis: Gina Reynolds for #MakeoverMonday") +
-  theme_dark(base_size = 12) +
-  theme(legend.background = element_blank()) +
-  theme(legend.position = c(0.1, .35)) +
-  theme(legend.text = element_text(colour = "white", size = 15)) +
-  theme(plot.background = element_rect(fill = "grey30")) +
-  theme(plot.title = element_text(colour = "lightgrey")) +
-  theme(plot.subtitle = element_text(colour = "lightgrey")) +
-  theme(axis.title = element_text(colour = "lightgrey")) +
-  theme(axis.line = element_line(colour = "lightgrey")) +
-* theme(axis.text = element_text(colour = "lightgrey"))
-```
-]]
-.column[.content.center[
-&lt;img src="ggplot_flipbook_xaringan_files/figure-html/output_ice_38-1.png" width="80%" /&gt;
-]]
----
-class: split-40
-count: false
-
-.column[.content[
-
-```r
-ggplot(df) +
-  aes(x = as.numeric(month_day_plus)) +
-  aes(y = `Extent (million sq km)`) +
-  aes(group = year) +
-  geom_line() +
-  aes(col = year) +
-  scale_x_continuous(
-    breaks = as.numeric(lubridate::ymd(c( "2000-01-01", "2000-04-01",  "2000-07-01", "2000-10-01", "2001-01-01"))), 
-    labels = c("Jan-01", "Apr-01", "Jul-01", "Oct-01", "Jan-01"), 
-    expand = c(0, 0)) +
-  scale_y_continuous(expand = c(0, 0), 
-                     limits = c(0, 20)) +
-  scale_color_continuous(guide = guide_colourbar(reverse = TRUE), 
-                         breaks = seq(2010, 1980, -10)) +
-  geom_line(data = df %&gt;% filter(year == 2016 | year == 1982), 
-            mapping = aes(lty = factor(year)), 
-            col = "white") +
-  scale_linetype_manual(name = "", values = c("dashed", "solid") ) +
-  annotate(geom = "text", x = 11210, y = 15, 
-           label = str_wrap("For this period, 1982 had the highest calendar-year average extent of Arctic sea ice while 2016 had the lowest", 30),
-           col = "white", 
-           size = 7) +
-  labs(x = "") +
-  labs(y = "extent (million sq km)") +
-  labs(col = "") +
-  labs(lty = "") +
-  labs(title = "Freezing cycles: Arctic sea ice extent, 1979-2017") +
-  labs(subtitle = "Data Source: National Snow &amp; Ice Data Center | Vis: Gina Reynolds for #MakeoverMonday") +
-  theme_dark(base_size = 12) +
-  theme(legend.background = element_blank()) +
-  theme(legend.position = c(0.1, .35)) +
-  theme(legend.text = element_text(colour = "white", size = 15)) +
-  theme(plot.background = element_rect(fill = "grey30")) +
-  theme(plot.title = element_text(colour = "lightgrey")) +
-  theme(plot.subtitle = element_text(colour = "lightgrey")) +
-  theme(axis.title = element_text(colour = "lightgrey")) +
-  theme(axis.line = element_line(colour = "lightgrey")) +
-  theme(axis.text = element_text(colour = "lightgrey")) +
-* theme(axis.ticks = element_line(colour = "lightgrey"))
-```
-]]
-.column[.content.center[
-&lt;img src="ggplot_flipbook_xaringan_files/figure-html/output_ice_39-1.png" width="80%" /&gt;
-]]
-
-
----
-
+name: collegemajors01
 # College Majors
 
 
@@ -7382,7 +5368,7 @@ ggplot(data = college_majors %&gt;% mutate(Unemployed = ifelse(Unemployed == 0, 
 ]]
 
 ---
-
+name: collegemajors02
 
 
 
@@ -7796,6 +5782,7 @@ ggplot(data = college_majors ) +
 
 ---
 
+name: flippingseats
 # Flipping seats 
 
 
@@ -7805,6 +5792,8 @@ ggplot(data = college_majors ) +
 
 
 ---
+
+
 
 
 
@@ -8170,6 +6159,7 @@ ggplot(df) +
 
 ---
 
+name: ratings
 # Highlighting among ratings 
 
 Fine tuning a plot.
@@ -8181,6 +6171,7 @@ Compare the following plot to other possible ways of displaying similar data: ht
 
 
 ---
+
 
 
 
@@ -8537,6 +6528,7 @@ ggplot(df) +
 
 ---
 
+name: incarcerationbysex
 # Incarceration
 
 This visualization is a sobering one --- showing incarceration rates across different demographics over time.  The data comes via #TidyTuesday via the Vera Institute of Justice.  My strategy is pretty simple - to show changes in rates over time for different groups using facet grid. 
@@ -8594,6 +6586,7 @@ A random sample from the data set:
 &lt;/table&gt;
 
 ---
+
 
 
 
@@ -8732,7 +6725,7 @@ count: false
 
 
 ---
-
+name: incarcerationbygender
 
 
 A random sample from the data set: 
@@ -8782,13 +6775,15 @@ A random sample from the data set:
 
 
 
+
+
 class: split-40
 count: false
 
 .column[.content[
 
 ```r
-* ggplot(data = dat)
+*ggplot(data = dat)
 ```
 ]]
 .column[.content.center[
@@ -8801,7 +6796,7 @@ count: false
 .column[.content[
 
 ```r
-  ggplot(data = dat) + 
+ggplot(data = dat) + 
 * aes(x = year, y = rate_per_100000)
 ```
 ]]
@@ -8815,7 +6810,7 @@ count: false
 .column[.content[
 
 ```r
-  ggplot(data = dat) + 
+ggplot(data = dat) + 
   aes(x = year, y = rate_per_100000) +
 * geom_line()
 ```
@@ -8830,7 +6825,7 @@ count: false
 .column[.content[
 
 ```r
-  ggplot(data = dat) + 
+ggplot(data = dat) + 
   aes(x = year, y = rate_per_100000) +
   geom_line() +
 * facet_grid(urbanicity ~ pop_category)
@@ -8846,7 +6841,7 @@ count: false
 .column[.content[
 
 ```r
-  ggplot(data = dat) + 
+ggplot(data = dat) + 
   aes(x = year, y = rate_per_100000) +
   geom_line() +
   facet_grid(urbanicity ~ pop_category) +
@@ -8863,7 +6858,7 @@ count: false
 .column[.content[
 
 ```r
-  ggplot(data = dat) + 
+ggplot(data = dat) + 
   aes(x = year, y = rate_per_100000) +
   geom_line() +
   facet_grid(urbanicity ~ pop_category) +
@@ -8881,7 +6876,7 @@ count: false
 .column[.content[
 
 ```r
-  ggplot(data = dat) + 
+ggplot(data = dat) + 
   aes(x = year, y = rate_per_100000) +
   geom_line() +
   facet_grid(urbanicity ~ pop_category) +
@@ -8900,7 +6895,7 @@ count: false
 .column[.content[
 
 ```r
-  ggplot(data = dat) + 
+ggplot(data = dat) + 
   aes(x = year, y = rate_per_100000) +
   geom_line() +
   facet_grid(urbanicity ~ pop_category) +
@@ -8916,6 +6911,7 @@ count: false
 
 ---
 
+name: milkindustry
 # Milk Industry
 
 What's a milk cow worth? This data comes via the #TidyTuesday project.  I constructed a waterfall plot to track the average price of milk cows, calculating percent changes year on year. 
@@ -9032,6 +7028,8 @@ A random sample from the data set:
 
 
 ---
+
+
 
 
 
@@ -9745,6 +7743,7 @@ count: false
 
 ---
 
+name: windturbinelocations01
 # Wind Turbine Locations 
 
 This data on wind turbine locations comes via the #TidyTuesday project.  I map the positions of the turbines in the US. 
@@ -9921,6 +7920,7 @@ A random sample from the data set:
 
 ---
   
+
 
 
 
@@ -10111,6 +8111,8 @@ ggplot(data = usa) +
 
 
 ---
+name: windturbinelocations02
+
 
 
 
@@ -10295,7 +8297,10 @@ count: false
 ---
 
 
+name: movies
 # Movies
+
+
 
 
 
@@ -10797,6 +8802,7 @@ ggplot(data = movies) +
 .remark-code{line-height: 1.5; font-size: 65%}
 &lt;/style&gt;
     </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="libs/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({
 "ratio": "20:10",
@@ -10805,16 +8811,57 @@ ggplot(data = movies) +
 if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   window.dispatchEvent(new Event('resize'));
 });
-(function() {
-  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
   if (!r) return;
   s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
   d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
 })();</script>
 
 <script>
 (function() {
-  var i, text, code, codes = document.getElementsByTagName('code');
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
   for (i = 0; i < codes.length;) {
     code = codes[i];
     if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
@@ -10828,7 +8875,8 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     }
     i++;
   }
-})();
+};
+slideshow._releaseMath(document);
 </script>
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

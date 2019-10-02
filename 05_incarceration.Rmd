@@ -1,3 +1,4 @@
+name: incarcerationbysex
 # Incarceration
 
 This visualization is a sobering one --- showing incarceration rates across different demographics over time.  The data comes via #TidyTuesday via the Vera Institute of Justice.  My strategy is pretty simple - to show changes in rates over time for different groups using facet grid. 
@@ -44,12 +45,17 @@ knitr::kable(head(data, 5), format = "html")
   labs(title = "Incarceration rates by sex and urbanicity in the US, 1983-2015")
 ```
 
+```{r, echo = F, warning=F, message=F, eval = T, fig.show='hide'}
+get_what_save_what <- "incarceration_01"
+eval(parse(text = paste(knitr:::knit_code$get(get_what_save_what), collapse = "")))
+ggsave(paste0("figures/", get_what_save_what, ".png"), dpi = 300)
+```
 
 `r apply_reveal("incarceration_01")`
 
 
 ---
-
+name: incarcerationbygender
 ```{r, echo =F}
 dat <- df %>% 
   filter(!(pop_category %in% c("Female", "Male", "Total", "Other"))) 
@@ -62,7 +68,7 @@ knitr::kable(head(dat, 5), format = "html")
 ---
 
 ```{r incarceration_02, eval=F, echo=F}
-  ggplot(data = dat) + 
+ggplot(data = dat) + 
   aes(x = year, y = rate_per_100000) +
   geom_line() +
   facet_grid(urbanicity ~ pop_category) +
@@ -70,6 +76,12 @@ knitr::kable(head(dat, 5), format = "html")
   labs(x = "", y = "Incarcerated per 100000") +
   labs(subtitle = "Data source: Vera Institute of Justice") +
   labs(title = "Incarceration rates by race/ethnicity and urbanicity in the US, 1983-2015") 
+```
+
+```{r, echo = F, warning=F, message=F, eval = T, fig.show='hide'}
+get_what_save_what <- "incarceration_02"
+eval(parse(text = paste(knitr:::knit_code$get(get_what_save_what), collapse = "")))
+ggsave(paste0("figures/", get_what_save_what, ".png"), dpi = 300)
 ```
 
 `r apply_reveal("incarceration_02")`

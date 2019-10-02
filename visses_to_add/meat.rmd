@@ -1,0 +1,167 @@
+---
+title: "Makeover Monday protein"
+author: "Evangeline Reynolds"
+date: "1/2/2018"
+output: pdf_document
+---
+
+```{r}
+library(readxl)
+library(tidyverse)
+library(png)
+library(ggplot2)
+```
+
+# read in data, transform
+
+```{r}
+if(!file.exists("meat.xlsx")){
+download.file("https://query.data.world/s/ctuW4jz_KsMBt9w56foWbbwrpQUKeG", "meat.xlsx")
+  }
+dta = read_xlsx("meat.xlsx") %>% gather(protein, pounds, Beef:`Commercial Fish & Shell-Fish`)
+
+```
+
+# Images from the noun project
+```{r}
+img_cow=readPNG("noun_36108_cc.png")[100:600, 50:650, 1:4]
+# info reduction
+img_cow=img_cow[seq(1, dim(img_cow)[1], by = 1), 
+                          seq(1, dim(img_cow)[2], by = 1),1:4]
+pngCredit_cow="Meat by Yair Cohen from the Noun Project"
+
+plot(0:5, 0:5, type='n')
+rasterImage(img_cow, 0, 0, 3, 3)
+
+
+img_chicken=readPNG("noun_42413_cc.png")[0:600, 650:50, 1:4]
+# info reduction
+img_chicken=img_chicken[seq(1, dim(img_chicken)[1], by = 1), 
+                        seq(1, dim(img_chicken)[2], by = 1),
+                        1:4]
+pngCredit_chicken="Chicken by Yair Cohen from the Noun Project"
+```
+
+# Plotting
+```{r}
+dta %>% filter(Year %in% c(1970, 1985, 2000, 2015), protein == "Beef"|protein == "Total Chicken")
+
+draw_icons <- 
+  function(origin = c(0,0), size = .5, num_to_plot = round(76.4/10), 
+           cols = 3, img = img_chicken){
+rows <- ceiling(num_to_plot/cols)
+x_pos <- rep(1:cols, rows)[1:num_to_plot]
+x_pos <- x_pos - min(x_pos)
+y_pos <- sort(rep(1:rows, cols), decreasing = T)[1:num_to_plot]
+y_pos <- y_pos - max(y_pos)
+rasterImage(img, 
+            -size + x_pos + origin[1], 
+            -size + y_pos + origin[2], 
+            size + x_pos + origin[1], 
+            size + y_pos + origin[2])
+}
+
+
+{
+par(bg = "darkgoldenrod", family = 'serif', mar = c(0,0,0,0))
+plot(c(-7,7), c(-9.2,2), type='n', asp = 1, axes = F, xlab = "", ylab = "")
+text(-9.55, 2,
+      "Annual Per Capita Beef and Chicken Consumption in the US", cex = 1.5, pos = 4, offset = 0)
+text(-9.55, 1.5, "Each animal represents 5 lbs. consumed (rounding)", cex = .8, pos = 4, offset = 0)
+text(-9.55, -9.2, "Data Source: National Chicken Council \nIcons:  Yair Cohen from the Noun Project \nData Vis: Evangeline Reynolds @EvaMaeRey", cex = .5, pos = 4, offset = 0)
+text(-9, 1, "1970")
+text(-4, 1, "1985")
+text(1, 1, "2000")
+text(6, 1, "2015")
+draw_icons(origin = c(-9,0), size = .5, num_to_plot = round(84.4/5), 
+           cols = 4, img = img_cow)
+draw_icons(origin = c(-4,0), size = .5, num_to_plot = round(79.0/5), 
+           cols = 4, img = img_cow)
+draw_icons(origin = c(1,0), size = .5, num_to_plot = round(67.5/5), 
+           cols = 4, img = img_cow)
+draw_icons(origin = c(6,0), size = .5, num_to_plot = round(53.8/5), 
+           cols = 4, img = img_cow)
+
+draw_icons(origin = c(-9,-5.2), size = .45, num_to_plot = round(40.1/5), 
+           cols = 4, img = img_chicken)
+draw_icons(origin = c(-4,-5.2), size = .45, num_to_plot = round(52.5/5), 
+           cols = 4, img = img_chicken)
+draw_icons(origin = c(1,-5.2), size = .45, num_to_plot = round(77.4/5), 
+           cols = 4, img = img_chicken)
+draw_icons(origin = c(6,-5.2), size = .45, num_to_plot = round(89.3/5), 
+           cols = 4, img = img_chicken)
+# lines(x = c(0, 0), y = c(0.5, -6.5), lwd=2)
+# lines(x = c(-5, -5), y = c(0.5, -6.5), lwd=2)
+# lines(x = c(5, 5), y = c(0.5, -6.5), lwd=2)
+
+}
+```
+
+
+```{r}
+
+ggplot(dta, aes(Year,pounds, col = protein))+ geom_line()
+
+
+dta_chicken = dta %>% filter(protein == "Total Chicken")
+ggplot(dta_chicken, aes(Year,pounds))+
+  ylim(0,100)+ geom_line(col = "grey")+ geom_point()+
+       mapply(function(xx, yy) 
+          annotation_raster(img_chicken,
+                            xmin=xx-1, xmax=xx+1, 
+                            ymin=yy-1.5, ymax=yy+1.5),
+          dta_chicken$Year, dta_chicken$pounds) 
+
+
+```
+
+```{r, fig.width=3}
+by_value = 10
+dta_vis = dta %>%  
+  filter(protein == "Beef" | protein == "Total Chicken") %>% 
+  mutate(mod_value = round(pounds/by_value)*by_value) %>% 
+  full_join(data_frame(possiblevalue=1:100*by_value, `Actual/Forecast`="Actual")) %>%
+  filter(possiblevalue <= mod_value) %>% filter(Year <= 2016) %>% 
+  filter(Year == 2016) %>% mutate(proteinNum= as.numeric(as.factor(protein)))
+
+dta_chicken = dta_vis %>% filter(protein == "Total Chicken")
+dta_beef = dta_vis %>% filter(protein == "Beef")
+
+ggplot(dta_vis, aes(protein,possiblevalue))+ 
+  ylim(0,100)+ geom_point(size = 0)+
+       mapply(function(xx, yy) 
+          annotation_raster(img_chicken,
+                            xmin=xx-.3, xmax=xx+.3, 
+                            ymin=yy-by_value/1.2, ymax=yy+0),
+          dta_chicken$proteinNum, dta_chicken$possiblevalue) +
+       mapply(function(xx, yy) 
+          annotation_raster(img_cow,
+                            xmin=xx-.3, xmax=xx+.3, 
+                            ymin=yy-by_value/1.2, ymax=yy+0),
+          dta_beef$proteinNum, dta_beef$possiblevalue) 
+
+```
+
+
+# Fill in 
+```{r, eval=F}
+by_value = 5
+dta_vis = dta %>%  
+  filter(protein == "Beef" | protein == "Total Chicken") %>% 
+  mutate(mod_value = round(pounds/by_value)*by_value) %>% 
+  full_join(data_frame(possiblevalue=1:100*by_value, `Actual/Forecast`="Actual")) %>%
+  filter(possiblevalue <= mod_value) %>% filter(Year <= 2016) %>% 
+  filter(Year > 1964)
+
+ggplot(dta_vis, aes(Year, pounds, col = protein)) + geom_line() + geom_point(aes(Year, possiblevalue)) + ggtitle("US per capita consumption of chicken and beef")+ facet_grid(protein~.)
+ 
+
+# ggplot(dta_vis %>% filter(Year<1970), aes(Year, possiblevalue, col = protein)) + geom_point() +
+#        mapply(function(xx, yy) 
+#           annotation_raster(img_red_poultry,
+#                             xmin=xx-.5, xmax=xx+.5, 
+#                             ymin=yy-0.5, ymax=yy+0.5),
+#           dta_vis$Year, dta_vis$possiblevalue) 
+
+```
+

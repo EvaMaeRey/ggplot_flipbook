@@ -1,0 +1,143 @@
+---
+title: "big mac"
+author: "Evangeline Reynolds"
+date: "8/2/2018"
+output: html_document
+---
+
+```{r}
+library(tidyverse)
+
+
+df <- read_csv("../raw_data/Big Mac Index.csv")
+```
+
+```{r}
+df_2000 <- filter(df, date == "2011-07-01") %>% 
+  select(name, dollar_ex, dollar_price, local_price, GDP_dollar) %>% 
+  rename(dollar_ex_2000 = dollar_ex) %>% 
+  rename(dollar_price_2000 = dollar_price) %>% 
+  rename(local_price_2000 = local_price) %>% 
+  rename(GDP_dollar_2000 = GDP_dollar)
+  
+  
+
+df <- df %>% left_join(df_2000)
+
+
+ggplot(df %>% filter(name %in% c("Argentina", "Chile", "Bolivia", "Brazil", "Peru"))) +
+  aes(x = dollar_ex/dollar_ex_2000, y = dollar_price/dollar_price_2000, group = name, col = date) +
+  geom_path() +
+  facet_wrap(~name, scales = "free_x")
+  
+ggplot(df %>% filter(name %in% c("Argentina"))) +
+  aes(x = date, y = dollar_price) +
+  geom_line(col = "blue") +
+  geom_line(aes(x = date, y = dollar_ex), col = "green")
+
+
+ggplot(df %>% filter(name %in% c("Chile", "United States"))) +
+  aes(x = date, lty = name) +
+  geom_line(aes(y = dollar_price/dollar_price_2000 * 100), col = "darkblue") +
+  geom_line(aes(y = local_price/local_price_2000 * 100), col = "red") +
+  geom_line(aes(y = GDP_dollar/GDP_dollar_2000 * 100), col = "blue") +
+  geom_line(aes(y = dollar_ex_2000/dollar_ex * 100), col = "darkgreen") + 
+  scale_y_continuous("Percent change price of Big Mac (foreign visitor)", 
+    sec.axis = sec_axis(~ . * 1, name = "Percent change price of local currency (in dollars) ")
+  ) +
+  labs(x = "", lty = "", title = "The Economist's Big Mac Data") +
+  theme_bw() +
+  theme(axis.title.y.left = element_text(colour = "darkblue"),
+        axis.title.y.right = element_text(colour = "darkgreen")) 
+  
+
+ggplot(df %>% filter(name %in% c("Chile", "United States"))) +
+  aes(x = date, y = dollar_price/dollar_price_2000 * 100, lty = name) +
+  geom_line(col = "darkblue") +
+  geom_line(aes(y = local_price/local_price_2000 * 100), col = "red") +
+  geom_line(aes(x = date, y = dollar_ex_2000/dollar_ex * 100), col = "darkgreen") + 
+  scale_y_log10("Percent change price of Big Mac (foreign visitor)", 
+    sec.axis = sec_axis(~ . * 1, name = "Percent change price of local currency (in dollars) ")
+  ) +
+  labs(x = "", lty = "", title = "The Economist's Big Mac Data") +
+  theme_bw()+
+  theme(axis.title.y.left = element_text(colour = "darkblue"),
+        axis.title.y.right = element_text(colour = "darkgreen")) 
+  
+
+
+
+
+ggplot(df %>% filter(name %in% c("Argentina"))) +
+  aes(x = dollar_ex, y = dollar_price, group = name, col = date) +
+  geom_path() +
+  facet_wrap(~name, scales = "free_x")
+
+df <- read_csv("Big Mac Index.csv")
+
+
+df_us <- filter(df, name == "United States") %>% 
+  select(dollar_ex, dollar_price, local_price, date) %>% 
+  rename(dollar_ex_us = dollar_ex) %>% 
+  rename(dollar_price_us = dollar_price) %>% 
+  rename(local_price_us = local_price)
+
+df <- df %>% left_join(df_us)
+
+
+ggplot(df %>% filter(name %in% c("Japan", "South Korea", "Taiwan", "China"))) +
+  aes(x = date, y = dollar_price/dollar_price_us * 100, col = name) +
+  geom_line() +
+  labs(y = "Percent paid compared to US")
+
+df %>% group_by(date) %>% summarise(mean_over_under = mean(dollar_price/dollar_price_us, na.rm = T)) %>% 
+  ggplot() +
+  aes(date, mean_over_under) +
+  geom_line()
+
+ggplot(df %>% filter(name %in% c("Chile", "United States")) %>% filter(date >= as.Date("2011-07-01"))) +
+  aes(x = date,  lty = name) +
+  geom_line(aes(y = dollar_price/dollar_price_2000 * 100), col = "darkblue", lwd = 2) +
+  geom_line(aes(y = local_price/local_price_2000 * 100), col = "red") +
+  geom_line(aes(x = date, y = dollar_ex_2000/dollar_ex * 100), col = "darkgreen") + 
+  geom_line(aes(x = date, y = GDP_dollar/GDP_dollar_2000 * 100), col = "magenta") + 
+  scale_y_log10("Percent change price of Big Mac (foreign visitor)") +
+  labs(x = "", lty = "", title = "The Economist's Big Mac Data") +
+  theme_bw()+
+  theme(axis.title.y.left = element_text(colour = "darkblue"),
+        axis.title.y.right = element_text(colour = "darkgreen")) 
+
+```
+
+
+```{r}
+df_us <- df %>% filter(name == "United States") %>% select(date, dollar_price) %>% 
+  rename(dollar_price_us = dollar_price)
+
+
+ggplot(df %>% left_join(df_us)) +
+  aes(x = date, y = dollar_price) +
+  geom_area(data = df_us, mapping = aes(y = dollar_price_us), fill = "green") +
+  geom_line(aes(col = dollar_price > dollar_price_us)) +
+  facet_wrap(~name) 
+
+
+```
+
+```{r}
+df_us <- df %>% filter(name == "United States") %>% select(date, dollar_price) %>% 
+  rename(dollar_price_us = dollar_price)
+
+
+a <- ggplot(df %>% filter(name == "Argentina")) +
+  aes(x = date, y = local_price) +
+  geom_line() +
+  labs(y = "Cost of Big Mac (pesos)")
+
+b <- ggplot(df %>% filter(name == "Argentina")) +
+  aes(x = date, y = dollar_ex) +
+  geom_line() +
+  labs(y = "Cost of a dollar (pesos)")
+
+cowplot::plot_grid(a, b, ncol = 1)
+```

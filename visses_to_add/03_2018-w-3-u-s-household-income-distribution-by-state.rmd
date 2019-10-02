@@ -1,0 +1,72 @@
+# Income and population by state
+
+```{r}
+library(ggplot2)
+# library(colorRamps)
+library(viridis)
+library(dplyr)
+library(tidyr)
+library(readxl)
+
+state_df = data_frame(state.abb, State = state.name)
+df <- read_xlsx("raw_data/Household Income Distribution by State.xlsx") 
+
+income_levels = unique(df$`Income Level`)[c(16, 1:15)]
+income_levels[5]
+income_levels[3]
+
+temp = df %>% 
+  filter(Year == 2016 & `Income Level` %in% income_levels[c(16)]) %>%
+  arrange(desc(`Percent of Total`))
+
+states_order_by_low_income = temp$State
+
+df = df %>% mutate(`Income Level` = factor(x = `Income Level`, 
+                                           levels = income_levels)) %>%
+  mutate(State = factor(x = State, levels = states_order_by_low_income)) %>% 
+  left_join(state_df) %>% 
+  mutate(state.abb = ifelse(State == "District of Columbia", "DC", state.abb))
+
+
+df_year_income_level = df %>% 
+  group_by(Year, `Income Level`) %>% 
+  summarise(`Number of Households` = sum(`Number of Households`)) %>% 
+  group_by(Year) %>% 
+  mutate(`Percent of Households` = 100*`Number of Households`/sum(`Number of Households`))  
+
+ggplot(df_year_income_level, aes(factor(Year, levels = 2016:2009), fill = `Income Level`)) + geom_col(aes(y = `Percent of Households`)) +
+  scale_fill_manual(values = magma(16),
+  name = "", guide = guide_legend(reverse = F))+ xlab("")+
+  coord_flip() + ggtitle("Percentage of Households in each by income group across US States") + theme_gray() #+ facet_grid(Year~.)
+
+```
+
+
+```{r}
+df_state_households = df %>% 
+  group_by(State, Year) %>% 
+  summarise(`Number of Households`= sum(`Number of Households`)) %>% 
+  spread(key = Year, value = `Number of Households`) %>% 
+  mutate(`Percent change\nin number of\nhouseholds\n2009 to 2016` = 100*(`2016`-`2009`)/`2009`) %>% ungroup() 
+```
+
+
+```{r, fig.height=8, fig.width=12}
+
+df %>% filter(Year == 2009) %>% full_join(df_state_households) %>% filter(State !="Puerto Rico") %>% 
+  ggplot(aes(x = 100*`Percent of Total`, 
+             y = `Percent change\nin number of\nhouseholds\n2009 to 2016`))+
+  # geom_point() + 
+  geom_text(aes(label = state.abb), size = 2)+ 
+  geom_smooth(method = "lm")+
+  xlab("Percent of Households Earning within Bracket") + 
+  ggtitle("Following the money? \nPercent of households within low, mid, and high 2009 income brackets \npredicts states growth in number of households 2009-2016 ", "Design: Gina Reynolds | Data Source: US Census Bureau") + 
+  facet_wrap(~`Income Level`, scales = "free_x") +
+  ylab("Percent Growth in Number of Households") + theme_classic()
+
+
+```
+
+
+
+

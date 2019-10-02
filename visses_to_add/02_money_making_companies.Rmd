@@ -1,0 +1,93 @@
+# Most Revenue Getting Companies
+
+The visualization that I create with this data set, which contains measures of the most profitable companies, is simply a bar chart based on those profits.  The color mapping for the bar fills is the Fortune 500 Rank; this rank is determined by *revenue* and not just profit.  Revenue rank and profit rank do not track so very close together.  
+
+```{r, echo = F}
+df <- readxl::read_xlsx("raw_data/What the Most Profitable Companies Make per Second.xlsx") %>%
+  mutate(
+    `Profit per Second` =
+      parse_number(`Profit/Second`)
+  ) %>%
+  mutate(`2016 Net Income (billions)` = `2016 Net Income` / 1000000000) %>%
+  arrange(`Profit per Second`) %>%
+  mutate(Company = factor(Company, levels = Company)) %>%
+  mutate(
+    `Company (Revenue Rank)` =
+      paste0(Company, " (#", `Fortune 500 Rank Company`, ")")
+  ) %>%
+  mutate(
+    `Company (Revenue Rank)` =
+      factor(`Company (Revenue Rank)`, levels = `Company (Revenue Rank)`)
+  ) %>%
+  mutate(`Revenue Rank` = `Fortune 500 Rank Company`)
+```
+
+
+A random sample from the data set: 
+```{r, echo = F}
+knitr::kable(sample_n(df, 5))
+```
+
+```{r}
+ggplot(data = df) +
+  aes(x = `Company (Revenue Rank)`) + 
+  aes(y = `2016 Net Income (billions)`) + 
+  aes(fill = `Revenue Rank`) +
+  geom_col() + 
+  coord_flip() + 
+  labs(y = "2016 Net Profit (billions)") +
+  labs(title = "US Top 25 profit earning companies in 2016 \nand their revenue ranking (Fortune 500 ranking)") +
+  labs(subtitle = "Design: Gina Reynolds | Data source: TitleMax, data.world.com") + 
+  scale_y_continuous(labels = scales::dollar) +
+  scale_fill_viridis_c(
+    breaks = rev(c(1, 25, 50, 75, 100, 125, 150)),
+    guide = guide_colorbar(nbin = 100, draw.ulim = FALSE, draw.llim = FALSE), direction = -1
+  ) +
+  theme_bw() 
+
+
+```
+
+```{r, echo = F}
+library(tidyr)
+df_0 <- df %>%
+  arrange(desc(`Profit per Second`)) %>%
+  mutate(`Profit Rank` = 1:n()) %>%
+  mutate(rank_diff = `Fortune 500 Rank Company` - `Profit Rank`)
+
+df_1 <- df_0 %>%
+  select(Company, Industry, `Fortune 500 Rank Company`, `Profit Rank`) %>%
+  gather(key = which_rank, value = rank, -`Company`, -`Industry`) %>%
+  mutate(which_rank = factor(which_rank)) %>%
+  mutate(rank = as.numeric(rank)) %>%
+  mutate(which_rank = recode(which_rank, `Profit Rank` = "Profit", `Fortune 500 Rank Company` = "Revenue"))
+```
+
+A random sample from the data set: 
+```{r, echo = F}
+knitr::kable(sample_n(df_1, 5))
+```
+
+
+```{r, fig.height = 12}
+ggplot(data = df_1) +
+  aes(x = which_rank) +
+  aes(y = rank) +
+  geom_point(size = 6, col = "lightgrey") +
+  geom_text(aes(label = paste0("#", rank))) +
+  geom_segment(data = df_0, 
+               aes(x = 1, xend = 2, yend = `Profit Rank`, 
+                   y = `Fortune 500 Rank Company`, col = rank_diff)) +
+  geom_point(size = 6, col = "lightgrey") +
+  geom_text(aes(label = paste0("#", rank))) + 
+  labs(title = "Revenue v. Profit Ranks for Top Revenue Companies") +
+  labs(x = "") + 
+  labs(col = "Difference \nin rank") + 
+  scale_color_viridis_c(option = "plasma") +
+  theme_bw() +
+  scale_y_reverse() +
+  facet_wrap(~ Industry, scales = "free_y") 
+
+```
+
+

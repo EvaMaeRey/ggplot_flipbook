@@ -1,3 +1,4 @@
+name: collegemajors01
 # College Majors
 
 
@@ -66,12 +67,16 @@ ggplot(data = college_majors %>% mutate(Unemployed = ifelse(Unemployed == 0, 1, 
   ggpmisc::stat_dens2d_filter(geom = "text_repel", keep.fraction = 0.50, size = 1, alpha = 1) +
   expand_limits(x = c(40,0))
 ```
-
+```{r, echo = F, warning=F, message=F, eval = T, fig.show='hide'}
+get_what_save_what <- "recent_grads_01"
+eval(parse(text = paste(knitr:::knit_code$get(get_what_save_what), collapse = "")))
+ggsave(paste0("figures/", get_what_save_what, ".png"), dpi = 300)
+```
 
 `r apply_reveal("recent_grads_01")`
 
 ---
-
+name: collegemajors02
 ```{r recent_grads_02, eval=F, echo=F}
 ggplot(data = college_majors ) +
   aes(x = share_non_college_jobs) +
@@ -97,7 +102,11 @@ ggplot(data = college_majors ) +
   labs(subtitle = "@EvaMaeRey for #TidyTuesday|Data Source: American Community Survey 2010-2012")
 ```
 
-
+```{r, echo = F, warning=F, message=F, eval = T, fig.show='hide'}
+get_what_save_what <- "recent_grads_02"
+eval(parse(text = paste(knitr:::knit_code$get(get_what_save_what), collapse = "")))
+ggsave(paste0("figures/", get_what_save_what, ".png"), dpi = 300)
+```
 
 `r apply_reveal("recent_grads_02")`
 

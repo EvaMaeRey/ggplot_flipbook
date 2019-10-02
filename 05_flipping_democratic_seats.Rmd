@@ -1,3 +1,4 @@
+name: flippingseats
 # Flipping seats 
 
 
@@ -40,6 +41,12 @@ ggplot(df) +
   labs(subtitle = "Data: https://twitter.com/williamjordann/status/1063482594938028032 \n --- seats were flipped to democratic in 2006, and --- seats in 2018") +
   labs(caption = "Chart by Gina Reynolds") 
 
+```
+
+```{r, echo = F, warning=F, message=F, eval = T, fig.show='hide'}
+get_what_save_what <- "flipping_seats"
+eval(parse(text = paste(knitr:::knit_code$get(get_what_save_what), collapse = "")))
+ggsave(paste0("figures/", get_what_save_what, ".png"), dpi = 300)
 ```
 
 `r apply_reveal("flipping_seats")`

@@ -1,0 +1,102 @@
+---
+title: "Makeover Monday Whiskey"
+author: "Evangeline Reynolds"
+date: "1/2/2018"
+output: pdf_document
+---
+
+# Whiskey
+
+```{r}
+library(readxl)
+library(tidyverse)
+library(png)
+library(ggplot2)
+```
+
+## read in data, transform
+
+```{r}
+dta = read_xlsx("../raw_data/Irish Whiskey Sales by Volume.xlsx") %>%
+  filter(Year %in% c(1992, 2000, 2008, 2016)) %>% 
+  group_by(Country, Year) %>% 
+  summarise(Cases = sum(Cases, na.rm = T)) %>% 
+  mutate(Cases100000 = Cases/100000 )
+
+
+dta_us <- dta %>% filter(Country == "United States")
+dta_ireland <- dta %>% filter(Country == "Ireland") 
+
+```
+
+## Images from the noun project
+```{r}
+img = readPNG("../raw_data/noun_194996_cc.png")[000:600, 57:650, 1:4]
+# info reduction
+img=img[seq(1, dim(img)[1], by = 1),
+        seq(1, dim(img)[2], by = 1), 1:4]
+
+pngCredit = "Whiskey by Mark S Waterhouse from the Noun Project"
+
+dim(img)
+
+# add horizontal space
+# allow print_n as a vector
+
+create_print_block <- function(print_n, n_col, img, h_space){
+
+# create data frame from png for raster single image
+df_img <- data_frame(z = as.vector(img[,,4]), 
+                     y = -rep(1:dim(img)[1], dim(img)[2])/dim(img)[1], 
+                     x = sort(rep(1:dim(img)[2], dim(img)[1])/dim(img)[2]))  
+
+n_row <- c()
+pos_x <- c()
+pos_y <- c()
+
+for(i in 1:length(print_n)){
+n_row[i] <- ceiling(print_n[i]/n_col)
+pos_x <- c(pos_x, 
+           rep(1:n_col, n_row[i])[1:print_n[i]] + 
+             n_col*(i-1) +
+             h_space*(i-1)) 
+pos_y <- c(pos_y, -sort(rep(1:n_row[i], n_col), 
+               decreasing = F)[1:print_n[i]])
+}
+
+df_print <- data_frame(pos_x, pos_y)
+
+print_block <- crossing(df_print, df_img) %>% 
+  mutate(z = z) %>% 
+  mutate(y = y + pos_y) %>% 
+  mutate(x = x + pos_x)
+
+print_block
+
+}
+
+g <- ggplot(data = create_print_block(print_n = round(dta_us$Cases100000)[1], 
+                          n_col = 3, 
+                          img = img, 
+                          h_space = .5)) +
+  aes(x, y, alpha = z) +
+  geom_raster() +
+  scale_alpha_continuous(range = 0:1) +
+  coord_equal() + 
+  labs(caption = pngCredit) +
+  annotate(geom = "text", x = 0:3*3.5 + 1.75, y = -.6, label = c(1992, 2000, 2008, 2016)) +
+  theme_classic(base_family = "Times") +
+  labs(title = "Irish Whiskey Consumption in US", 
+       subtitle = "One glass = 100000 cases in sales (rounded)") +
+  theme(axis.line = element_blank(),
+        axis.title = element_blank(),
+        axis.ticks = element_blank(),
+        axis.text = element_blank()) + 
+  guides(alpha = F) +
+  annotate(geom = "text", label = "Data Source: Board Bia via The IWSR \nIcon: Whiskey by Mark S Waterhouse from the Noun Project\nDegisn: Gina Reynolds w/ ggplot2()", x = 5, y = -13, size = 2)
+  
+ggsave("pictographic.png", plot = g, dpi = 1000)
+  
+```
+
+

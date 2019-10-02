@@ -1,0 +1,98 @@
+---
+title: "Turkey Vultures"
+author: "Evangeline Reynolds"
+date: "2/7/2018"
+output: html_document
+---
+
+```{r}
+library(readxl)
+library(ggplot2)
+library(lubridate)
+library(forcats)
+library(dplyr)
+```
+
+```{r, fig.width=12, cache=T}
+df0 = read_xlsx("../raw_data/Turkey vultures in North and South America - migration.xlsx") 
+df = df0 %>% mutate(timestamp = as_datetime(timestamp)) %>% 
+  mutate(year = year(timestamp))
+```
+
+```{r, cache = T}
+bird = df %>% group_by(`individual-local-identifier`) %>% 
+  summarise(min_year = min(year(timestamp)),
+            max_year = max(year(timestamp))) %>% 
+  arrange(min_year, max_year) %>% 
+  mutate(bird_description = paste0(`individual-local-identifier`, " (", min_year, "-", max_year, ")"))
+ 
+
+df = bird %>% left_join(df) 
+
+world_map_df = map_data("world") %>% 
+  filter(region != "Antarctica" & 
+         region != "Greenland" & 
+         region != "Russia" )  
+  
+head(world_map_df)
+
+str(df)
+dim(df)
+map("world")
+```
+
+```{r}
+as_datetime(df$timestamp[1:10])
+ggplot(df, aes(-`location-long`, `location-lat`, col = timestamp)) + geom_path()
+
+theme_opts <- list(theme(panel.grid.minor = element_blank(),
+                        panel.grid.major = element_blank(),
+                        panel.background = element_blank(),
+                        plot.background = element_rect(fill="#e6e8ed"),
+                        panel.border = element_blank(),
+                        axis.line = element_blank(),
+                        axis.text.x = element_blank(),
+                        axis.text.y = element_blank(),
+                        axis.ticks = element_blank(),
+                        axis.title.x = element_blank(),
+                        axis.title.y = element_blank(),
+                        plot.title = element_text(size=15)))
+
+ggplot(data = world_map_df, aes(long,lat)) + 
+  geom_polygon(aes(group = group), fill = "grey") + theme_opts + coord_equal() +
+  coord_quickmap(xlim = range(df$`location-long`), ylim = range(df$`location-lat`)) +
+  geom_point(data = df , 
+             aes(`location-long`, `location-lat`, 
+                 group = `individual-local-identifier`, 
+                 col = timestamp),#fct_inorder(bird_description)), 
+             size = .1) +
+  ggtitle("Recorded locations of 19 turkey vultures\n in North and South America, 2003 - 2013", 
+          "")
+
+df_irma = df %>%  filter(`individual-local-identifier`== "Irma")
+
+ggplot(data = world_map_df, aes(long,lat)) + 
+  geom_polygon(aes(group = group), fill = "grey") + theme_opts + coord_equal() +
+  coord_quickmap(xlim = range(df_irma$`location-long`), ylim = range(df_irma$`location-lat`)) +
+  geom_point(data = df_irma, 
+             aes(`location-long`, `location-lat`, 
+                 group = `individual-local-identifier`, 
+                 col = timestamp), size = .1)
+
+
+# 
+# 
+# +
+#   scale_color_gradientn(colours = rainbow(5)
+# 
+# +
+#   facet_grid(year ~ bird_description) +
+#   scale_color_gradientn(colours = c( "green", "blue", "purple", "red", "purple","blue", "green"))
+# 
+# df %>% group_by(`individual-taxon-canonical-name`) %>% tally()
+# df %>% group_by(`individual-local-identifier`) %>% tally()
+# df %>% group_by(`tag-local-identifier`) %>%  tally()
+```
+
+
+

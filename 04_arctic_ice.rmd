@@ -1,3 +1,4 @@
+name: ice
 # Arctic Ice
 
 This visualization shows the trend in Arctic Ice Sea Extent, data from the National Snow and Ice Data Center.  The definition for coverage is the case where at least 15 percent of the sea surface ice.  
@@ -87,6 +88,11 @@ ggplot(df) +
   theme(axis.ticks = element_line(colour = "lightgrey"))
 ```
 
+```{r, echo = F, warning=F, message=F, eval = T, fig.show='hide'}
+get_what_save_what <- "ice"
+eval(parse(text = paste(knitr:::knit_code$get(get_what_save_what), collapse = "")))
+ggsave(paste0("figures/", get_what_save_what, ".png"), dpi = 300)
+```
 
 `r paste(knitr::knit(text = partial_knit_chunks("ice")), collapse = "\n")`
 

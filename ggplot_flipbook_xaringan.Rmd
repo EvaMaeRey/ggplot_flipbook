@@ -1,6 +1,6 @@
 ---
 title: "the ggplot flipbook"
-subtitle: "⚔<br/>made with xaringan"
+subtitle: "made with xaringan"
 author: "Gina Reynolds"
 date: "2019/01/31"
 output:
@@ -13,21 +13,33 @@ output:
       highlightLines: true
 ---
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = F, message = F)
+knitr::opts_chunk$set(fig.height = 6, out.width = "100%", comment = " ", cache = F, dpi = 300)
+
+source("https://raw.githubusercontent.com/EvaMaeRey/little_flipbooks_library/master/xaringan_reveal_parentheses_balanced.R")
+```
+
+<!-- #Table of Contents -->
+<!-- - [Visual Table of Contents](#visualtoc) -->
+<!-- - [Introduction](#introduction) -->
+<!-- - [What's the slow ggplot workflow?](#whatsslow) -->
+<!-- - [Getting started with R and RStudio](#gettingstarted) -->
+<!-- - [Acknowledgements](#acknowledgements) -->
+<!-- - [The tidyverse](#thetidyverse) -->
 
 
 
 # Introduction
 
+The ggplot2 package in the programming language R implements the "layered grammar of graphics" --- a proposal of Leland Wilkinson and the product of the dissertation and ongoing work of Hadley Wickham. This data visualization system idea is at once powerful, novel, and intuitive. Wickham and collaborators have built a system where data visualization is dividable into parameters: data to visualize, aesthetics that represent variables, geometric objects, a coordinate system, specific scales, and statistical transformation.
 
-The ggplot2 package in the programming language R implements the "layered grammar of graphics" --- a proposal of Leland Wilkinson and the product of the dissertation and ongoing work of Hadley Wickham.  This data visualization system idea is at once powerful, novel, and intuitive.  Wickham and collaborators have built a system where data visualization is dividable into parameters:  data to visualize, aesthetics that represent variables, geometric objects, a coordinate system, specific scales, and statistical transformation.  
+In this book, I use a "slow ggplotting" method as well as a "flipbook" format to facilitate the introduction of this plotting method. "Slow ggplotting" makes modifications to plots as incrementally as possible so that it is clear to users what code triggers each new layer or modification. The aim is less to be concise, and more to be explicit about how new statements modify the plot; repetition should facilitating more interactions with ggplotting to help newcomers internalize the functions. The flipbook layout is designed to show what code is triggering each change in the plot output.
 
-In this book, I use a "slow ggplotting" method as well as a "flipbook" format to facilitate the introduction of this plotting method. "Slow ggplotting" makes modifications to plots as incrementally as possible so that it is clear to users what code triggers each new layer or modification.  The aim is less to be concise, and more to be explicit about how new statements modify the plot; repetition should facilitating more interactions with ggplotting to help newcomers internalize the functions. The flipbook layout is designed to show what code is triggering each change in the plot output. 
-
-Readers of the book should easily be able to follow along with how plots are built up.  While intuitive, using ggplotting effectively and efficiently nevertheless requires practice.  My hope is that these examples will be a helpful reference point for those that endeavor to pick up data visualization with ggplot2. 
-
+Readers of the book should easily be able to follow along with how plots are built up. While intuitive, using ggplotting effectively and efficiently nevertheless requires practice. My hope is that these examples will be a helpful reference point for those that endeavor to pick up data visualization with ggplot2.
 
 ---
-
+name: whatsslow
 # What's the slow ggplot workflow?
 
 "Slow ggplot" just means working more incrementally than is typical. Elements of the approach are as follows:
@@ -69,7 +81,7 @@ ggplot(data = my_data) +
 
 
 ---
-
+name: gettingstarted
 # Getting started with R and RStudio
 
 
@@ -78,19 +90,12 @@ ggplot(data = my_data) +
 
 
 ---
-
+name: acknowledgements
 # Acknowledgements
 
 I'm grateful to the ggplot team for their tireless work on developing and maintaining this fantastic resource.  Additionally most of the visualizations here were produced for the Tableau-users-associated initiative #MakeoverMonday. I'm grateful to that community for feedback and encouragement and for welcoming work from outside of Tableau.  Additional visualizations have been made with data curated by #TidyTuesday, a similar initiative from RStudio. Many thanks are due to Emi Tanaka (@statsgen) and Garrick Aden-Buie (@grrrck) helped by writing the "reveal" function to made the flipbook style possible.  Also to Yihui Xie and others that work on the Xaringan package for creating slides from markdown and R code; I'm using Emi Tanaka's themes kunoichi and ninjutsu. 
 
 While I'm hopeful that this book serves as a reference, I think the best introductions and learning happens in person.  My formal introduction to ggplot2 was at The Zurich Summer School for Women in Political Methodology in 2017 at the University of Zürich.  I'm very grateful to the organizers and presenters of that workshop; Denise Traber gave an excellent presention on ggplot2.  I'm grateful too to my students who motivate me to think about how to teach what I've been so lucky to learn.    And thanks to David, who is supportive of plotting and of me. 
-
-
----
-# The tidyverse
-
-We are using the tidyverse, which ggplot is a part of.  
-
 
 
 
@@ -102,9 +107,52 @@ knitr::opts_chunk$set(fig.height = 6, out.width = "80%", comment = " ", cache = 
 source(file = "xaringan_reveal_parenthetical.R")
 ```
 
-```{r}
-library(tidyverse)
+
+---
+name:visualtoc
+#Visual Table of Contents
+
+```{r, results='asis', echo=FALSE}
+make_html_picture_link("figures/christmas.png", "#christmastreesales")
+make_html_picture_link("figures/baseball.png", "#baseball")
+make_html_picture_link("figures/parent_leave.png", "#parentalleave")
+make_html_picture_link("figures/traits.png", "#traits")
+make_html_picture_link("figures/white_house.png", "#salaries")
+make_html_picture_link("figures/winter_games.png", "#wintergamemedals")
 ```
+
+```{r, results='asis', echo=FALSE}
+make_html_picture_link("figures/brexit_1.png", "#brexit")
+make_html_picture_link("figures/map_curry.png", "#britishburgers")
+make_html_picture_link("figures/away_from_ben.png", "#britishfood")
+make_html_picture_link("figures/life_expect.png", "#lifeexpect")
+make_html_picture_link("figures/myers_briggs.png", "#myersbriggs")
+make_html_picture_link("figures/women.png", "#womensrepresentation")
+```
+
+```{r, results='asis', echo=FALSE}
+make_html_picture_link("figures/wine.png", "#wine")
+make_html_picture_link("figures/ice.png", "#ice")
+make_html_picture_link("figures/recent_grads_01.png", "#collegemajors01")
+make_html_picture_link("figures/recent_grads_02.png", "#collegemajors02")
+make_html_picture_link("figures/flipping_seats.png", "#flippingseats")
+make_html_picture_link("figures/company_ranks.png", "#ratings")
+```
+                                                                        [More on next page](#visualtoc2)
+
+---
+name: visualtoc2
+#Visual Table of Contents
+ 
+```{r, results='asis', echo=FALSE}
+make_html_picture_link("figures/incarceration_01.png", "#incarcerationbysex")
+make_html_picture_link("figures/incarceration_02.png", "#incarcerationbygender")
+make_html_picture_link("figures/milk.png", "#milkindustry")
+make_html_picture_link("figures/wind_01.png", "#windturbinelocations01")
+make_html_picture_link("figures/wind_02.png", "#windturbinelocations02")
+make_html_picture_link("figures/movies.png", "#movies")
+```
+---
 
 ---
 
@@ -128,8 +176,7 @@ This book is not complete.  The plots that follow aren't as carefully edited as 
 
 ---
 
-```{r, child = list.files()[3:20], warning=F, message=F}
-
+```{r, child = list.files(pattern = "\\d.+Rmd")[3:17], warning=F, message=F}
 ```
 
 

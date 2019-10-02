@@ -1,3 +1,4 @@
+name: britishburgers
 # Curry in London
 
 This visualization task seemed to get at the question: Does where you eat matter?  The data was the cost of identical menu items at different locations of the same restaurant, the Wetherspoon, around the UK.
@@ -60,10 +61,16 @@ ggplot(data = data_UK) +
   theme(plot.background = element_rect(fill = "#e6e8ed"))
 ```
 
+```{r, echo = F, warning=F, message=F, eval = T, fig.show='hide'}
+get_what_save_what <- "map_curry"
+eval(parse(text = paste(knitr:::knit_code$get(get_what_save_what), collapse = "")))
+ggsave(paste0("figures/", get_what_save_what, ".png"), dpi = 300)
+```
+
 `r paste(knitr::knit(text = partial_knit_chunks("map_curry")), collapse = "\n")`
 
 ---
-
+name: britishfood
 ```{r, echo = F}
 # https://www.latlong.net/place/the-tower-of-london-london-uk-81.html
 # Latitude and longitude coordinates are: 51.508530, -0.076132.
@@ -103,6 +110,11 @@ ggplot(data = dataLong) +
   labs(subtitle = "Visualization: Gina Reynolds | Source: Financial Times Alphaville") 
 ```
 
+```{r, echo = F, warning=F, message=F, eval = T, fig.show='hide'}
+get_what_save_what <- "away_from_ben"
+eval(parse(text = paste(knitr:::knit_code$get(get_what_save_what), collapse = "")))
+ggsave(paste0("figures/", get_what_save_what, ".png"), dpi = 300)
+```
 
 `r paste(knitr::knit(text = partial_knit_chunks("away_from_ben")), collapse = "\n")`
 

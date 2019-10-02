@@ -1,3 +1,4 @@
+name: womensrepresentation
 # Officials' beliefs about women's representation
 
 The data provided is based on a small survey of elite officials in five less developed countries.  The question that arrises from the data is: How well do elites know the conditions in their countries.  In general, the elites overestimate women's representation.  But this is not the case in Senegal, where there are gender quotas in the Parliament.  Most elites therefore estimate that the representation is about equal with men. I jitter the responses of the elites horizontally to avoid overplotting. 
@@ -65,6 +66,13 @@ ggplot(data = df_all) +
   labs(title = "Women in national parliaments in 2015 in five countries \nand officials' beliefs about representation") +
   labs(subtitle = "Data Source: Equal Measures 2030 | Vis: Gina Reynolds @EvaMaeRey")
 ```
+
+```{r, echo = F, warning=F, message=F, eval = T, fig.show='hide'}
+get_what_save_what <- "women"
+eval(parse(text = paste(knitr:::knit_code$get(get_what_save_what), collapse = "")))
+ggsave(paste0("figures/", get_what_save_what, ".png"), dpi = 300)
+```
+
 
 `r paste(knitr::knit(text = partial_knit_chunks("women")), collapse = "\n")`
 

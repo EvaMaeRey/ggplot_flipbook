@@ -1,3 +1,4 @@
+name: traits
 # Traits
 
 ```{r, echo = F}
@@ -93,6 +94,12 @@ ggplot(data = world) +
   xlab("") +
   labs(title = "Why do I love thee?  Let me rank the traits... \nHow 10,689 men and 11,370 women across 20 countries rank romantic partner trait importance") +
   labs(subtitle = "Data Source: @mattsmithetc and @YouGov | Design: Gina Reynolds") 
+```
+
+```{r, echo = F, warning=F, message=F, eval = T, fig.show='hide'}
+get_what_save_what <- "traits"
+eval(parse(text = paste(knitr:::knit_code$get(get_what_save_what), collapse = "")))
+ggsave(paste0("figures/", get_what_save_what, ".png"), dpi = 300)
 ```
 
 `r apply_reveal("traits")`

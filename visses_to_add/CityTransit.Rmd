@@ -1,0 +1,165 @@
+---
+title: "Untitled"
+author: "Evangeline Reynolds"
+date: "10/30/2017"
+output: pdf_document
+---
+
+```{r, fig.width=15}
+library(readxl)
+library(rgdal)
+library(dplyr)
+library(ggplot2)
+library(countrycode)
+library(stringr)
+
+# Public holiday data
+data0=read_xlsx("raw_data/sustainable mobility.xlsx") 
+
+hist(data0$`Sustainable Cities Mobility Index`)
+
+specialHist=function(data, val, names, ...){
+  
+  DATA=data[order(data[,val]),]
+  
+  HIST=hist(x=DATA[,val],...)
+#str(HIST)
+
+Counter=0
+
+for (i in 1:length(HIST$mids)){ 
+  
+  if(HIST$counts[i]>0){
+  for (j in 1:HIST$counts[i]){
+
+      Counter=Counter+1  
+  lines(x = c(HIST$breaks[i], HIST$breaks[i+1]), y=c(j-.25,j-.25), lty=2, col="grey")    
+  lines(x = c(HIST$breaks[i], HIST$breaks[i+1]), y=c(j,j), lty=1, col="grey")    
+
+  points(DATA[,val][Counter], j-.25,   col=alpha("indianred1", alpha=.4) , pch=19)
+  text(HIST$mids[i],(j-.65),DATA[,names][Counter], col="black")
+  
+}}
+}
+  
+}
+
+data=as.data.frame(data0)
+data$percentage=data$`Sustainable Cities Mobility Index`*100
+
+specialHist(data = data, val = "percentage", names = "City", axes=F, main="Distribution of Arcadis' Sustainable Cities Mobility Index", xlab="Percentage", breaks=c(10,20,30,40,50,60,70,80,90), sub="@EvaMaeRey | source: Arcadis.org")
+axis(1); axis(2, las=2)
+
+```
+
+```{r, cache=T}
+library(ggmap) 
+# Loading required package: ggplot2
+# Google Maps API Terms of Service: http://developers.google.com/maps/terms.
+# Please cite ggmap if you use it: see citation('ggmap') for details.
+
+#Now you can give city name or country name individually
+
+data$City
+
+Coords=list()
+for (i in 1:nrow(data)){
+Sys.sleep(.5)
+Coords[[i]]=geocode(data$City[i])
+}  
+  
+data=bind_cols(data, bind_rows(Coords))
+
+data1=data %>% filter(!str_detect(City,"Undisclosed"))
+```
+
+
+
+
+
+```{r, eval=F}
+ 
+# Mapping data
+world_map_df=map_data("world") %>% 
+  mutate(CountryName=countrycode(region, "country.name", "country.name"))
+
+```
+
+```{r}
+# create a blank ggplot theme
+theme_opts <- list(theme(panel.grid.minor = element_blank(),
+                        panel.grid.major = element_blank(),
+                        panel.background = element_blank(),
+                        plot.background = element_rect(fill="#e6e8ed"),
+                        panel.border = element_blank(),
+                        axis.line = element_blank(),
+                        axis.text.x = element_blank(),
+                        axis.text.y = element_blank(),
+                        axis.ticks = element_blank(),
+                        axis.title.x = element_blank(),
+                        axis.title.y = element_blank(),
+                        plot.title = element_text(size=15)))
+
+
+mp <- NULL
+mapWorld <- borders("world", colour="gray50", fill="gray50") # create a layer of borders
+mp <- ggplot() +   mapWorld
+
+library(ggrepel)
+#Now Layer the cities on top
+mp+ geom_point(data=data1, aes(x=lon, y=lat, col=`Sustainable Cities Mobility Index`)) +scale_color_gradientn(colours = rainbow(5)[1:4])+
+  ggtitle("Arcadis' Sustainable Cities Mobility Index", "@EvaMaeRey | source: Arcadis" )+ 
+  coord_equal() + 
+  theme_opts + 
+  geom_text_repel(data=data1, aes(x=lon, y=lat, label=City), size=1)
+
+```
+
+
+```{r}
+
+data1=data1 %>% filter(!is.na(lat)&!is.na(lon))
+
+library(geosphere)
+member1=c()
+member2=c()
+`Kilometers apart`=c()
+`Difference in Sustainable Cities Mobility Index`=c()
+`Mean Index for Pair`=c()
+
+
+for(i in 1:(nrow(data1)-1)){
+for(j in (i+1):nrow(data1)){
+`Kilometers apart`=c(`Kilometers apart`,
+                     distm(c(data1$lon[i], data1$lat[i]), c(data1$lon[j], data1$lat[j]), fun = distHaversine)/1000)
+member1=c(member1,data1$City[i])
+member2=c(member2,data1$City[j])
+`Difference in Sustainable Cities Mobility Index`=c(`Difference in Sustainable Cities Mobility Index`, abs( data1$percentage[i]-data1$percentage[j]))
+`Mean Index for Pair`=c(`Mean Index for Pair`, mean( c(data1$percentage[i],data1$percentage[j])))
+}  
+}
+
+
+Pairs=data_frame(member1, member2, `Kilometers apart`, `Difference in Sustainable Cities Mobility Index`, `Mean Index for Pair`) 
+dim(Pairs)
+dim(data1)
+tail(Pairs)
+
+names(Pairs)
+
+ggplot(Pairs, aes(`Kilometers apart`,`Difference in Sustainable Cities Mobility Index`, col=`Mean Index for Pair`))+ 
+  geom_point(alpha=.3)+
+  geom_smooth(span=2000)+ 
+  # geom_vline(xintercept = 2/40075, lty=2, col="dark grey")+
+  annotate("text",x=20000,y=20,label="Halfway around the world", angle=90) +
+  ggtitle(label ="Distance between Cities v. Difference in Sustainable Cities Mobility Index", 
+          subtitle = "@EvaMaeRey | source: Arcadis.org")+
+  scale_color_gradientn(colours = rainbow(5)[1:4])
+
+
+
+ggplot(Pairs, aes(1/`Kilometers apart`,`Difference in Sustainable Cities Mobility Index`, col=`Mean Index for Pair`))+ 
+  geom_point(alpha=.3)+geom_smooth(span=2000)+ geom_vline(xintercept = 2/40075, lty=2, col="dark grey")+annotate("text",x=1/20000,y=20,label="Halfway around the world", angle=90) +
+  ggtitle(label ="Distance between Cities v. Difference in Sustainable Cities Mobility Index", subtitle = "@EvaMaeRey | source: Arcadis.org")+scale_color_gradientn(colours = rainbow(5)[1:4])
+
+```

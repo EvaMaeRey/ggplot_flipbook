@@ -1,3 +1,4 @@
+name: wintergamemedals
 # Winter Games
 
 ```{r, echo = F}
@@ -95,7 +96,11 @@ ggplot(dta) +
   theme_bw(base_size = 13)
 ```
 
-
+```{r, echo = F, warning=F, message=F, eval = T, fig.show='hide'}
+get_what_save_what <- "winter_games"
+eval(parse(text = paste(knitr:::knit_code$get(get_what_save_what), collapse = "")))
+ggsave(paste0("figures/", get_what_save_what, ".png"), dpi = 300)
+```
 
 `r paste(knitr::knit(text = partial_knit_chunks("winter_games")), collapse = "\n")`
 

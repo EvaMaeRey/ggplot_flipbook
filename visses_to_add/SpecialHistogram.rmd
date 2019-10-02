@@ -1,0 +1,194 @@
+---
+title: "MakeOverMondays: Driving Safety"
+author: "Evangeline Reynolds"
+date: "February 9, 2017"
+output: html_document
+---
+
+```{r, echo=FALSE}
+library(stringr)
+```
+
+
+```{r, fig.show='hide'}
+data= data.frame(name=state.abb, val=rnorm(50))
+data=data[order(data$val),]
+
+VPosition=runif(50,0,1)
+
+plot(data$val, VPosition, pch=19, axes=FALSE)
+text(data$val, VPosition+.03, labels = data$name)
+  
+for(i in 1:nrow(data)){
+  arrows(x0 = data$val[i], y0=VPosition[i], x1=data$val[i], y1=0,length = .1)      
+}
+axis(1)
+     
+
+```
+
+
+```{r, fig.height=5}
+HIST=hist(data$val, xlab="Value", main="")
+str(HIST)
+
+Counter=0
+
+for (i in 1:length(HIST$mids)){ 
+  
+  if(HIST$counts[i]>0){
+  for (j in 1:HIST$counts[i]){
+
+      Counter=Counter+1  
+  lines(x = c(HIST$breaks[i], HIST$breaks[i+1]), y=c(j-.5,j-.5), lty=2, col="grey")    
+  lines(x = c(HIST$breaks[i], HIST$breaks[i+1]), y=c(j,j), lty=1, col="grey")    
+
+  points(data$val[Counter], j-.5,   col="indianred2" , pch=19)
+  text(HIST$mids[i],(j-.5),data$name[Counter], col="black")
+  
+}}
+}
+# HIST$breaks
+# text(data$val, VPosition+.03, labels = data$name)
+```
+
+
+```{r}
+specialHist=function(data, val, names, ...){
+  
+  DATA=data[order(data[,val]),]
+  
+  HIST=hist(x=DATA[,val],...)
+#str(HIST)
+
+Counter=0
+
+for (i in 1:length(HIST$mids)){ 
+  
+  if(HIST$counts[i]>0){
+  for (j in 1:HIST$counts[i]){
+
+      Counter=Counter+1  
+  lines(x = c(HIST$breaks[i], HIST$breaks[i+1]), y=c(j-.25,j-.25), lty=2, col="grey")    
+  lines(x = c(HIST$breaks[i], HIST$breaks[i+1]), y=c(j,j), lty=1, col="grey")    
+
+  points(DATA[,val][Counter], j-.25,   col="indianred1" , pch=19)
+  text(HIST$mids[i],(j-.65),DATA[,names][Counter], col="black")
+  
+}}
+}
+  
+}
+
+specialHist(data=data, val="val", names="name", main="Example of Special Histogram", xlab="Value of variable")
+
+```
+
+
+```{r, echo=T,results="markup",fig.width=12}
+library(readr)
+library(dplyr)
+dir="Driving/Worst Drivers By State 2015/"
+files=list.files("Driving/Worst Drivers By State 2015/");files
+
+data=read.csv("Driving/Worst Drivers By State 2015/Fatalities per 100M Miles-Table 1.csv")
+d=data
+
+EarthSunTrip=92.96*1000000 #miles
+d=d %>%
+  mutate(TripsToSun=100000000/EarthSunTrip/Fatalities.Rate.per.100.Million.Vehicle.Miles.Traveled) %>%
+  arrange(TripsToSun)
+plot(c(0,2), c(0,50), pch="", axes=F,  main="Trips to Sun", ylab="", xlab="")
+points(d$TripsToSun, 1:nrow(d))
+axis(1)
+abline(v=1, lty=3)
+
+data=data.frame(State=data$State)
+
+
+files=c("Careless Driving-Table 1.csv","Fatalities per 100M Miles-Table 1.csv")
+# "Careless Driving-Table 1.csv"          "Copy of Final Scoring-Table 1.csv"    
+# "Drunk Driving-Table 1.csv"             "Failure to Obey-Table 1.csv"          
+# "Fatalities per 100M Miles-Table 1.csv" "Final Scoring-Table 1.csv"            
+# "Speeding-Table 1.csv"  
+
+
+
+for(i in files){
+temp=read.csv(i)
+data=merge(data,temp, by = "State")
+}
+
+
+
+data$MillionMilesTraveled=100/data$Fatalities.Rate.per.100.Million.Vehicle.Miles.Traveled
+data$MillionMilesTraveled
+
+plot(data$Fatalities.Rate.per.100.Million.Vehicle.Miles.Traveled, data$Population..Thousands.)
+text(data$Fatalities.Rate.per.100.Million.Vehicle.Miles.Traveled, data$Population..Thousands., data$State)
+
+
+names(data)
+library(dplyr)
+data=filter(data, State!="District of Columbia")
+
+
+names(data)
+val="Fatalities.Rate.per.100.Million.Vehicle.Miles.Traveled"
+main=str_replace_all(val, "\\.", " ")
+specialHist(data=data, 
+            val=val, 
+            names="State", 
+            main=main, 
+            xlab="")
+
+val="Pedestrian.Fatality.Rate.per.100.000.Population"
+main=str_replace_all(val, "\\.", " ")
+specialHist(data=data, 
+            val=val, 
+            names="State", 
+            main=main, 
+            xlab="")
+```
+
+```{r}
+library(animation)
+saveGIF({
+  
+val="Fatalities.Rate.per.100.Million.Vehicle.Miles.Traveled"
+main=str_replace_all(val, "\\.", " ")
+specialHist(data=data, 
+            val=val, 
+            names="State", 
+            main=main, 
+            xlab="")
+
+val="Pedestrian.Fatality.Rate.per.100.000.Population"
+main=str_replace_all(val, "\\.", " ")
+specialHist(data=data, 
+            val=val, 
+            names="State", 
+            main=main, 
+            xlab="")  
+
+val="Pedacyclist.Fatality.Rate.per.100.000.Population"
+main=str_replace_all(val, "\\.", " ")
+specialHist(data=data, 
+            val=val, 
+            names="State", 
+            main=main, 
+            xlab="")  
+
+}, interval= 1.5, movie.name = "DrivingData.gif", ani.width=1000, ani.height =600
+  
+)
+
+
+# saveGIF({
+# ani.options(nmax = 30)
+# for(i in 1:10){  
+# plot(rnorm(20), rnorm(20), xlim=c(-3,3), ylim=c(-3,3))
+# points(rnorm(7),rnorm(7), col="red")}
+#   }, interval = 0.05, movie.name = "CINC_demo.gif", ani.width = 600, ani.height = 600)
+
+```

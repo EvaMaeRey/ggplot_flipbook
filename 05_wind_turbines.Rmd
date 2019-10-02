@@ -1,3 +1,4 @@
+name: windturbinelocations01
 # Wind Turbine Locations 
 
 This data on wind turbine locations comes via the #TidyTuesday project.  I map the positions of the turbines in the US. 
@@ -46,12 +47,17 @@ ggplot(data = usa) +
   labs(subtitle = "Data Source: | Visualization: Gina Reynolds") 
 ```
 
+```{r, echo = F, warning=F, message=F, eval = T, fig.show='hide'}
+get_what_save_what <- "wind_01"
+eval(parse(text = paste(knitr:::knit_code$get(get_what_save_what), collapse = "")))
+ggsave(paste0("figures/", get_what_save_what, ".png"), dpi = 300)
+```
 
 `r apply_reveal("wind_01")`
 
 
 ---
-
+name: windturbinelocations02
 ```{r, echo=F}
 data <- us_wind %>% 
   filter(ylat < 50 & ylat > 25)
@@ -69,6 +75,12 @@ data <- us_wind %>%
   labs(title = "Wind turbines in the continental US") + 
   labs(caption = "Tidy Tuesday exercise") +
   labs(subtitle = "Data Source: | Visualization: Gina Reynolds")
+```
+
+```{r, echo = F, warning=F, message=F, eval = T, fig.show='hide'}
+get_what_save_what <- "wind_02"
+eval(parse(text = paste(knitr:::knit_code$get(get_what_save_what), collapse = "")))
+ggsave(paste0("figures/", get_what_save_what, ".png"), dpi = 300)
 ```
 
 `r apply_reveal("wind_02")`

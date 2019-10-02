@@ -1,3 +1,4 @@
+name:parentalleave
 # Maternal Leave
 
 The OECD provides a comparative report on how much paid leave women are entitled to after childbirth.  But leave takes different forms.  In some places, the allowed leave is longer, but sometimes that means that the pay out compared to the regular salary is lower.  To emphasize the different forms that law around paid leave take, I plotted the total payout available to mothers as areas of rectangles, where one side is the length of leave allowed, and the other side is the proportion of salary paid to the new mom.  
@@ -54,6 +55,12 @@ ggplot(df) +
   labs(title = "Total paid leave available to mothers in the OECD") +
   labs(subtitle = "Countries rank ordered by paid leave full rate equivalent (blue rectangular area)\nVisualization: Gina Reynolds | Data source: OECD.org ") +
   theme_bw(base_size = 12) 
+```
+
+```{r, echo = F, warning=F, message=F, eval = T, fig.show='hide'}
+get_what_save_what <- "parent_leave" 
+eval(parse(text = paste(knitr:::knit_code$get(get_what_save_what), collapse = "")))
+ggsave(paste0("figures/", get_what_save_what, ".png"), dpi = 300)
 ```
 
 

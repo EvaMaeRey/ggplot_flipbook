@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ggplot tutorial</title>
+    <meta charset="utf-8">
+    <meta name="author" content="   Emi Tanaka" />
+    <link href="libs/remark-css-0.0.1/kunoichi.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/ninjutsu.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# ggplot tutorial
+## with kunoichi + ninjutsu theme
+### <br><br> Emi Tanaka
+### <br>2018/09/16
+
+---
+
+
+
+
+```r
+library(tidyverse)
+```
+
+```
+## ── Attaching packages ────────
+```
+
+```
+## ✔ ggplot2 3.0.0     ✔ purrr   0.2.5
+## ✔ tibble  1.4.2     ✔ dplyr   0.7.5
+## ✔ tidyr   0.8.1     ✔ stringr 1.3.1
+## ✔ readr   1.1.1     ✔ forcats 0.3.0
+```
+
+```
+## ── Conflicts ─────────────────
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()
+```
+
+```r
+df &lt;- readxl::read_xlsx("../raw_data/Wine_Production_by_country.xlsx") %&gt;%
+  filter(Country != "World total")
+
+Europe &lt;- c(
+  "Italy", "France", "Spain",
+  "Germany", "Portugal", "Romania",
+  "Austria", "Greece", "Hungary"
+)
+```
+
+
+
+
+```r
+  ggplot(df %&gt;% filter(Country %in% Europe)) +
+  aes(x = Year) +
+  aes(y = `Wine production in mhl`) +
+  facet_wrap(~ fct_inorder(Country), strip.position = "bottom", nrow = 1) +
+  geom_col(aes(alpha = Year), position = "dodge", fill = "darkred", width = 1) +
+  geom_line(col = "black", lty = 2) +
+  scale_y_continuous(expand = c(0, 0)) +
+  labs(fill = "") +
+  labs(alpha = "")+
+  labs(title = "Wine production (mhl) in principle European markets, 2012-2016") +
+  labs(subtitle = "The EU program to regulate viticultural production ended upon the 2011/2012 harvest.") + 
+    labs(caption = "Design: Gina Reynolds @EvaMaeRey  \nData Source: International Organisation of Vine and Wine") + # \nProduction volitility for top producers followed.
+  theme_classic(base_family = "Times") +
+  theme(
+    axis.title = element_blank(),
+    strip.placement = "outside",
+    axis.text.x = element_blank(),
+    axis.ticks.x = element_blank(),
+    strip.background = element_blank(),
+    plot.caption = element_text(size = 10)
+  )
+```
+
+![](ggplot_tutorial_files/figure-html/unnamed-chunk-2-1.png)&lt;!-- --&gt;
+
+
+
+
+
+
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+*ggplot(df %&gt;% filter(Country %in% Europe))
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_tutorial_files/figure-html/output1-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df %&gt;% filter(Country %in% Europe)) +
+*aes(x = Year)
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_tutorial_files/figure-html/output2-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df %&gt;% filter(Country %in% Europe)) +
+aes(x = Year) +
+*aes(y = `Wine production in mhl`)
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_tutorial_files/figure-html/output3-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df %&gt;% filter(Country %in% Europe)) +
+aes(x = Year) +
+aes(y = `Wine production in mhl`) +
+*facet_wrap(~ fct_inorder(Country), strip.position = "bottom", nrow = 1)
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_tutorial_files/figure-html/output4-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df %&gt;% filter(Country %in% Europe)) +
+aes(x = Year) +
+aes(y = `Wine production in mhl`) +
+facet_wrap(~ fct_inorder(Country), strip.position = "bottom", nrow = 1) +
+*geom_col(aes(alpha = Year), position = "dodge", fill = "darkred", width = 1)
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_tutorial_files/figure-html/output5-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df %&gt;% filter(Country %in% Europe)) +
+aes(x = Year) +
+aes(y = `Wine production in mhl`) +
+facet_wrap(~ fct_inorder(Country), strip.position = "bottom", nrow = 1) +
+geom_col(aes(alpha = Year), position = "dodge", fill = "darkred", width = 1) +
+*geom_line(col = "black", lty = 2)
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_tutorial_files/figure-html/output6-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df %&gt;% filter(Country %in% Europe)) +
+aes(x = Year) +
+aes(y = `Wine production in mhl`) +
+facet_wrap(~ fct_inorder(Country), strip.position = "bottom", nrow = 1) +
+geom_col(aes(alpha = Year), position = "dodge", fill = "darkred", width = 1) +
+geom_line(col = "black", lty = 2) +
+*scale_y_continuous(expand = c(0, 0))
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_tutorial_files/figure-html/output7-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df %&gt;% filter(Country %in% Europe)) +
+aes(x = Year) +
+aes(y = `Wine production in mhl`) +
+facet_wrap(~ fct_inorder(Country), strip.position = "bottom", nrow = 1) +
+geom_col(aes(alpha = Year), position = "dodge", fill = "darkred", width = 1) +
+geom_line(col = "black", lty = 2) +
+scale_y_continuous(expand = c(0, 0)) +
+*labs(fill = "")
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_tutorial_files/figure-html/output8-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df %&gt;% filter(Country %in% Europe)) +
+aes(x = Year) +
+aes(y = `Wine production in mhl`) +
+facet_wrap(~ fct_inorder(Country), strip.position = "bottom", nrow = 1) +
+geom_col(aes(alpha = Year), position = "dodge", fill = "darkred", width = 1) +
+geom_line(col = "black", lty = 2) +
+scale_y_continuous(expand = c(0, 0)) +
+labs(fill = "") +
+*labs(alpha = "")
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_tutorial_files/figure-html/output9-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df %&gt;% filter(Country %in% Europe)) +
+aes(x = Year) +
+aes(y = `Wine production in mhl`) +
+facet_wrap(~ fct_inorder(Country), strip.position = "bottom", nrow = 1) +
+geom_col(aes(alpha = Year), position = "dodge", fill = "darkred", width = 1) +
+geom_line(col = "black", lty = 2) +
+scale_y_continuous(expand = c(0, 0)) +
+labs(fill = "") +
+labs(alpha = "")+
+*labs(title = "Wine production (mhl) in principle European markets, 2012-2016")
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_tutorial_files/figure-html/output10-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df %&gt;% filter(Country %in% Europe)) +
+aes(x = Year) +
+aes(y = `Wine production in mhl`) +
+facet_wrap(~ fct_inorder(Country), strip.position = "bottom", nrow = 1) +
+geom_col(aes(alpha = Year), position = "dodge", fill = "darkred", width = 1) +
+geom_line(col = "black", lty = 2) +
+scale_y_continuous(expand = c(0, 0)) +
+labs(fill = "") +
+labs(alpha = "")+
+labs(title = "Wine production (mhl) in principle European markets, 2012-2016") +
+*labs(subtitle = "The EU program to regulate viticultural production ended upon the 2011/2012 harvest.")
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_tutorial_files/figure-html/output11-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df %&gt;% filter(Country %in% Europe)) +
+aes(x = Year) +
+aes(y = `Wine production in mhl`) +
+facet_wrap(~ fct_inorder(Country), strip.position = "bottom", nrow = 1) +
+geom_col(aes(alpha = Year), position = "dodge", fill = "darkred", width = 1) +
+geom_line(col = "black", lty = 2) +
+scale_y_continuous(expand = c(0, 0)) +
+labs(fill = "") +
+labs(alpha = "")+
+labs(title = "Wine production (mhl) in principle European markets, 2012-2016") +
+labs(subtitle = "The EU program to regulate viticultural production ended upon the 2011/2012 harvest.") + 
+*labs(caption = "Design: Gina Reynolds @EvaMaeRey  \nData Source: International Organisation of Vine and Wine")
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_tutorial_files/figure-html/output12-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df %&gt;% filter(Country %in% Europe)) +
+aes(x = Year) +
+aes(y = `Wine production in mhl`) +
+facet_wrap(~ fct_inorder(Country), strip.position = "bottom", nrow = 1) +
+geom_col(aes(alpha = Year), position = "dodge", fill = "darkred", width = 1) +
+geom_line(col = "black", lty = 2) +
+scale_y_continuous(expand = c(0, 0)) +
+labs(fill = "") +
+labs(alpha = "")+
+labs(title = "Wine production (mhl) in principle European markets, 2012-2016") +
+labs(subtitle = "The EU program to regulate viticultural production ended upon the 2011/2012 harvest.") + 
+labs(caption = "Design: Gina Reynolds @EvaMaeRey  \nData Source: International Organisation of Vine and Wine") + 
+*theme_classic(base_family = "Times")
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_tutorial_files/figure-html/output13-1.png" width="100%" /&gt;
+]]
+---
+class: split-40
+count: false
+
+.column[.content[
+
+```r
+ggplot(df %&gt;% filter(Country %in% Europe)) +
+aes(x = Year) +
+aes(y = `Wine production in mhl`) +
+facet_wrap(~ fct_inorder(Country), strip.position = "bottom", nrow = 1) +
+geom_col(aes(alpha = Year), position = "dodge", fill = "darkred", width = 1) +
+geom_line(col = "black", lty = 2) +
+scale_y_continuous(expand = c(0, 0)) +
+labs(fill = "") +
+labs(alpha = "")+
+labs(title = "Wine production (mhl) in principle European markets, 2012-2016") +
+labs(subtitle = "The EU program to regulate viticultural production ended upon the 2011/2012 harvest.") + 
+labs(caption = "Design: Gina Reynolds @EvaMaeRey  \nData Source: International Organisation of Vine and Wine") + 
+theme_classic(base_family = "Times") +
+*theme(axis.title = element_blank(), strip.placement = "outside", axis.text.x = element_blank(), axis.ticks.x = element_blank(), strip.background = element_blank(), plot.caption = element_text(size = 10))
+```
+]]
+.column[.content.center[
+&lt;img src="ggplot_tutorial_files/figure-html/output14-1.png" width="100%" /&gt;
+]]
+
+&lt;!--
+Create slides for the "complete" chunk
+...it's just R Markdown as a vector of strings
+...and why not be super concise about it?
+--&gt;
+
+&lt;!-- This css chunk can't be before the first class: split-40... lines --&gt;
+
+```css
+.remark-code{ line-height: 2; }
+```
+
+
+&lt;style type="text/css"&gt;
+.remark-code{ line-height: 2; }
+&lt;/style&gt;
+    </textarea>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightLines": true
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function() {
+  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})();</script>
+
+<script>
+(function() {
+  var i, text, code, codes = document.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+})();
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

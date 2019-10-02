@@ -1,3 +1,4 @@
+name: salaries
 # Salarys of Trump and Obama White House Employees
 
 The data set, originally reported on in an NPR article, shows the difference in the distribution of salaries for the Obama and early Trump White House. 
@@ -45,7 +46,11 @@ ggplot(both_data) +
   labs(caption = "Visualization: Gina Reynolds")
 ```
 
-
+```{r, echo = F, warning=F, message=F, eval = T, fig.show='hide'}
+get_what_save_what <- "white_house"
+eval(parse(text = paste(knitr:::knit_code$get(get_what_save_what), collapse = "")))
+ggsave(paste0("figures/", get_what_save_what, ".png"), dpi = 300)
+```
 `r paste(knitr::knit(text = partial_knit_chunks("white_house")), collapse = "\n")`
 
 

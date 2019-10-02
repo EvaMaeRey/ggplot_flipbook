@@ -1,0 +1,68 @@
+# Dietary Restrictions
+
+This vis challenge focused on communicated on the percentage in different regions of people that adheare to dietary restrictions of various types.  There are two categories that are displayed: geographic area and dietary restriction type.  I sorted both of these variables by greatest impact for graphing, so that the display would look more orderly and easier to digest; no pun intended.  
+
+```{r, fig.width=12, echo = F}
+data <- readxl::read_xlsx("raw_data/Restricted Dietary Requirements Around The Globe.xlsx")
+
+DietRegionAverage <- data %>%
+  group_by(Diet) %>%
+  summarise(mean = mean(Followers)) %>%
+  mutate(Region = "SimpleAverageAllRegions") %>%
+  arrange(mean)
+
+DietOrder <- DietRegionAverage$Diet
+
+RegionDietAverage <- data %>%
+  group_by(Region) %>%
+  summarise(mean = mean(Followers)) %>%
+  mutate(Diet = "SimpleAverageAllDiets") %>%
+  arrange(mean)
+
+RegionOrder <- RegionDietAverage$Region
+
+data <- data %>% mutate(Diet = factor(Diet, levels = DietOrder), Region = factor(Region, levels = RegionOrder))
+```
+
+
+A random sample from the data set: 
+```{r, echo = F}
+knitr::kable(sample_n(data, 5))
+```
+
+
+```{r}
+ggplot(data) +
+  aes(x = Region, y = Diet, label = Followers * 100) +
+  # geom_point() +
+  geom_text() +
+  geom_rect(aes(
+    xmin = as.numeric(Region) + .25 - Followers * .5,
+    xmax = as.numeric(Region) + .25,
+    ymin = as.numeric(Diet) - .25,
+    ymax = as.numeric(Diet) + .25
+  ), fill = "red", alpha = .3) +
+  geom_rect(aes(
+    xmin = as.numeric(Region) - .25,
+    xmax = as.numeric(Region) + .25 - Followers * .5,
+    ymin = as.numeric(Diet) - .25,
+    ymax = as.numeric(Diet) + .25
+  ), fill = "green", alpha = .3) +
+  # coord_equal() +
+  labs(size = "Percentage\nFollowing") +
+  theme_classic(base_size = 15) +
+  labs(title = "Percent of Area Inhabitants with given Dietary Restriction")
+```
+
+```{r}
+
+ggplot(data) +
+  aes(Diet, Followers * 100) +
+  geom_col() +
+  facet_grid(Region ~ .) +
+  ggtitle("Restricted Dietary Requirements Around The Globe",
+    subtitle =
+      "Neilsen Report, 2016: \"What's in Our Food and on Our Minds\""
+  )
+```
+

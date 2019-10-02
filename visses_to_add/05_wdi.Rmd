@@ -1,0 +1,72 @@
+---
+title: "WDI"
+author: "Evangeline Reynolds"
+date: "2/18/2019"
+output: html_document
+---
+
+```{r}
+library(tidyverse)
+library(WDI)
+```
+
+"SN.ITK.DFCT"    "Depth of the food deficit (kilocalories per person per day)"
+
+
+```{r}
+# WDIsearch(string = "food")  # use this but comment out maybe.
+WDI::WDI(country = "all", indicator = "SN.ITK.DFCT", extra = TRUE) %>% 
+  rename(food_deficit = SN.ITK.DFCT) %>% 
+  filter(region != "Aggregates") ->
+  global_food 
+```
+
+```{r}
+global_food %>% 
+  filter(country == "Argentina" | country == "Brazil") ->
+  global_food_argentina_brazil
+```
+
+
+
+```{r}
+global_food %>% 
+  filter(year == 2007) ->
+  food_deficit_2007
+
+map_data("world") %>% 
+  mutate(iso3c = countrycode::countrycode(region, "country.name", "iso3c")) %>% 
+  rename(polygon_regions = region) ->
+  world_map_df
+  
+left_join(world_map_df, food_deficit_2007) ->
+  world_map_food
+```
+
+---
+
+
+```{r}
+ggplot(data = world_map_df %>% filter(polygon_regions != "Antarctica")) +
+  aes(x = long, y = lat, group = group) +
+  geom_polygon() +
+  coord_equal()
+```
+
+```{r}
+ggplot(data = world_map_food) +
+  aes(x = long, y = lat, group = group) +
+  geom_polygon() +
+  coord_equal() +
+  aes(fill = food_deficit) +
+  scale_fill_viridis_c(option = "C") 
+```
+
+
+```{r}
+ggplot(data = global_food_argentina_brazil) +
+  aes(x = year, y = food_deficit) +
+  geom_point() +
+  aes(col = country)
+```
+

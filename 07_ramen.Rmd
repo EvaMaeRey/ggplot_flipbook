@@ -1,0 +1,65 @@
+---
+title: "Untitled"
+author: "Evangeline Reynolds"
+date: "6/4/2019"
+output: html_document
+---
+
+```{r}
+library(tidyverse)
+ramen_ratings <- readr::read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-06-04/ramen_ratings.csv")
+```
+
+```{r}
+ggplot(data = ramen_ratings) +
+  aes(x = style) +
+  geom_bar()
+```  
+
+
+```{r}
+ggplot(data = ramen_ratings) +
+  aes(x = country) +
+  geom_bar() +
+  coord_flip()
+```
+
+
+```{r}
+ramen_ratings %>% 
+  group_by(country) %>% 
+  filter(n() >= 200) %>% 
+  mutate(n = n()) %>% 
+  arrange(-n) %>% 
+  ungroup() %>% 
+  mutate(country = fct_inorder(country)) %>% 
+  group_by(style) %>% 
+  filter(n() >= 200) %>% 
+  mutate(n = n()) %>% 
+  arrange(-n) %>% 
+  ungroup() %>% 
+  mutate(style = fct_inorder(style)) %>% 
+ggplot() +
+  aes(x = round(stars)) +
+  geom_bar(fill = "goldenrod",  
+                 col = "white", 
+                 size = .2,
+                 alpha = .7) +
+  facet_grid(style ~ country) +
+  ggdark::dark_theme_grey() +
+  scale_x_continuous(breaks = 0:5) +
+  labs(x = "Number of\nStars (rounded)") +
+  labs(y = "Number of\nproducts in rating range") +
+  theme(axis.title.x = 
+          element_text(hjust = 1)) +
+  theme(axis.title.y = 
+          element_text(hjust = 0, angle = 0)) +
+  labs(title = "Hans Lienesch's Ramen Ratings") +
+  labs(subtitle = "Subset to top six most observed countries in ratings\nand top three most observed packaging types") +
+  labs(caption = "Data Viz: Gina Reynolds w/ ggplot for #TidyTuesday\n") +
+  coord_flip() +
+  theme(text = element_text(family = "Times")) +
+  theme(text = element_text(color = "lightgrey"))
+```
+
+

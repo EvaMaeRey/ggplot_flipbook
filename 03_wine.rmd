@@ -1,7 +1,11 @@
+name: wine
 # Wine
 
 Wine production in Europe may have been volitile during the years plotted because of production control policies implemented by the EU. Particularly, the big three, Italy, France and Spain, saw a lot of volitility early in this period.  
 
+```{r, include=FALSE}
+library(tidyverse)
+```
 ```{r}
 df <- readxl::read_xlsx("raw_data/Wine_Production_by_country.xlsx") %>%
   filter(Country != "World total")
@@ -42,6 +46,12 @@ theme_opts <-
   labs(caption = "Design: Gina Reynolds @EvaMaeRey  \nData Source: International Organisation of Vine and Wine") + # \nProduction volitility for top producers followed.
   theme_classic(base_family = "Times") +
   theme_opts
+```
+
+```{r, echo = F, warning=F, message=F, eval = T, fig.show='hide'}
+#get_what_save_what <- "wine"
+#eval(parse(text = paste(knitr:::knit_code$get(get_what_save_what), collapse = "")))
+#ggsave(paste0("figures/", get_what_save_what, ".png"), dpi = 300)
 ```
 
 `r paste(knitr::knit(text = partial_knit_chunks("wine")), collapse = "\n")`
