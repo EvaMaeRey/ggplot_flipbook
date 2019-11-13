@@ -1,4 +1,6 @@
+
 name: ice
+
 # Arctic Ice
 
 This visualization shows the trend in Arctic Ice Sea Extent, data from the National Snow and Ice Data Center.  The definition for coverage is the case where at least 15 percent of the sea surface ice.  

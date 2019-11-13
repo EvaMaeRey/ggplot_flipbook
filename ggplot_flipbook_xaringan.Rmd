@@ -176,7 +176,8 @@ This book is not complete.  The plots that follow aren't as carefully edited as 
 
 ---
 
-```{r, child = list.files(pattern = "\\d.+Rmd")[3:17], warning=F, message=F}
+```{r, child = list.files(pattern = "\\d.+R|rmd")[3:20], warning=F, message=F}
+
 ```
 
 
